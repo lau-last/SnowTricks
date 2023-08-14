@@ -5,17 +5,10 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class Category
+class Category extends Fixture
 {
-    public static function create(ObjectManager $manager, array $categoryLabel): void
+    public function load(ObjectManager $manager): void
     {
-
-        for ($i = 0; $i < count($categoryLabel); $i++){
-            $category = new \App\Entity\Category();
-            $category->setLabel($categoryLabel[$i]);
-
-            $manager->persist($category);
-        }
 
     }
 }
