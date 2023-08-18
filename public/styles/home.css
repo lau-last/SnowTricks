@@ -9,7 +9,8 @@ header div{
     width: 100%;
     height: 100%;
 }
-
-section{
-
+.trick-card img{
+    object-fit: cover;
+    width:  18rem;
+    height: 10rem;
 }
