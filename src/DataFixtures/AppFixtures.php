@@ -166,7 +166,7 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
-//      Comment
+//        Comment
 
         for ($i = 0; $i < 20; $i++){
             $comment = new \App\Entity\Comment();

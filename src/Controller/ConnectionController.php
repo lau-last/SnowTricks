@@ -15,4 +15,5 @@ class ConnectionController extends AbstractController
             'controller_name' => 'ConnectionController',
         ]);
     }
+
 }

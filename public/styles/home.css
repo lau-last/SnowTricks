@@ -1,6 +1,6 @@
 header{
    height: calc(100vh - 56px);
-    background-image: url("../images/cover-picture.jpg") ;
+    background-image: url("../images/uploads/cover/cover-picture.jpg") ;
     background-position: 50% 25%;
     background-size: cover;
 }

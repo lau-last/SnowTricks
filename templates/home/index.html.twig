@@ -16,7 +16,7 @@
 
         {% for trick in tricks %}
             <div class="card m-4 trick-card" style="width: 18rem;">
-                <img src="images/uploads/{{ trick.pictures|first.fileName }}.jpg" class="card-img-top"
+                <img src="images/uploads/tricks/{{ trick.pictures|first.fileName }}.jpg" class="card-img-top"
                      alt="{{ trick.pictures|first.alt }}">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
