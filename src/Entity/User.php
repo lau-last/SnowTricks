@@ -34,7 +34,7 @@ class User implements \Symfony\Component\Security\Core\User\PasswordAuthenticate
     #[Assert\EqualTo(propertyPath: 'password', message: 'Vous n\'avez pas tapez le même mot de passe.')]
     public ?string $confirm_password = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $token = null;
 
     #[ORM\Column]
@@ -42,6 +42,9 @@ class User implements \Symfony\Component\Security\Core\User\PasswordAuthenticate
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
     private Collection $comments;
+
+    #[ORM\Column]
+    private ?bool $isRegistered = null;
 
 
     public function __construct()
@@ -168,6 +171,20 @@ class User implements \Symfony\Component\Security\Core\User\PasswordAuthenticate
                 $comment->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+
+    public function isIsRegistered(): ?bool
+    {
+        return $this->isRegistered;
+    }
+
+
+    public function setIsRegistered(bool $isRegistered): static
+    {
+        $this->isRegistered = $isRegistered;
 
         return $this;
     }

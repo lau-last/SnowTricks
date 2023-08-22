@@ -159,7 +159,8 @@ class AppFixtures extends Fixture
                 ->setEmail($userData[$i]['email'])
                 ->setMedia($userData[$i]['media'])
                 ->setPassword('P@ssword123')
-                ->setToken('token123')
+                ->setToken('token')
+                ->setIsRegistered(true)
                 ->setCreatedAt(new \DateTimeImmutable());
             $this->setReference('user-'.$i, $user);
             $manager->persist($user);
