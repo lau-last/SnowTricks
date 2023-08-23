@@ -24,20 +24,22 @@
             <li class="nav-item"><a class="nav-link" href="{{ path('app_home') }}">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Tricks</a></li>
             {% if not app.user %}
-            <li class="nav-item"><a class="nav-link" href="{{ path('app_connection') }}">Sign in</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ path('app_registration') }}">Sign up</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ path('app_connection') }}">Sign in</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ path('app_registration') }}">Sign up</a></li>
             {% else %}
                 <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Logout</a></li>
             {% endif %}
         </ul>
     </div>
 </nav>
+
 {% for message in app.flashes('error') %}
     <div class="alert alert-danger">{{ message }}</div>
 {% endfor %}
 {% for message in app.flashes('success') %}
     <div class="alert alert-success">{{ message }}</div>
 {% endfor %}
+
 {% block body %}{% endblock %}
 </body>
 </html>
