@@ -7,11 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity('email')]
-class User
+class User implements \Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -29,7 +31,10 @@ class User
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
+    #[Assert\EqualTo(propertyPath: 'password', message: 'Vous n\'avez pas tapez le même mot de passe.')]
+    public ?string $confirm_password = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $token = null;
 
     #[ORM\Column]
@@ -38,20 +43,27 @@ class User
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
     private Collection $comments;
 
+    #[ORM\Column]
+    private ?bool $isRegistered = null;
+
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
+
     public function getName(): ?string
     {
         return $this->name;
     }
+
 
     public function setName(string $name): static
     {
@@ -60,10 +72,12 @@ class User
         return $this;
     }
 
+
     public function getEmail(): ?string
     {
         return $this->email;
     }
+
 
     public function setEmail(string $email): static
     {
@@ -72,10 +86,12 @@ class User
         return $this;
     }
 
+
     public function getMedia(): ?string
     {
         return $this->media;
     }
+
 
     public function setMedia(string $media): static
     {
@@ -84,10 +100,12 @@ class User
         return $this;
     }
 
+
     public function getPassword(): ?string
     {
         return $this->password;
     }
+
 
     public function setPassword(string $password): static
     {
@@ -96,10 +114,12 @@ class User
         return $this;
     }
 
+
     public function getToken(): ?string
     {
         return $this->token;
     }
+
 
     public function setToken(string $token): static
     {
@@ -108,10 +128,12 @@ class User
         return $this;
     }
 
+
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
+
 
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
@@ -120,6 +142,7 @@ class User
         return $this;
     }
 
+
     /**
      * @return Collection<int, Comment>
      */
@@ -127,6 +150,7 @@ class User
     {
         return $this->comments;
     }
+
 
     public function addComment(Comment $comment): static
     {
@@ -137,6 +161,7 @@ class User
 
         return $this;
     }
+
 
     public function removeComment(Comment $comment): static
     {
@@ -149,4 +174,20 @@ class User
 
         return $this;
     }
+
+
+    public function isIsRegistered(): ?bool
+    {
+        return $this->isRegistered;
+    }
+
+
+    public function setIsRegistered(bool $isRegistered): static
+    {
+        $this->isRegistered = $isRegistered;
+
+        return $this;
+    }
+
+
 }
