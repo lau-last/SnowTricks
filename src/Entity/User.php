@@ -7,11 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity('email')]
-class User implements \Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface
+#[UniqueEntity('email', message: 'L\'email que vous avez indiqué est déjà utilisé !')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
     #[ORM\Id]
@@ -187,6 +189,33 @@ class User implements \Symfony\Component\Security\Core\User\PasswordAuthenticate
         $this->isRegistered = $isRegistered;
 
         return $this;
+    }
+
+
+    /**
+     * @return string[]
+     */
+    public function getRoles(): array
+    {
+        return ['ROLE_USER'];
+    }
+
+
+    /**
+     * @return void
+     */
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getUserIdentifier(): string
+    {
+        return $this->getEmail();
     }
 
 

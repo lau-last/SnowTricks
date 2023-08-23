@@ -14,17 +14,21 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-5">
-    <a class="navbar-brand" href="/"><i class="bi bi-snow"></i> SnowTricks</a>
+    <a class="navbar-brand" href="{{ path('app_home') }}"><i class="bi bi-snow"></i> SnowTricks</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ path('app_home') }}">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Tricks</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Sign in</a></li>
-            <li class="nav-item"><a class="nav-link" href="/registration">Sign up</a></li>
+            {% if not app.user %}
+            <li class="nav-item"><a class="nav-link" href="{{ path('app_connection') }}">Sign in</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ path('app_registration') }}">Sign up</a></li>
+            {% else %}
+                <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Logout</a></li>
+            {% endif %}
         </ul>
     </div>
 </nav>
