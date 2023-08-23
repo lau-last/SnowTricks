@@ -21,10 +21,12 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <h5 class="card-title">{{ trick.name }}</h5>
+                        {% if app.user %}
                         <div>
                             <i class="bi bi-pen mx-3"></i>
                             <i class="bi bi-trash mx-3"></i>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
