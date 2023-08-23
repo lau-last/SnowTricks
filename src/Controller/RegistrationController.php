@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationType;
 use App\Repository\UserRepository;
-use App\services\JWT;
+use App\Service\JWT;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +24,7 @@ class RegistrationController extends AbstractController
      * @throws TransportExceptionInterface
      */
     #[Route('/registration', name: 'app_registration')]
-    public function index(
+    public function registration(
         Request                     $request,
         EntityManagerInterface      $manager,
         UserPasswordHasherInterface $hash,

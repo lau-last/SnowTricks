@@ -1,20 +1,24 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Hello ConnectionController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    {% if error %}
+        <div class="d-flex alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    <h1 class="text-center my-5">Connexion</h1>
+    <div class="mx-auto" style="width: 30%">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        <form action="{{ path('app_connection') }}" method="post">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="_username" class="form-control" required="required">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" name="_password" required="required" class="form-control">
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn-primary btn">Connexion !</button>
+            </div>
+        </form>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/MAMP/htdocs/SnowTricks/src/Controller/ConnectionController.php'|file_link(0) }}">src/Controller/ConnectionController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/MAMP/htdocs/SnowTricks/templates/connection/index.html.twig'|file_link(0) }}">templates/connection/index.html.twig</a></code></li>
-    </ul>
-</div>
+    </div>
 {% endblock %}
