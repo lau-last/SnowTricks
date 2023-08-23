@@ -38,22 +38,23 @@ class JWT
     public function check(string $token, string $secret): bool
     {
         $payload = $this->getPayload($token);
+
         $verifyToken = $this->generate($payload, $secret, 0);
         return $token === $verifyToken;
     }
 
 
-    public function getHeader(string $token)
+    public function getHeader(string $token): array
     {
         $array = explode('.', $token);
-        return json_decode(base64_decode($array[0], true));
+        return json_decode(base64_decode($array[0], true), true);
     }
 
 
-    public function getPayload(string $token)
+    public function getPayload(string $token): array
     {
         $array = explode('.', $token);
-        return json_decode(base64_decode($array[1], true));
+        return (json_decode(base64_decode($array[1], true), true));
     }
 
 

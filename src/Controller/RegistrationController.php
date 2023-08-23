@@ -78,14 +78,14 @@ class RegistrationController extends AbstractController
     }
 
 
-    #[Route('/verify_registration_token{token}', name: 'app_verify_registration_token')]
+    #[Route('/verify_registration_token/{token}', name: 'app_verify_registration_token')]
     public function verifyRegistration(
         string                 $token,
         JWT                    $tokenService,
         EntityManagerInterface $manager,
         UserRepository         $userRepository): Response
     {
-        if (!$tokenService->isValid($token) || $tokenService->check($token, $this->getParameter('jwtoken_secret'))) {
+        if (!$tokenService->isValid($token) || !$tokenService->check($token, $this->getParameter('jwtoken_secret'))) {
             $this->addFlash('error', 'Le token n\'est pas un token valide.');
             return $this->redirectToRoute('app_home');
         }
