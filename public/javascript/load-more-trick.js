@@ -1,12 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+
     let button = document.getElementById("load-more");
     let container = document.getElementById("tricks-presentation");
-    let limit = 3;
+    let limit = 4;
     let total = container.dataset.allTricks;
-
-    console.log(total);
-    console.log(document.getElementById("tricks-presentation").length);
+    let arrowUp = document.querySelector(".arrow-up");
 
 
     document.getElementById("load-more").addEventListener("click", function (){
@@ -18,6 +17,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if(currentTrick + limit >= total){
             button.hidden = true;
+        }
+
+        if (currentTrick + limit >= 15){
+            arrowUp.classList.remove("hidden");
         }
 
         request.open("POST", "/load_trick", true);

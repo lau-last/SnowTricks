@@ -10,18 +10,27 @@
 {% block body %}
 
     <header>
-        <div class="d-flex justify-content-center align-items-center">
+        <div class="d-flex justify-content-center align-items-center position-relative">
             <h1>SnowTrick</h1>
+            <a href="#tricks-presentation" class="position-absolute arrow-down">
+                <i class="bi bi-arrow-down-circle-fill fs-1 text-dark"></i>
+            </a>
         </div>
     </header>
 
-    <section>
+    <section class="position-relative">
         <div class="p-5 d-flex justify-content-center flex-wrap" id="tricks-presentation" data-all-tricks="{{ totalTricks }}">
             {% include 'home/_trick-cards.html.twig' %}
         </div>
 
         <div class="d-flex justify-content-center mb-5">
             <button type="button" id="load-more" class="btn btn-success">Load More</button>
+        </div>
+
+        <div class="position-relative">
+            <a href="#top" class="position-absolute arrow-up hidden">
+                <i class="bi bi-arrow-up-circle-fill fs-1 text-dark"></i>
+            </a>
         </div>
     </section>
 

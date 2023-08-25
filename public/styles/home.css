@@ -11,10 +11,25 @@ header div {
     height: 100%;
 }
 
-
 .trick-card img {
     object-fit: cover;
     max-width: 18rem;
     height: 10rem;
+}
+
+a.arrow-up,
+a.arrow-down {
+    bottom: 3rem;
+    right: 3rem;
+    transition: .4s ease-in-out;
+}
+
+a.arrow-up:hover,
+a.arrow-down:hover {
+    transform: scale(1.2);
+}
+
+.hidden {
+    visibility: hidden;
 }
 
