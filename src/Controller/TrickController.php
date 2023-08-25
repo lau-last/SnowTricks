@@ -6,13 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ForgotPasswordController extends AbstractController
+class TrickController extends AbstractController
 {
-    #[Route('/forgot/password', name: 'app_forgot_password')]
+    #[Route('/trick/creation', name: 'app_trick_creation')]
     public function index(): Response
     {
-        return $this->render('forgot_password/index.html.twig', [
-            'controller_name' => 'ForgotPasswordController',
+        return $this->render('trick_creation/index.html.twig', [
+            'controller_name' => 'TrickController',
         ]);
     }
 }

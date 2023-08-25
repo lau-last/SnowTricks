@@ -3,6 +3,7 @@ header {
     background-image: url("../images/uploads/cover/cover-picture.jpg");
     background-position: 50% 25%;
     background-size: cover;
+    position: relative;
 }
 
 header div {
@@ -10,7 +11,7 @@ header div {
     height: 100%;
 }
 
-header div a {
+header a {
     color: black;
     position: absolute;
     bottom: 5rem;
@@ -21,4 +22,8 @@ header div a {
     object-fit: cover;
     max-width: 18rem;
     height: 10rem;
+}
+
+section {
+    position: relative;
 }

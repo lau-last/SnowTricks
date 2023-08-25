@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Repository\TrickRepository;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,28 +18,24 @@ class HomeController extends AbstractController
     public function index(TrickRepository $trickRepository): Response
     {
         $tricks = $trickRepository->findBy([], null, 5);
+        $totalTricks = $trickRepository->count([]);
+
         return $this->render('home/index.html.twig', [
             'tricks' => $tricks,
+            'totalTricks' => $totalTricks,
         ]);
     }
 
 
-    #[Route('/load-more/', name: 'app_home_load_more', methods: ['POST'])]
-    public function loadMore(Request $request, TrickRepository $trickRepository): Response
+    #[Route('/load_trick', name: 'app_load')]
+    public function loadMore(TrickRepository $trickRepository, Request $request): Response
     {
-        $arrRequest = json_decode($request->getContent(), true);
-
-        if(!isset($arrRequest["offset"]) || !is_numeric($arrRequest["offset"])) {
-            return new Response(status: 400);
-        }
-
-        $offset = $arrRequest["offset"];
-        $nextTricks = $trickRepository->findBy(criteria: [], limit: 5, offset: $offset);
-        $tricksHtml = $this->renderView("home/load_more.html.twig", [
-            "tricks" => $nextTricks,
-        ]);
-
-        return new JsonResponse($tricksHtml);
+        $json = json_decode($request->getContent(), true);
+        $offset = $json['p'];
+        $tricks = $trickRepository->findBy([], null, 5, $offset);
+        return new JsonResponse($this->renderView('home/_trick-cards.html.twig', [
+            'tricks' => $tricks,
+        ]), json: true);
     }
 
 

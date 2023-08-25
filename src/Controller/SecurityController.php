@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\RegistrationType;
 use App\Repository\UserRepository;
 use App\Service\JWT;
+use App\Service\UploadPicture;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,9 +16,10 @@ use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-class RegistrationController extends AbstractController
+class SecurityController extends AbstractController
 {
 
     /**
@@ -30,26 +32,20 @@ class RegistrationController extends AbstractController
         UserPasswordHasherInterface $hash,
         SluggerInterface            $slugger,
         MailerInterface             $mailer,
-        JWT                         $tokenService): Response
+        JWT                         $tokenService,
+        UploadPicture               $uploadPicture): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $file = $form->get('media')->getData();
-            $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-            $safeFilename = $slugger->slug($originalFileName);
-            $newFilename = $safeFilename . '-' . md5(uniqid(rand(), true)) . '.' . $file->guessExtension();
-            $file->move($this->getParameter('profiles_pictures_directory'), $newFilename);
-
+            $uploadPicture->upload($form, 'media', $slugger, $this->getParameter('profiles_pictures_directory'));
             $hash = $hash->hashPassword($user, $user->getPassword());
-
             $token = $tokenService->generate(['user_email' => $user->getEmail()], $this->getParameter('jwtoken_secret'));
 
             $user
-                ->setMedia($newFilename)
+                ->setMedia($uploadPicture->getNewFilename())
                 ->setCreatedAt(new \DateTimeImmutable())
                 ->setPassword($hash)
                 ->setToken($token)
@@ -110,6 +106,23 @@ class RegistrationController extends AbstractController
         $this->addFlash('success', 'Votre adresse email a bien été validée !');
 
         return $this->redirectToRoute('app_home');
+    }
+
+
+    #[Route('/connection', name: 'app_connection')]
+    public function login(AuthenticationUtils $authenticationUtils): Response
+    {
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        return $this->render('connection/index.html.twig', [
+            'error' => $error,
+        ]);
+    }
+
+
+    #[Route('/logout', name: 'app_logout')]
+    public function logout(): Response
+    {
     }
 
 
