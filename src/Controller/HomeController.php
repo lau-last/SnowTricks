@@ -31,8 +31,9 @@ class HomeController extends AbstractController
     public function loadMore(TrickRepository $trickRepository, Request $request): Response
     {
         $json = json_decode($request->getContent(), true);
-        $offset = $json['p'];
-        $tricks = $trickRepository->findBy([], null, 5, $offset);
+        $offset = $json['offset'];
+        $limit = $json['limit'];
+        $tricks = $trickRepository->findBy([], null, $limit, $offset);
         return new JsonResponse($this->renderView('home/_trick-cards.html.twig', [
             'tricks' => $tricks,
         ]), json: true);
