@@ -4,7 +4,7 @@
         <link rel="stylesheet" href="{{ asset('styles/home.css') }}">
     {% endblock %}
     {% block javascripts %}
-        <script src="{{ asset('javascript/load-more.js') }}"></script>
+        <script src="{{ asset('javascript/load-more-trick.js') }}"></script>
     {% endblock %}
 
 {% block body %}
@@ -12,12 +12,11 @@
     <header>
         <div class="d-flex justify-content-center align-items-center">
             <h1>SnowTrick</h1>
-            <a href="#tricks-presentation"><i class="bi bi-arrow-down-circle-fill fs-1"></i></a>
         </div>
     </header>
 
     <section>
-        <div class="p-5 d-flex justify-content-center flex-wrap" id="tricks-presentation">
+        <div class="p-5 d-flex justify-content-center flex-wrap" id="tricks-presentation" data-all-tricks="{{ totalTricks }}">
             {% include 'home/_trick-cards.html.twig' %}
         </div>
 

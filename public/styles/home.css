@@ -11,12 +11,6 @@ header div {
     height: 100%;
 }
 
-header a {
-    color: black;
-    position: absolute;
-    bottom: 5rem;
-    right: 5rem
-}
 
 .trick-card img {
     object-fit: cover;
@@ -24,6 +18,3 @@ header a {
     height: 10rem;
 }
 
-section {
-    position: relative;
-}

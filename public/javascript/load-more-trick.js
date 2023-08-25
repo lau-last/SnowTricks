@@ -3,6 +3,11 @@ document.addEventListener('DOMContentLoaded', function () {
     let button = document.getElementById("load-more");
     let container = document.getElementById("tricks-presentation");
     let limit = 3;
+    let total = container.dataset.allTricks;
+
+    console.log(total);
+    console.log(document.getElementById("tricks-presentation").length);
+
 
     document.getElementById("load-more").addEventListener("click", function (){
 
@@ -10,7 +15,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let request = new XMLHttpRequest();
         let currentTrick = document.getElementsByClassName("trick-card-container").length;
-        console.log(currentTrick);
+
+        if(currentTrick + limit >= total){
+            button.hidden = true;
+        }
 
         request.open("POST", "/load_trick", true);
         request.setRequestHeader("Content-type", "application/json");
@@ -19,10 +27,8 @@ document.addEventListener('DOMContentLoaded', function () {
         request.onreadystatechange = function(){
 
             if (request.status === 200 && request.readyState === 4){
-
                 container.innerHTML += request.responseText;
                 button.disabled = false;
-
             }
 
         }
