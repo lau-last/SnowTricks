@@ -1,8 +1,10 @@
 {% for trick in tricks %}
     <div class="trick-card-container m-4">
         <div class="card trick-card" style="width: 18rem;">
-            <img src="images/uploads/tricks/{{ trick.pictures|first.fileName }}.jpg" class="card-img-top"
+            <a href="{{ path('app_trick_display', {'slug': trick.slug}) }}">
+            <img src="/images/uploads/tricks/{{ trick.pictures|first.fileName }}.jpg" class="card-img-top"
                  alt="{{ trick.pictures|first.alt }}">
+            </a>
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <h5 class="card-title">{{ trick.name }}</h5>

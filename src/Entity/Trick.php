@@ -11,13 +11,17 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: TrickRepository::class)]
 class Trick
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 80)]
+    #[ORM\Column(length: 80, unique: true)]
     private ?string $name = null;
+
+    #[ORM\Column(length: 80, unique: true)]
+    private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
@@ -41,6 +45,7 @@ class Trick
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Comment::class)]
     private Collection $comments;
 
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
@@ -48,15 +53,18 @@ class Trick
         $this->comments = new ArrayCollection();
     }
 
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
+
     public function getName(): ?string
     {
         return $this->name;
     }
+
 
     public function setName(string $name): static
     {
@@ -65,10 +73,26 @@ class Trick
         return $this;
     }
 
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+
     public function getDescription(): ?string
     {
         return $this->description;
     }
+
 
     public function setDescription(string $description): static
     {
@@ -77,10 +101,12 @@ class Trick
         return $this;
     }
 
+
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
+
 
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
@@ -89,10 +115,12 @@ class Trick
         return $this;
     }
 
+
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updatedAt;
     }
+
 
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
@@ -101,6 +129,7 @@ class Trick
         return $this;
     }
 
+
     /**
      * @return Collection<int, Picture>
      */
@@ -108,6 +137,7 @@ class Trick
     {
         return $this->pictures;
     }
+
 
     public function addPicture(Picture $picture): static
     {
@@ -118,6 +148,7 @@ class Trick
 
         return $this;
     }
+
 
     public function removePicture(Picture $picture): static
     {
@@ -131,6 +162,7 @@ class Trick
         return $this;
     }
 
+
     /**
      * @return Collection<int, Video>
      */
@@ -138,6 +170,7 @@ class Trick
     {
         return $this->videos;
     }
+
 
     public function addVideo(Video $video): static
     {
@@ -148,6 +181,7 @@ class Trick
 
         return $this;
     }
+
 
     public function removeVideo(Video $video): static
     {
@@ -161,10 +195,12 @@ class Trick
         return $this;
     }
 
+
     public function getCategory(): ?Category
     {
         return $this->category;
     }
+
 
     public function setCategory(?Category $category): static
     {
@@ -173,6 +209,7 @@ class Trick
         return $this;
     }
 
+
     /**
      * @return Collection<int, Comment>
      */
@@ -180,6 +217,7 @@ class Trick
     {
         return $this->comments;
     }
+
 
     public function addComment(Comment $comment): static
     {
@@ -190,6 +228,7 @@ class Trick
 
         return $this;
     }
+
 
     public function removeComment(Comment $comment): static
     {
@@ -202,4 +241,6 @@ class Trick
 
         return $this;
     }
+
+
 }

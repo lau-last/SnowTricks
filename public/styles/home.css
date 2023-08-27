@@ -30,6 +30,6 @@ a.arrow-down:hover {
 }
 
 .hidden {
-    visibility: hidden;
+   display: none;
 }
 

@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let limit = 4;
     let total = container.dataset.allTricks;
     let arrowUp = document.querySelector(".arrow-up");
+    let plusDeTrick = document.getElementById("plus-de-trick");
 
 
     document.getElementById("load-more").addEventListener("click", function (){
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if(currentTrick + limit >= total){
             button.hidden = true;
+            plusDeTrick.classList.remove("hidden");
         }
 
         if (currentTrick + limit >= 15){
