@@ -27,14 +27,14 @@ class HomeController extends AbstractController
     }
 
 
-    #[Route('/load_trick', name: 'app_load')]
+    #[Route('/load-trick', name: 'app_load')]
     public function loadMore(TrickRepository $trickRepository, Request $request): Response
     {
         $json = json_decode($request->getContent(), true);
         $offset = $json['offset'];
         $limit = $json['limit'];
         $tricks = $trickRepository->findBy([], null, $limit, $offset);
-        return new JsonResponse($this->renderView('home/_trick-cards.html.twig', [
+        return new JsonResponse($this->renderView('home/_trick_cards.html.twig', [
             'tricks' => $tricks,
         ]), json: true);
     }

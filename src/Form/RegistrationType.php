@@ -56,7 +56,9 @@ class RegistrationType extends AbstractType
                 ],
             ])
             ->add('confirm_password', PasswordType::class)
-            ->add('submit', SubmitType::class);
+            ->add('submit', SubmitType::class, [
+                'attr' => [ 'class' => 'mt-5 btn btn-primary' ],
+            ]);
 
     }
 
