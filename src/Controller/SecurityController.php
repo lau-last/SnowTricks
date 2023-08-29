@@ -3,16 +3,20 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ForgetPasswordType;
 use App\Form\RegistrationType;
+use App\Form\ResetPasswordType;
 use App\Repository\UserRepository;
 use App\Service\JWT;
 use App\Service\UploadPicture;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -75,7 +79,7 @@ class SecurityController extends AbstractController
     }
 
 
-    #[Route('/verify_registration_token/{token}', name: 'app_verify_registration_token')]
+    #[Route('/verify-registration-token/{token}', name: 'app_verify_registration_token')]
     public function verifyRegistration(
         string                 $token,
         JWT                    $tokenService,
@@ -124,6 +128,94 @@ class SecurityController extends AbstractController
     #[Route('/logout', name: 'app_logout')]
     public function logout(): Response
     {
+    }
+
+
+    /**
+     * @throws TransportExceptionInterface
+     */
+    #[Route('/forget-password', name: 'app_forget_password')]
+    public function forgetPassword(
+        Request                $request,
+        JWT                    $tokenService,
+        UserRepository         $userRepository,
+        MailerInterface        $mailer,
+        EntityManagerInterface $manager): Response
+    {
+        $user = new User();
+        $form = $this->createForm(ForgetPasswordType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $user = $userRepository->findOneBy(['name' => $user->getName()]);
+            $token = $tokenService->generate(['user_email' => $user->getEmail()], $this->getParameter('jwtoken_secret'));
+
+            $user->setToken($token);
+
+            $manager->persist($user);
+            $manager->flush();
+
+            $email = (new TemplatedEmail())
+                ->from('no-reply@snowtricks.oc')
+                ->to($user->getEmail())
+                ->subject('Réinitialiser votre mot de passe')
+                ->htmlTemplate('email/forgot_password.html.twig')
+                ->context(['user' => $user, 'token' => $token]);
+
+            $mailer->send($email);
+
+            $this->addFlash('success', 'Un email pour réinitialiser votre mot de passe vous a été envoyé à votre adresse mail.');
+
+            return $this->redirectToRoute('app_home');
+        }
+        return $this->render('forgot_password/index.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+    #[Route('/reset-password/{token}', name: 'app_reset_password')]
+    public function resetPassword(
+        JWT                         $tokenService,
+        string                      $token,
+        UserRepository              $userRepository,
+        Request                     $request,
+        EntityManagerInterface      $manager,
+        UserPasswordHasherInterface $hash,): Response
+    {
+        if (!$tokenService->isValid($token) || !$tokenService->check($token, $this->getParameter('jwtoken_secret'))) {
+            $this->addFlash('error', 'Vous n\'avez pas un token valide.');
+            return $this->redirectToRoute('app_home');
+        }
+
+        if ($tokenService->isExpired($token)) {
+            $this->addFlash('error', 'Le token est expiré.');
+            return $this->redirectToRoute('app_home');
+        }
+
+        $payload = $tokenService->getPayload($token);
+        $user = $userRepository->findOneBy(['email' => $payload['user_email']]);
+
+        $form = $this->createForm(ResetPasswordType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $hash = $hash->hashPassword($user, $user->getPassword());
+
+            $user->setPassword($hash);
+            
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash('success', 'Votre mot de passe a bien été modifié.');
+
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render('password_reset/index.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
 

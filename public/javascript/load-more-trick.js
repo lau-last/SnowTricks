@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
             arrowUp.classList.remove("hidden");
         }
 
-        request.open("POST", "/load_trick", true);
+        request.open("POST", "/load-trick", true);
         request.setRequestHeader("Content-type", "application/json");
         request.send(JSON.stringify({'offset': currentTrick, 'limit': limit}));
 
