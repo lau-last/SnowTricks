@@ -1,26 +1,42 @@
-.presentation-one-trick-container {
+#trick-display .presentation-one-trick-container {
     width: 80%;
 }
 
-.presentation-one-trick {
+#trick-display .presentation-one-trick {
     height: 500px;
 }
 
-.presentation-one-trick-container img.image-presentation {
+#trick-display .presentation-one-trick img.image-presentation {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.trick-card img {
+#trick-display .trick-card img {
     object-fit: cover;
     max-width: 18rem;
     height: 10rem;
 }
 
-.trick-card iframe {
+#trick-display .trick-card iframe {
     object-fit: cover;
     max-width: 18rem;
     height: 10rem;
 }
 
+#trick-display .carousel-trick::-webkit-scrollbar {
+    height: 10px;
+}
+
+#trick-display .carousel-trick::-webkit-scrollbar-thumb,
+#trick-display .carousel-trick::-webkit-scrollbar-track {
+    border-radius: 100px;
+}
+
+#trick-display .carousel-trick::-webkit-scrollbar-thumb {
+    background: #424750;
+}
+
+#trick-display .carousel-trick::-webkit-scrollbar-track {
+    background:#E2E3E5;
+}

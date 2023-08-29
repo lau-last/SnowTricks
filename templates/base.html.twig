@@ -30,6 +30,7 @@
                 <li class="nav-item"><a class="nav-link" href="{{ path('app_connection') }}">Sign in</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ path('app_registration') }}">Sign up</a></li>
             {% else %}
+                <li class="nav-item"><a class="nav-link" href="{{ path('app_trick_creation') }}">Create trick</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Logout</a></li>
             {% endif %}
         </ul>
