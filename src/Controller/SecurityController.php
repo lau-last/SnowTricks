@@ -40,6 +40,7 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $uploadPicture->upload($form, 'media', $slugger, $this->getParameter('profiles_pictures_directory'));
             $hash = $hash->hashPassword($user, $user->getPassword());
             $token = $tokenService->generate(['user_email' => $user->getEmail()], $this->getParameter('jwtoken_secret'));

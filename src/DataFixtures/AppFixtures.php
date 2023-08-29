@@ -42,82 +42,102 @@ class AppFixtures extends Fixture
         $trickData = [
             0 => [
                 'name' => 'mute',
+                'slug' => 'mute',
                 'description' => 'saisie de la carre frontside de la planche entre les deux pieds avec la main avant.'
             ],
             1 => [
                 'name' => 'sad',
+                'slug' => 'sad',
                 'description' => 'saisie de la carre backside de la planche, entre les deux pieds, avec la main avant.'
             ],
             2 => [
                 'name' => 'indy',
+                'slug' => 'indy',
                 'description' => 'saisie de la carre frontside de la planche, entre les deux pieds, avec la main arrière.'
             ],
             3 => [
                 'name' => 'stalefish',
+                'slug' => 'stalefish',
                 'description' => 'saisie de la carre backside de la planche entre les deux pieds avec la main arrière.'
             ],
             4 => [
                 'name' => 'tail grab',
+                'slug' => 'tail-grab',
                 'description' => 'saisie de la partie arrière de la planche, avec la main arrière.'
             ],
             5 => [
                 'name' => 'nose grab',
+                'slug' => 'nose-grab',
                 'description' => 'saisie de la partie avant de la planche, avec la main avant'
             ],
             6 => [
                 'name' => 'japan',
+                'slug' => 'japan',
                 'description' => 'saisie de l\'avant de la planche, avec la main avant, du côté de la carre frontside'
             ],
             7 => [
                 'name' => 'seat belt',
+                'slug' => 'seat-belt',
                 'description' => 'saisie du carre frontside à l\'arrière avec la main avant.'
             ],
             8 => [
                 'name' => 'truck driver',
+                'slug' => 'truck-driver',
                 'description' => 'saisie du carre avant et carre arrière avec chaque main (comme tenir un volant de voiture)'
             ],
             9 => [
                 'name' => '270',
+                'slug' => '270',
                 'description' => 'trois quarts de tours'
             ],
             10 => [
                 'name' => '360',
+                'slug' => '360',
                 'description' => 'trois six pour un tour complet'
             ],
             11 => [
                 'name' => '540',
+                'slug' => '540',
                 'description' => 'cinq quatre pour un tour et demi'
             ],
             12 => [
                 'name' => '630',
+                'slug' => '630',
                 'description' => 'un tour trois quarts'
             ],
             13 => [
                 'name' => '720',
+                'slug' => '720',
                 'description' => 'sept deux pour deux tours complets'
             ],
             14 => [
                 'name' => '1080',
+                'slug' => '1080',
                 'description' => 'big foot pour trois tours'
             ],
             15 => [
                 'name' => 'front flips',
+                'slug' => 'front-flips',
                 'description' => 'rotations en avant'
             ],
             16 => [
                 'name' => 'back flips',
+                'slug' => 'back-flips',
                 'description' => 'rotations en arrière'
             ],
             17 => [
                 'name' => 'Mac Twist',
+                'slug' => 'Mac-Twist',
                 'description' => 'flips agrémentés d\'une vrille'
             ],
             18 => [
                 'name' => 'nose slide',
+                'slug' => 'nose-slide',
                 'description' => 'c\'est-à-dire slider avec l\'avant de la planche sur la barre'
             ],
             19 => [
                 'name' => 'tail slide',
+                'slug' => 'tail-slide',
                 'description' => 'c\'est-à-dire slider avec l\'arrière de la planche sur la barre'
             ],
         ];
@@ -126,6 +146,7 @@ class AppFixtures extends Fixture
             $trick = new \App\Entity\Trick();
             $trick
                 ->setName($trickData[$i]['name'])
+                ->setSlug($trickData[$i]['slug'])
                 ->setDescription($trickData[$i]['description'])
                 ->setCreatedAt(new \DateTimeImmutable())
                 ->setCategory($this->getReference('category-'.rand(0,3)));
@@ -182,26 +203,28 @@ class AppFixtures extends Fixture
         $manager->flush();
 
 //        Picture
-
-        for ($i = 0; $i < 20; $i++) {
-            $picture = new \App\Entity\Picture();
-            $picture
-                ->setFileName('trick-' . $i)
-                ->setAlt('trick-' . $i)
-                ->setTrick($this->getReference('trick-'.$i));
-            $manager->persist($picture);
+        for ($a = 0; $a < 3; $a++) {
+            for ($i = 0; $i < 20; $i++) {
+                $picture = new \App\Entity\Picture();
+                $picture
+                    ->setFileName('trick-' . $i)
+                    ->setAlt('trick-' . $i)
+                    ->setTrick($this->getReference('trick-' . $i));
+                $manager->persist($picture);
+            }
         }
 
         $manager->flush();
 
 //        Video
-
-        for ($i = 0; $i < 20; $i++) {
-            $video = new \App\Entity\Video();
-            $video
-                ->setUrl('https://www.youtube.com/watch?v=t705_V-RDcQ')
-                ->setTrick($this->getReference('trick-' . $i));
-            $manager->persist($video);
+        for ($a = 0; $a < 3; $a++) {
+            for ($i = 0; $i < 20; $i++) {
+                $video = new \App\Entity\Video();
+                $video
+                    ->setUrl('https://www.youtube.com/watch?v=t705_V-RDcQ')
+                    ->setTrick($this->getReference('trick-' . $i));
+                $manager->persist($video);
+            }
         }
 
         $manager->flush();

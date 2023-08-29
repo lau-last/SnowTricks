@@ -11,19 +11,25 @@ header div {
     height: 100%;
 }
 
-header a {
-    color: black;
-    position: absolute;
-    bottom: 5rem;
-    right: 5rem
-}
-
 .trick-card img {
     object-fit: cover;
     max-width: 18rem;
     height: 10rem;
 }
 
-section {
-    position: relative;
+a.arrow-up,
+a.arrow-down {
+    bottom: 3rem;
+    right: 3rem;
+    transition: .4s ease-in-out;
 }
+
+a.arrow-up:hover,
+a.arrow-down:hover {
+    transform: scale(1.2);
+}
+
+.hidden {
+   display: none;
+}
+

@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: VideoRepository::class)]
 class Video
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -20,15 +21,18 @@ class Video
     #[ORM\JoinColumn(nullable: false)]
     private ?Trick $trick = null;
 
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
+
     public function getUrl(): ?string
     {
         return $this->url;
     }
+
 
     public function setUrl(string $url): static
     {
@@ -37,10 +41,18 @@ class Video
         return $this;
     }
 
+
+    public function getUrlEmbed(): ?string
+    {
+        return str_replace("watch?v=", "embed/", $this->url);
+    }
+
+
     public function getTrick(): ?Trick
     {
         return $this->trick;
     }
+
 
     public function setTrick(?Trick $trick): static
     {
@@ -48,4 +60,6 @@ class Video
 
         return $this;
     }
+
+
 }
