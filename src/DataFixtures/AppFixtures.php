@@ -189,15 +189,16 @@ class AppFixtures extends Fixture
         $manager->flush();
 
 //        Comment
-
-        for ($i = 0; $i < 20; $i++){
-            $comment = new \App\Entity\Comment();
-            $comment
-                ->setContent('Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.')
-                ->setCreatedAt(new \DateTimeImmutable())
-                ->setTrick($this->getReference('trick-'.$i))
-                ->setUser($this->getReference('user-'.rand(0,2)));
-            $manager->persist($comment);
+        for ($i = 0; $i < 20; $i++) {
+            for ($i = 0; $i < 20; $i++) {
+                $comment = new \App\Entity\Comment();
+                $comment
+                    ->setContent('Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.')
+                    ->setCreatedAt(new \DateTimeImmutable())
+                    ->setTrick($this->getReference('trick-' . $i))
+                    ->setUser($this->getReference('user-' . rand(0, 2)));
+                $manager->persist($comment);
+            }
         }
 
         $manager->flush();

@@ -24,6 +24,7 @@ class Picture
     #[ORM\JoinColumn(nullable: false)]
     private ?Trick $trick = null;
 
+
     public function getId(): ?int
     {
         return $this->id;

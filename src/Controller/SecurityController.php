@@ -8,6 +8,7 @@ use App\Form\RegistrationType;
 use App\Form\ResetPasswordType;
 use App\Repository\UserRepository;
 use App\Service\JWT;
+use App\Service\SendMail;
 use App\Service\UploadPicture;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
@@ -26,6 +27,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class SecurityController extends AbstractController
 {
+
 
     /**
      * @throws TransportExceptionInterface
@@ -60,14 +62,7 @@ class SecurityController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            $email = (new TemplatedEmail())
-                ->from('no-reply@snowtricks.oc')
-                ->to($user->getEmail())
-                ->subject('Veuillez confirmer votre adresse email')
-                ->htmlTemplate('email/registration.html.twig')
-                ->context(['user' => $user, 'token' => $token]);
-
-            $mailer->send($email);
+            (new SendMail())->send($mailer, $user->getEmail(), 'email/registration.html.twig', ['user' => $user, 'token' => $token]);
 
             $this->addFlash('success', 'Un email de verification vous a été envoyé sur l\'adress : ' . $user->getEmail() . '.');
 
@@ -157,14 +152,7 @@ class SecurityController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            $email = (new TemplatedEmail())
-                ->from('no-reply@snowtricks.oc')
-                ->to($user->getEmail())
-                ->subject('Réinitialiser votre mot de passe')
-                ->htmlTemplate('email/forgot_password.html.twig')
-                ->context(['user' => $user, 'token' => $token]);
-
-            $mailer->send($email);
+            (new SendMail())->send($mailer, $user->getEmail(), 'email/forgot_password.html.twig', ['user' => $user, 'token' => $token]);
 
             $this->addFlash('success', 'Un email pour réinitialiser votre mot de passe vous a été envoyé à votre adresse mail.');
 

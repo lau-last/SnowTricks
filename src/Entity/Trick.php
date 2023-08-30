@@ -45,27 +45,6 @@ class Trick
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Comment::class)]
     private Collection $comments;
 
-    private Collection $tags;
-
-
-    /**
-     * @return Collection
-     */
-    public function getTags(): Collection
-    {
-        return $this->tags;
-    }
-
-
-    /**
-     * @param Collection $tags
-     * @return Trick
-     */
-    public function setTags(Collection $tags): Trick
-    {
-        $this->tags = $tags;
-        return $this;
-    }
 
     public function __construct()
     {

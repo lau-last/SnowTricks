@@ -1,16 +1,24 @@
 {% extends 'base.html.twig' %}
 {% form_theme form 'bootstrap_5_layout.html.twig' %}
+    {% block javascripts %}
+        <script src="{{ asset('javascript/addPictureType.js') }}"></script>
+{#        <script src="{{ asset('javascript/addVideoType.js') }}"></script>#}
+    {% endblock %}
 {% block body %}
     <h1 class="text-center my-5">trick creation</h1>
     <div class="mx-auto" style="width: 30%">
-        {{ form(form) }}
-{#        {{ form_start(form) }}#}
-
-{#        {{ form_row(form.name) }}#}
-{#        {{ form_row(form.pictures) }}#}
-{#        {{ form_row(form.videos) }}#}
-{#        {{ form_row(form.category) }}#}
-
-{#        {{ form_end(form) }}#}
+        {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.category) }}
+        <div id="picture" data-prototype="{{ form_row(form.pictures.vars.prototype)|e('html_attr') }}">
+            {{ form_row(form.pictures) }}
+            <span></span>
+        </div>
+        <div id="video" data-prototype="{{ form_row(form.videos.vars.prototype)|e('html_attr') }}">
+            {{ form_row(form.videos) }}
+            <span></span>
+        </div>
+        {{ form_row(form.description) }}
+        {{ form_end(form) }}
     </div>
 {% endblock %}
