@@ -8,62 +8,65 @@
 
 {% block body %}
 
-    <div class="presentation-one-trick-container mx-auto my-5">
-        <div class="presentation-one-trick position-relative">
-            <img src="/images/uploads/tricks/{{ trick.pictures|first.fileName }}.jpg"
-                 class="card-img-top position-absolute image-presentation"
-                 alt="{{ trick.pictures|first.alt }}">
-        </div>
 
-        <div class="d-flex overflow-scroll carousel-trick">
-            {% for image in trick.pictures %}
-                <div class="trick-card-container m-4">
-                    <div class="card trick-card" style="width: 18rem;">
-                        <img src="/images/uploads/tricks/{{ image.fileName }}.jpg"
-                             class="card-img-top"
-                             alt="{{ image.alt }}">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                {% if app.user %}
-                                    <div>
-                                        <i class="bi bi-pen mx-3"></i>
-                                        <i class="bi bi-trash mx-3"></i>
-                                    </div>
-                                {% endif %}
+    <div id="trick-display">
+
+        <div class="presentation-one-trick-container mx-auto my-5">
+            <div class="presentation-one-trick position-relative">
+                <img src="/images/uploads/tricks/{{ trick.pictures|first.fileName }}.jpg"
+                     class="card-img-top position-absolute image-presentation rounded"
+                     alt="{{ trick.pictures|first.alt }}">
+            </div>
+
+            <div class="d-flex overflow-x-scroll carousel-trick my-5" id="carousel-trick">
+                {% for image in trick.pictures %}
+                    <div class="trick-card-container m-4">
+                        <div class="card trick-card" style="width: 18rem;">
+                            <img src="/images/uploads/tricks/{{ image.fileName }}.jpg"
+                                 class="card-img-top"
+                                 alt="{{ image.alt }}">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    {% if app.user %}
+                                        <div>
+                                            <i class="bi bi-pen mx-3"></i>
+                                            <i class="bi bi-trash mx-3"></i>
+                                        </div>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-
-            {% for video in trick.videos %}
-                <div class="trick-card-container m-4">
-                    <div class="card trick-card" style="width: 18rem;">
-                        <iframe src="{{ video.urlEmbed }}"
-                                class="card-img-top"
-                                title="YouTube video player"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen></iframe>
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                {% if app.user %}
-                                    <div>
-                                        <i class="bi bi-pen mx-3"></i>
-                                        <i class="bi bi-trash mx-3"></i>
-                                    </div>
-                                {% endif %}
+                {% endfor %}
+                {% for video in trick.videos %}
+                    <div class="trick-card-container m-4">
+                        <div class="card trick-card" style="width: 18rem;">
+                            <iframe src="{{ video.urlEmbed }}"
+                                    class="card-img-top"
+                                    title="YouTube video player"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    {% if app.user %}
+                                        <div>
+                                            <i class="bi bi-pen mx-3"></i>
+                                            <i class="bi bi-trash mx-3"></i>
+                                        </div>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
+                {% endfor %}
+            </div>
 
-        <p>{{ trick.description }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur cupiditate, ea
-            enim esse iste iusto magni, maiores odit quibusdam quidem quos soluta, voluptatem! Ab, aliquam asperiores,
-            blanditiis consectetur cumque dicta distinctio dolor doloremque, eos eum harum illum ipsam iure magni minima
-            molestias non obcaecati pariatur quasi repudiandae sunt unde voluptates.</p>
+            <p>{{ trick.description }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur cupiditate,
+                ea enim esse iste iusto magni, maiores odit quibusdam quidem quos soluta, voluptatem! Ab, aliquam
+                asperiores, blanditiis consectetur cumque dicta distinctio dolor doloremque, eos eum harum illum ipsam
+                iure magni minima molestias non obcaecati pariatur quasi repudiandae sunt unde voluptates.</p>
+
+        </div>
 
     </div>
-
 {% endblock %}

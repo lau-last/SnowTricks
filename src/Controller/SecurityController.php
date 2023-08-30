@@ -196,20 +196,17 @@ class SecurityController extends AbstractController
 
         $payload = $tokenService->getPayload($token);
         $user = $userRepository->findOneBy(['email' => $payload['user_email']]);
-
         $form = $this->createForm(ResetPasswordType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $hash = $hash->hashPassword($user, $user->getPassword());
 
+            $hash = $hash->hashPassword($user, $user->getPassword());
             $user->setPassword($hash);
-            
             $manager->persist($user);
             $manager->flush();
 
             $this->addFlash('success', 'Votre mot de passe a bien été modifié.');
-
             return $this->redirectToRoute('app_home');
         }
 
