@@ -66,6 +66,11 @@
                 asperiores, blanditiis consectetur cumque dicta distinctio dolor doloremque, eos eum harum illum ipsam
                 iure magni minima molestias non obcaecati pariatur quasi repudiandae sunt unde voluptates.</p>
 
+            <p><strong>Created at : {{ trick.createdAt.format('d/m/Y') }}</strong></p>
+            {% if trick.updatedAt is not null %}
+            <p><strong>Updated at : {{ trick.updatedAt.format('d/m/Y') }}</strong></p>
+            {% endif %}
+
         </div>
 
     </div>

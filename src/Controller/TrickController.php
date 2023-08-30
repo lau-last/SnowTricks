@@ -20,14 +20,6 @@ class TrickController extends AbstractController
     {
         $trick = new Trick();
 
-        $video = new Video();
-        $trick->getVideos()->add($video);
-
-        $picture = new Picture();
-        $trick->getPictures()->add($picture);
-
-
-
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
