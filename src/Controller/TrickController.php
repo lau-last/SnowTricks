@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Picture;
 use App\Entity\Trick;
+use App\Entity\Video;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +19,15 @@ class TrickController extends AbstractController
     public function trickCreation(Request $request): Response
     {
         $trick = new Trick();
+
+        $video = new Video();
+        $trick->getVideos()->add($video);
+
+        $picture = new Picture();
+        $trick->getPictures()->add($picture);
+
+
+
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
