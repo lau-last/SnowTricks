@@ -5,7 +5,6 @@
  {% endblock %}
     {% block javascripts %}
         <script src="{{ asset('javascript/add-media-fields.js') }}"></script>
-
     {% endblock %}
 {% block body %}
     <h1 class="text-center my-5">trick creation</h1>
@@ -14,12 +13,11 @@
         {{ form_row(form.name) }}
         {{ form_row(form.category) }}
         {{ form_row(form.description) }}
-        <div id="picture" data-prototype="{{ form_row(form.pictures.vars.prototype)|e('html_attr') }}">
-            <span id="pictures-span"></span>
-        </div>
-        <div id="video" data-prototype="{{ form_row(form.videos.vars.prototype)|e('html_attr') }}">
-            <span></span>
-        </div>
+        <div id="pictures" data-prototype="{{ form_row(form.pictures.vars.prototype)|e('html_attr') }}"></div>
+        <button type="button" id="add-picture" class="btn btn-success">Add picture</button>
+        <hr>
+        <div id="videos" data-prototype="{{ form_row(form.videos.vars.prototype)|e('html_attr') }}"></div>
+        <button type="button" id="add-video" class="btn btn-success">Add video</button>
         {{ form_row(form.videos) }}
         {{ form_end(form) }}
     </div>
