@@ -36,7 +36,7 @@ function createButtonSupp(selector, index, text, buttonSelector) {
     buttonSupp.addEventListener("click", function () {
         let buttonAdd = document.querySelector(buttonSelector);
         buttonAdd.disabled = false;
-        this.previousElementSibling.parentElement.remove();
+        this.previousElementSibling.parentElement.parentElement.remove();
     });
 }
 
