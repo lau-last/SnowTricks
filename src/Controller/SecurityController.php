@@ -171,7 +171,7 @@ class SecurityController extends AbstractController
         UserRepository              $userRepository,
         Request                     $request,
         EntityManagerInterface      $manager,
-        UserPasswordHasherInterface $hash,): Response
+        UserPasswordHasherInterface $hash): Response
     {
         if (!$tokenService->isValid($token) || !$tokenService->check($token, $this->getParameter('jwtoken_secret'))) {
             $this->addFlash('error', 'Vous n\'avez pas un token valide.');

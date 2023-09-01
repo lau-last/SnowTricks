@@ -25,6 +25,7 @@ class TrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             dump($form->getData());
+
         }
         return $this->render('trick_creation/index.html.twig', [
             'form' => $form->createView(),

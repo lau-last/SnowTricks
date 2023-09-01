@@ -1,18 +1,22 @@
-function loadImg(img, idInput) {
+function loadImg(img, idInput, index) {
     let buttonAdd = document.querySelector('#add-picture');
-    let image = document.querySelector(img);
     let input = document.getElementById(idInput);
     input.addEventListener("change", () => {
+        createFrame('#trick_pictures_', index, "img", "rounded img-");
+        createButtonSupp('#trick_pictures_', index, "Supp picture", "#add-picture");
+        let image = document.querySelector(img);
         image.src = URL.createObjectURL(input.files[0]);
         buttonAdd.disabled = false;
     });
 }
 
-function loadIframe(iframe, idInput) {
+function loadIframe(iframe, idInput, index) {
     let buttonAdd = document.querySelector('#add-video');
-    let frame = document.querySelector(iframe);
     let input = document.getElementById(idInput);
     input.addEventListener("change", () => {
+        createFrame('#trick_videos_', index, "iframe", "rounded iframe-");
+        createButtonSupp('#trick_videos_', index, "Supp video", "#add-video");
+        let frame = document.querySelector(iframe);
         frame.src = input.value.replace('watch?v=', 'embed/');
         buttonAdd.disabled = false;
     });
@@ -30,7 +34,7 @@ function createButtonSupp(selector, index, text, buttonSelector) {
     let div = document.querySelector(selector + index)
     let buttonSupp = document.createElement("button");
     buttonSupp.type = "button";
-    buttonSupp.className = "btn btn-danger d-flex delete-" + index;
+    buttonSupp.className = "mt-3 btn btn-danger d-flex delete-" + index;
     buttonSupp.textContent = text;
     div.append(buttonSupp);
     buttonSupp.addEventListener("click", function () {
@@ -46,9 +50,7 @@ function addFieldPicture() {
     let index = divPicture.querySelectorAll("fieldset").length;
     prototype = prototype.replace(/__name__/g, index);
     divPicture.insertAdjacentHTML("beforeend", prototype);
-    createFrame('#trick_pictures_', index, "img", "rounded img-");
-    createButtonSupp('#trick_pictures_', index, "Supp picture", "#add-picture");
-    loadImg("img.img-" + index + "", "trick_pictures_" + index + "_fileName");
+    loadImg("img.img-" + index + "", "trick_pictures_" + index + "_fileName", index);
 }
 
 function addFieldVideo() {
@@ -57,9 +59,7 @@ function addFieldVideo() {
     let index = divVideo.querySelectorAll("fieldset").length;
     prototype = prototype.replace(/__name__/g, index);
     divVideo.insertAdjacentHTML("beforeend", prototype);
-    createFrame('#trick_videos_', index, "iframe", "rounded iframe-");
-    createButtonSupp('#trick_videos_', index, "Supp video", "#add-video");
-    loadIframe("iframe.iframe-" + index + "", "trick_videos_" + index + "_url")
+    loadIframe("iframe.iframe-" + index + "", "trick_videos_" + index + "_url", index)
 }
 
 document.addEventListener('DOMContentLoaded', function () {
