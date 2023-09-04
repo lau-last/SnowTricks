@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Interfaces\UploadEntityInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -22,10 +23,24 @@ class UploadPicture
     }
 
 
-    public function upload(UploadEntityInterface $picture): void
+    public function upload(UploadEntityInterface $picture): string
     {
         $file = $picture->getFile();
-        $file->move($this->getDir($picture), $file->getClientOriginalName());
+        $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $safeFilename = $this->slugger->slug($originalFileName);
+        $newFilename = $safeFilename . '-' . md5(uniqid(rand(), true)) . '.' . $file->guessExtension();
+        $file->move($this->getDir($picture), $newFilename);
+        return $newFilename;
+    }
+
+    public function uploadProfile(FormInterface $form, string $inputName, string $fileDirectory): string
+    {
+        $file = $form->get($inputName)->getData();
+        $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $safeFilename = $this->slugger->slug($originalFileName);
+        $newFilename = $safeFilename . '-' . md5(uniqid(rand(), true)) . '.' . $file->guessExtension();
+        $file->move($fileDirectory, $newFilename);
+        return $newFilename;
     }
 
 

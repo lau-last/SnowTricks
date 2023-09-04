@@ -9,6 +9,7 @@ use App\Form\ResetPasswordType;
 use App\Repository\UserRepository;
 use App\Service\JWT;
 use App\Service\SendMail;
+use App\Service\UploadPicture;
 use App\Service\UploadUserProfile;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,10 +34,9 @@ class SecurityController extends AbstractController
         Request                     $request,
         EntityManagerInterface      $manager,
         UserPasswordHasherInterface $hash,
-        SluggerInterface            $slugger,
         MailerInterface             $mailer,
         JWT                         $tokenService,
-        UploadUserProfile            $uploadUserProfile): Response
+        UploadPicture               $uploadPicture): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
@@ -44,12 +44,11 @@ class SecurityController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $uploadUserProfile->upload($form, 'media', $slugger, $this->getParameter('profiles_pictures_directory'));
             $hash = $hash->hashPassword($user, $user->getPassword());
             $token = $tokenService->generate(['user_email' => $user->getEmail()], $this->getParameter('jwtoken_secret'));
 
             $user
-                ->setMedia($uploadUserProfile->getNewFilename())
+                ->setMedia($uploadPicture->uploadProfile($form, 'media', $this->getParameter('profiles_pictures_directory')))
                 ->setCreatedAt(new \DateTimeImmutable())
                 ->setPassword($hash)
                 ->setToken($token)
