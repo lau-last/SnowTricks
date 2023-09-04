@@ -206,7 +206,7 @@ class AppFixtures extends Fixture
 //        Picture
         for ($a = 0; $a < 3; $a++) {
             for ($i = 0; $i < 20; $i++) {
-                $picture = new \App\Entity\Picture();
+                $picture = new \App\Entity\TrickPicture();
                 $picture
                     ->setFileName('trick-' . $i)
                     ->setAlt('trick-' . $i)

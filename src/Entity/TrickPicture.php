@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\PictureRepository;
+use App\Entity\Interfaces\UploadEntityInterface;
+use App\Repository\TrickPictureRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-#[ORM\Entity(repositoryClass: PictureRepository::class)]
-class Picture
+#[ORM\Entity(repositoryClass: TrickPictureRepository::class)]
+
+class TrickPicture implements UploadEntityInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -17,6 +19,7 @@ class Picture
     #[ORM\Column(length: 80)]
     private ?string $fileName = null;
 
+
     #[ORM\Column(length: 80)]
     private ?string $alt = null;
 
@@ -24,6 +27,7 @@ class Picture
     #[ORM\JoinColumn(nullable: false)]
     private ?Trick $trick = null;
 
+    private ?UploadedFile $file = null;
 
     public function getId(): ?int
     {
@@ -63,6 +67,29 @@ class Picture
     {
         $this->trick = $trick;
 
+        return $this;
+    }
+
+
+    /**
+     * @return UploadedFile|null
+     */
+    public function getFile(): ?UploadedFile
+    {
+        return $this->file;
+    }
+
+
+    /**
+     * @param UploadedFile|null $file
+     * @return self
+     */
+    public function setFile(?UploadedFile $file): self
+    {
+        $this->file = $file;
+        if ($file instanceof UploadedFile)  {
+            $this->setFileName($file->getClientOriginalName());
+        }
         return $this;
     }
 }

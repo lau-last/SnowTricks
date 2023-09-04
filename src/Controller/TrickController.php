@@ -2,11 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Picture;
 use App\Entity\Trick;
-use App\Entity\Video;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
+use App\Service\UploadPicture;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +15,7 @@ class TrickController extends AbstractController
 {
 
     #[Route('/trick-creation', name: 'app_trick_creation')]
-    public function trickCreation(Request $request): Response
+    public function trickCreation(Request $request,UploadPicture $uploadPicture): Response
     {
         $trick = new Trick();
 
@@ -24,9 +23,12 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($form->getData());
 
+            foreach ($trick->getPictures() as $picture) {
+                $uploadPicture->upload($picture);
+           }
         }
+
         return $this->render('trick_creation/index.html.twig', [
             'form' => $form->createView(),
         ]);

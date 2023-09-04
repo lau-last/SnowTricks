@@ -50,7 +50,7 @@ function addFieldPicture() {
     let index = divPicture.querySelectorAll("fieldset").length;
     prototype = prototype.replace(/__name__/g, index);
     divPicture.insertAdjacentHTML("beforeend", prototype);
-    loadImg("img.img-" + index + "", "trick_pictures_" + index + "_fileName", index);
+    loadImg("img.img-" + index + "", "trick_pictures_" + index + "_file", index);
 }
 
 function addFieldVideo() {

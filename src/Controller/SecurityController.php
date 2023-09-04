@@ -9,16 +9,12 @@ use App\Form\ResetPasswordType;
 use App\Repository\UserRepository;
 use App\Service\JWT;
 use App\Service\SendMail;
-use App\Service\UploadPicture;
+use App\Service\UploadUserProfile;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Doctrine\ManagerRegistry;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
-use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -40,7 +36,7 @@ class SecurityController extends AbstractController
         SluggerInterface            $slugger,
         MailerInterface             $mailer,
         JWT                         $tokenService,
-        UploadPicture               $uploadPicture): Response
+        UploadUserProfile            $uploadUserProfile): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
@@ -48,12 +44,12 @@ class SecurityController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $uploadPicture->upload($form, 'media', $slugger, $this->getParameter('profiles_pictures_directory'));
+            $uploadUserProfile->upload($form, 'media', $slugger, $this->getParameter('profiles_pictures_directory'));
             $hash = $hash->hashPassword($user, $user->getPassword());
             $token = $tokenService->generate(['user_email' => $user->getEmail()], $this->getParameter('jwtoken_secret'));
 
             $user
-                ->setMedia($uploadPicture->getNewFilename())
+                ->setMedia($uploadUserProfile->getNewFilename())
                 ->setCreatedAt(new \DateTimeImmutable())
                 ->setPassword($hash)
                 ->setToken($token)

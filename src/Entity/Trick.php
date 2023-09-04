@@ -32,7 +32,7 @@ class Trick
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Picture::class)]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: TrickPicture::class)]
     private Collection $pictures;
 
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Video::class)]
@@ -131,7 +131,7 @@ class Trick
 
 
     /**
-     * @return Collection<int, Picture>
+     * @return Collection<int, TrickPicture>
      */
     public function getPictures(): Collection
     {
@@ -139,7 +139,7 @@ class Trick
     }
 
 
-    public function addPicture(Picture $picture): static
+    public function addPicture(TrickPicture $picture): static
     {
         if (!$this->pictures->contains($picture)) {
             $this->pictures->add($picture);
@@ -150,7 +150,7 @@ class Trick
     }
 
 
-    public function removePicture(Picture $picture): static
+    public function removePicture(TrickPicture $picture): static
     {
         if ($this->pictures->removeElement($picture)) {
             // set the owning side to null (unless already changed)

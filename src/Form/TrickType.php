@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Category;
-use App\Entity\Picture;
 use App\Entity\Trick;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -22,7 +21,7 @@ class TrickType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('pictures', CollectionType::class, [
-                'entry_type' => PictureType::class,
+                'entry_type' => TrickPictureType::class,
                 'entry_options' => ['label' => false],
                 'label' => false,
                 'allow_add' => true,

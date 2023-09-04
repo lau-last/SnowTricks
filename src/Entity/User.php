@@ -49,6 +49,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?bool $isRegistered = null;
 
 
+
+
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
