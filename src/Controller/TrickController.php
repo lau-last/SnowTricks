@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class TrickController extends AbstractController
 {
@@ -19,7 +20,8 @@ class TrickController extends AbstractController
     public function trickCreation(
         Request                $request,
         UploadPicture          $uploadPicture,
-        EntityManagerInterface $manager): Response
+        EntityManagerInterface $manager,
+        SluggerInterface       $slugger): Response
     {
         $trick = new Trick();
 
@@ -30,13 +32,17 @@ class TrickController extends AbstractController
 
             $trick
                 ->setName($trick->getName())
+                ->setSlug($slugger->slug($trick->getName()))
                 ->setDescription($trick->getDescription())
                 ->setCategory($trick->getCategory())
                 ->setCreatedAt(new \DateTimeImmutable());
 
             foreach ($trick->getPictures() as $picture) {
-                $uploadPicture->upload($picture);
-                $trick->addPicture($picture);
+                $picture->setFileName($uploadPicture->upload($picture));
+                $picture->setAlt($picture->getAlt());
+            }
+            foreach ($trick->getVideos() as $video) {
+                $video->setUrl($video->getUrlEmbed());
             }
 
             $manager->persist($trick);

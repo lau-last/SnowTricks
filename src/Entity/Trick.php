@@ -32,10 +32,10 @@ class Trick
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: TrickPicture::class)]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: TrickPicture::class, cascade: ['persist'])]
     private Collection $pictures;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Video::class)]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: TrickVideo::class, cascade: ['persist'])]
     private Collection $videos;
 
     #[ORM\ManyToOne(inversedBy: 'tricks')]
@@ -164,7 +164,7 @@ class Trick
 
 
     /**
-     * @return Collection<int, Video>
+     * @return Collection<int, TrickVideo>
      */
     public function getVideos(): Collection
     {
@@ -172,7 +172,7 @@ class Trick
     }
 
 
-    public function addVideo(Video $video): static
+    public function addVideo(TrickVideo $video): static
     {
         if (!$this->videos->contains($video)) {
             $this->videos->add($video);
@@ -183,7 +183,7 @@ class Trick
     }
 
 
-    public function removeVideo(Video $video): static
+    public function removeVideo(TrickVideo $video): static
     {
         if ($this->videos->removeElement($video)) {
             // set the owning side to null (unless already changed)

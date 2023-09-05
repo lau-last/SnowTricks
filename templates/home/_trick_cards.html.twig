@@ -2,7 +2,7 @@
     <div class="trick-card-container m-4">
         <div class="card trick-card" style="width: 18rem;">
             <a href="{{ path('app_trick_display', {'slug': trick.slug}) }}">
-            <img src="/images/uploads/tricks/{{ trick.pictures|first.fileName }}.jpg" class="card-img-top"
+            <img src="/images/uploads/tricks/{{ trick.pictures|first.fileName }}" class="card-img-top"
                  alt="{{ trick.pictures|first.alt }}">
             </a>
             <div class="card-body">

@@ -13,7 +13,7 @@
 
         <div class="presentation-one-trick-container mx-auto my-5">
             <div class="presentation-one-trick position-relative">
-                <img src="/images/uploads/tricks/{{ trick.pictures|first.fileName }}.jpg"
+                <img src="/images/uploads/tricks/{{ trick.pictures|first.fileName }}"
                      class="card-img-top position-absolute image-presentation rounded"
                      alt="{{ trick.pictures|first.alt }}">
             </div>
@@ -22,7 +22,7 @@
                 {% for image in trick.pictures %}
                     <div class="trick-card-container m-4">
                         <div class="card trick-card" style="width: 18rem;">
-                            <img src="/images/uploads/tricks/{{ image.fileName }}.jpg"
+                            <img src="/images/uploads/tricks/{{ image.fileName }}"
                                  class="card-img-top"
                                  alt="{{ image.alt }}">
                             <div class="card-body">

@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Video;
+use App\Entity\TrickVideo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -35,7 +35,7 @@ class VideoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Video::class,
+            'data_class' => TrickVideo::class,
         ]);
     }
 

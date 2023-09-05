@@ -208,7 +208,7 @@ class AppFixtures extends Fixture
             for ($i = 0; $i < 20; $i++) {
                 $picture = new \App\Entity\TrickPicture();
                 $picture
-                    ->setFileName('trick-' . $i)
+                    ->setFileName('trick-' . $i . '.jpg')
                     ->setAlt('trick-' . $i)
                     ->setTrick($this->getReference('trick-' . $i));
                 $manager->persist($picture);
@@ -217,10 +217,10 @@ class AppFixtures extends Fixture
 
         $manager->flush();
 
-//        Video
+//        TrickVideo
         for ($a = 0; $a < 3; $a++) {
             for ($i = 0; $i < 20; $i++) {
-                $video = new \App\Entity\Video();
+                $video = new \App\Entity\TrickVideo();
                 $video
                     ->setUrl('https://www.youtube.com/watch?v=t705_V-RDcQ')
                     ->setTrick($this->getReference('trick-' . $i));
