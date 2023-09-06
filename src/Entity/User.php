@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity('email', message: 'L\'email que vous avez indiqué est déjà utilisé !')]
-#[UniqueEntity('name', message: 'Le nom que vous avez indiqué est déjà utilisé !')]
+#[UniqueEntity('username', message: 'Le nom que vous avez indiqué est déjà utilisé !')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -51,7 +51,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $hash = null;
+    private ?string $token = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt;
@@ -117,15 +117,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    public function getHash(): ?string
+    public function getToken(): ?string
     {
-        return $this->hash;
+        return $this->token;
     }
 
 
-    public function setHash(?string $hash): User
+    public function setToken(?string $token): User
     {
-        $this->hash = $hash;
+        $this->token = $token;
         return $this;
     }
 
