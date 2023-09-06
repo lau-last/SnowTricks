@@ -16,10 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity('name', message: 'Le nom que vous avez indiqué est déjà utilisé !')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-
-    #[Assert\EqualTo(propertyPath: 'password', message: 'Vous n\'avez pas tapez le même mot de passe.')]
-    public ?string $confirm_password = null;
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -33,7 +29,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         maxMessage: 'Votre nom ne peut pas faire plus de {{ limit }} caractères.',
     )]
     #[Assert\NotNull(message: 'Vous devez entrez un nom')]
-    private ?string $name = null;
+    private ?string $username = null;
 
     #[ORM\Column(length: 255, unique: true)]
     #[Assert\Email(
@@ -55,7 +51,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $token = null;
+    private ?string $hash = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt;
@@ -64,14 +60,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $comments;
 
     #[ORM\Column]
-    private ?bool $isRegistered;
-
+    private bool $active = false;
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
-        $this->isRegistered = false;
     }
 
 
@@ -81,18 +75,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    public function getName(): ?string
+    public function getUsername(): ?string
     {
-        return $this->name;
+        return $this->username;
     }
 
 
-    public function setName(string $name): static
+    public function setUsername(?string $username): User
     {
-        $this->name = $name;
-
+        $this->username = $username;
         return $this;
     }
+
 
 
     public function getMedia(): ?string
@@ -123,16 +117,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    public function getToken(): ?string
+    public function getHash(): ?string
     {
-        return $this->token;
+        return $this->hash;
     }
 
 
-    public function setToken(string $token): static
+    public function setHash(?string $hash): User
     {
-        $this->token = $token;
-
+        $this->hash = $hash;
         return $this;
     }
 
@@ -184,19 +177,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    public function isIsRegistered(): ?bool
+    public function isActive(): bool
     {
-        return $this->isRegistered;
+        return $this->active;
     }
 
 
-    public function setIsRegistered(bool $isRegistered): static
+    public function setActive(bool $active): User
     {
-        $this->isRegistered = $isRegistered;
-
+        $this->active = $active;
         return $this;
     }
-
 
     /**
      * @return string[]

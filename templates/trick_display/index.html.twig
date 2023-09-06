@@ -76,6 +76,10 @@
                 <p><strong>Updated at : {{ trick.updatedAt.format('d/m/Y') }}</strong></p>
             {% endif %}
 
+            {% for comment in trick.comments %}
+                <p>{{ comment.content }}</p>
+            {% endfor %}
+
         </div>
 
     </div>

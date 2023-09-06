@@ -39,6 +39,7 @@ class SecurityController extends AbstractController
         UploadPicture               $uploadPicture): Response
     {
         $user = new User();
+
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
 
@@ -49,10 +50,8 @@ class SecurityController extends AbstractController
 
             $user
                 ->setMedia($uploadPicture->uploadProfile($form, 'media', $this->getParameter('profiles_pictures_directory')))
-                ->setCreatedAt(new \DateTimeImmutable())
                 ->setPassword($hash)
-                ->setToken($token)
-                ->setIsRegistered(false);
+                ->setHash($token);
 
             $manager->persist($user);
             $manager->flush();
