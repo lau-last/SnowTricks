@@ -13,8 +13,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity('email', message: 'L\'email que vous avez indiqué est déjà utilisé !')]
+#[UniqueEntity('name', message: 'Le nom que vous avez indiqué est déjà utilisé !')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+
+    #[Assert\EqualTo(propertyPath: 'password', message: 'Vous n\'avez pas tapez le même mot de passe.')]
+    public ?string $confirm_password = null;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,39 +26,52 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 80, unique: true)]
+    #[Assert\Length(
+        min: 3,
+        max: 80,
+        minMessage: 'Votre nom doit faire au moins {{ limit }} caractères.',
+        maxMessage: 'Votre nom ne peut pas faire plus de {{ limit }} caractères.',
+    )]
+    #[Assert\NotNull(message: 'Vous devez entrez un nom')]
     private ?string $name = null;
 
     #[ORM\Column(length: 255, unique: true)]
+    #[Assert\Email(
+        message: 'L\'email {{ value }} n\'est pas un email valide.',
+    )]
+    #[Assert\NotNull(message: 'Vous devez entrez un email')]
     private ?string $email = null;
 
     #[ORM\Column(length: 80)]
+    #[Assert\NotNull(message: 'Vous devez entrez une photo de profil')]
     private ?string $media = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Regex(
+        pattern: '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
+        message: 'Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un caractère spécial.',
+    )]
+    #[Assert\NotNull(message: 'Vous devez entrez un mot de passe')]
     private ?string $password = null;
-
-    #[Assert\EqualTo(propertyPath: 'password', message: 'Vous n\'avez pas tapez le même mot de passe.')]
-    public ?string $confirm_password = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $token = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    private ?\DateTimeImmutable $createdAt;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
     private Collection $comments;
 
     #[ORM\Column]
-    private ?bool $isRegistered = null;
-
-
-
+    private ?bool $isRegistered;
 
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
+        $this->isRegistered = false;
     }
 
 
@@ -73,20 +90,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-
-    public function setEmail(string $email): static
-    {
-        $this->email = $email;
 
         return $this;
     }
@@ -219,6 +222,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return $this->getEmail();
+    }
+
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
+
+        return $this;
     }
 
 

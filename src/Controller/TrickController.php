@@ -34,8 +34,7 @@ class TrickController extends AbstractController
                 ->setName($trick->getName())
                 ->setSlug($slugger->slug($trick->getName()))
                 ->setDescription($trick->getDescription())
-                ->setCategory($trick->getCategory())
-                ->setCreatedAt(new \DateTimeImmutable());
+                ->setCategory($trick->getCategory());
 
             foreach ($trick->getPictures() as $picture) {
                 $picture->setFileName($uploadPicture->upload($picture));
@@ -47,6 +46,10 @@ class TrickController extends AbstractController
 
             $manager->persist($trick);
             $manager->flush();
+
+            $this->addFlash('success', 'Trick ajouté avec succès');
+
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('trick_creation/index.html.twig', [

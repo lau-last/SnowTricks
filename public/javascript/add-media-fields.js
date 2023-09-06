@@ -2,8 +2,6 @@ function loadImg(img, idInput, index) {
     let buttonAdd = document.querySelector('#add-picture');
     let input = document.getElementById(idInput);
     input.addEventListener("change", () => {
-        createFrame('#trick_pictures_', index, "img", "rounded img-");
-        createButtonSupp('#trick_pictures_', index, "Supp picture", "#add-picture");
         let image = document.querySelector(img);
         image.src = URL.createObjectURL(input.files[0]);
         buttonAdd.disabled = false;
@@ -14,10 +12,13 @@ function loadIframe(iframe, idInput, index) {
     let buttonAdd = document.querySelector('#add-video');
     let input = document.getElementById(idInput);
     input.addEventListener("change", () => {
-        createFrame('#trick_videos_', index, "iframe", "rounded iframe-");
-        createButtonSupp('#trick_videos_', index, "Supp video", "#add-video");
         let frame = document.querySelector(iframe);
-        frame.src = input.value.replace('watch?v=', 'embed/');
+        if (input.value.startsWith('https://www.youtube.com/')){
+            frame.src = input.value.replace('watch?v=', 'embed/');
+        }
+        if (input.value.startsWith('https://www.dailymotion.com/')){
+            frame.src = input.value.replace('https://www.dailymotion.com/', 'https://www.dailymotion.com/embed/');
+        }
         buttonAdd.disabled = false;
     });
 }
@@ -68,12 +69,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
     buttonAddPicture.addEventListener("click", function () {
         buttonAddPicture.disabled = true;
+        let divPicture = document.querySelector('#pictures');
+        let index = divPicture.querySelectorAll("fieldset").length;
         addFieldPicture();
+        createFrame('#trick_pictures_', index, "img", "rounded img-");
+        createButtonSupp('#trick_pictures_', index, "Supp picture", "#add-picture");
     });
 
     buttonAddVideo.addEventListener("click", function () {
         buttonAddVideo.disabled = true;
+        let divVideo = document.querySelector('#videos');
+        let index = divVideo.querySelectorAll("fieldset").length;
         addFieldVideo();
+        createFrame('#trick_videos_', index, "iframe", "rounded iframe-");
+        createButtonSupp('#trick_videos_', index, "Supp video", "#add-video");
     });
 
 });

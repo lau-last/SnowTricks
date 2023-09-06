@@ -19,14 +19,15 @@ class TrickType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, ['required' => true,])
             ->add('pictures', CollectionType::class, [
                 'entry_type' => TrickPictureType::class,
                 'entry_options' => ['label' => false],
                 'label' => false,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'by_reference'=>false,
+                'by_reference' => false,
+                'required' => true,
             ])
             ->add('videos', CollectionType::class, [
                 'entry_type' => VideoType::class,
@@ -34,12 +35,14 @@ class TrickType extends AbstractType
                 'label' => false,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'by_reference'=>false,
+                'by_reference' => false,
+                'required' => true,
             ])
-            ->add('description', TextareaType::class)
+            ->add('description', TextareaType::class, ['required' => true,])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
-                'choice_label' => 'label'
+                'choice_label' => 'label',
+                'required' => true,
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => ['class' => 'mt-5 btn btn-primary'],

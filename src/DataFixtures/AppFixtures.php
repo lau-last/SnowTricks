@@ -222,7 +222,7 @@ class AppFixtures extends Fixture
             for ($i = 0; $i < 20; $i++) {
                 $video = new \App\Entity\TrickVideo();
                 $video
-                    ->setUrl('https://www.youtube.com/watch?v=t705_V-RDcQ')
+                    ->setUrl('https://www.dailymotion.com/embed/video/xxxu60')
                     ->setTrick($this->getReference('trick-' . $i));
                 $manager->persist($video);
             }

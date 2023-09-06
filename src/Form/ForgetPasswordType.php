@@ -16,6 +16,7 @@ class ForgetPasswordType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Username',
+                'required' => true,
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Ask for reset password',

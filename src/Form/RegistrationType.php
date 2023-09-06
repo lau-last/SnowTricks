@@ -20,24 +20,12 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'constraints' => [
-                    new Assert\Length([
-                        'min' => 3,
-                        'max' => 80,
-                        'minMessage' => 'Votre nom doit faire au moins {{ limit }} caractères.',
-                        'maxMessage' => 'Votre nom ne peut pas faire plus de {{ limit }} caractères.',
-                    ]),
-                ],
-                'label' => 'Nom'
+                'label' => 'Nom',
+                'required' => true,
             ])
-            ->add('email', EmailType::class, [
-                'constraints' => [
-                    new Assert\Email([
-                        'message' => 'L\'email {{ value }} n\'est pas un email valide.',
-                    ]),
-                ],
-            ])
+            ->add('email', EmailType::class, ['required' => true,])
             ->add('media', FileType::class, [
+                'required' => true,
                 'constraints' => [
                     new Assert\File([
                         'maxSize' => '2M',
@@ -47,17 +35,10 @@ class RegistrationType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('password', PasswordType::class, [
-                'constraints' => [
-                    new Assert\Regex([
-                        'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
-                        'message' => 'Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un caractère spécial.',
-                    ]),
-                ],
-            ])
-            ->add('confirm_password', PasswordType::class)
+            ->add('password', PasswordType::class, ['required' => true,])
+            ->add('confirm_password', PasswordType::class, ['required' => true,])
             ->add('submit', SubmitType::class, [
-                'attr' => [ 'class' => 'mt-5 btn btn-primary' ],
+                'attr' => ['class' => 'mt-5 btn btn-primary'],
             ]);
 
     }

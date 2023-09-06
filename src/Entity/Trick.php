@@ -7,8 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TrickRepository::class)]
+#[UniqueEntity('name', message: 'Le nom que vous avez indiqué est déjà utilisé !')]
+#[UniqueEntity('slug', message: 'Le slug que vous avez indiqué est déjà utilisé !')]
 class Trick
 {
 
@@ -18,31 +22,36 @@ class Trick
     private ?int $id = null;
 
     #[ORM\Column(length: 80, unique: true)]
+    #[Assert\NotNull(message: 'Vous devez entrez le nom de la figure')]
     private ?string $name = null;
 
     #[ORM\Column(length: 80, unique: true)]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotNull(message: 'Vous devez entrez une description')]
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    private ?\DateTimeImmutable $createdAt;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: TrickPicture::class, cascade: ['persist'])]
+    #[Assert\Valid()]
     private Collection $pictures;
 
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: TrickVideo::class, cascade: ['persist'])]
+    #[Assert\Valid()]
     private Collection $videos;
 
     #[ORM\ManyToOne(inversedBy: 'tricks')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Comment::class)]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Comment::class, cascade: ['persist'])]
+    #[Assert\Valid()]
     private Collection $comments;
 
 
@@ -51,6 +60,7 @@ class Trick
         $this->pictures = new ArrayCollection();
         $this->videos = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
 

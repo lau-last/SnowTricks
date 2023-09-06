@@ -16,18 +16,8 @@ class TrickPictureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('file', FileType::class, [
-                'constraints' => [
-                    new Assert\File([
-                        'maxSize' => '10M',
-                        'maxSizeMessage' => 'L\'image est trop volumineuse la taille maximum est de {{ limit }} mb',
-                        'extensions' => ['jpg', 'jpeg', 'png', 'webp'],
-                        'extensionsMessage' => 'Mauvais format d\'image. Format acceptés : jpg, jpeg, png, webp.',
-                    ]),
-                ],
-                'required' => false,
-            ])
-            ->add('alt', TextType::class);
+            ->add('file', FileType::class, ['required' => true,])
+            ->add('alt', TextType::class,['required' => true,]);
     }
 
 

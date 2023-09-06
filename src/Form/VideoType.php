@@ -14,23 +14,8 @@ class VideoType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('url', TextType::class, [
-            'constraints' => [
-                new Assert\AtLeastOneOf([
-                    new Assert\Regex([
-                        'pattern' => '/^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|live\/|v\/)?)([\w\-]+)(\S+)?$/',
-                        'message' => 'L\'URL de la vidéo est invalide, veuillez insérer l\'URL d\'une vidéo Youtube ou Dailymotion.',
-                    ]),
-                    new Assert\Regex([
-                        'pattern' => '/^.+dailymotion.com\/(video|hub)\/([^_]+)[^#]*(#video=([^_&]+))?/',
-                        'message' => 'L\'URL de la vidéo est invalide, veuillez insérer l\'URL d\'une vidéo Youtube ou Dailymotion.',
-                    ]),
-                ]),
-            ],
-            'required' => false,
-        ]);
+        $builder->add('url', TextType::class, ['required' => false]);
     }
-
 
     public function configureOptions(OptionsResolver $resolver): void
     {
