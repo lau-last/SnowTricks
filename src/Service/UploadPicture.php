@@ -38,7 +38,7 @@ class UploadPicture
         $file = $form->get($inputName)->getData();
         $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = $this->slugger->slug($originalFileName);
-        $newFilename = $safeFilename . '-' . md5(uniqid(rand(), true)) . '.' . $file->guessExtension();
+        $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
         $file->move($fileDirectory, $newFilename);
         return $newFilename;
     }

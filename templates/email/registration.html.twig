@@ -11,7 +11,7 @@
 
 {% set verify_token_url = absolute_url(path('app_verify_registration_token', {token: token})) %}
 
-<h1 class="text-center mb-5">Bonjour {{ user.name }}, confirmez votre adresse email !</h1>
+<h1 class="text-center mb-5">Bonjour {{ user.username }}, confirmez votre adresse email !</h1>
 <p class="text-center mb-5">Cliquez sur le lien ci-dessous pour confirmer votre adresse email : </p>
 <div class="d-flex justify-content-center">
     <a href="{{ verify_token_url }}" class="btn btn-success">Confirmer mon adresse email</a>

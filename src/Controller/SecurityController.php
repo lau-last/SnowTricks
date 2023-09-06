@@ -51,7 +51,7 @@ class SecurityController extends AbstractController
             $user
                 ->setMedia($uploadPicture->uploadProfile($form, 'media', $this->getParameter('profiles_pictures_directory')))
                 ->setPassword($hash)
-                ->setHash($token);
+                ->setToken($token);
 
             $manager->persist($user);
             $manager->flush();
@@ -89,12 +89,12 @@ class SecurityController extends AbstractController
         $payload = $tokenService->getPayload($token);
         $user = $userRepository->findOneBy(['email' => $payload['user_email']]);
 
-        if (!$user || $user->isIsRegistered()) {
+        if (!$user || $user->isActive()) {
             $this->addFlash('error', 'L\'utilisateur est déjà vérifié ou est invalide');
             return $this->redirectToRoute('app_home');
         }
 
-        $user->setIsRegistered(true);
+        $user->setActive(true);
         $manager->persist($user);
         $manager->flush();
 
@@ -136,9 +136,9 @@ class SecurityController extends AbstractController
         $form = $this->createForm(ForgetPasswordType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
 
-            $user = $userRepository->findOneBy(['name' => $user->getName()]);
+            $user = $userRepository->findOneBy(['username' => $user->getUsername()]);
             $token = $tokenService->generate(['user_email' => $user->getEmail()], $this->getParameter('jwtoken_secret'));
 
             $user->setToken($token);

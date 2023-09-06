@@ -38,7 +38,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotNull(message: 'Vous devez entrez un email')]
     private ?string $email = null;
 
-    #[ORM\Column(length: 80)]
+    #[ORM\Column(length: 255)]
     #[Assert\NotNull(message: 'Vous devez entrez une photo de profil')]
     private ?string $media = null;
 
