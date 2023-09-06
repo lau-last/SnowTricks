@@ -157,17 +157,17 @@ class AppFixtures extends Fixture
 //        Users
         $userData = [
             0 => [
-                'name' => 'Laurent Lassalle',
+                'name' => 'laurent',
                 'email' => 'laurent@gmail.com',
                 'media' => 'laurent.jpeg'
             ],
             1 => [
-                'name' => 'Sandrine Lassalle',
+                'name' => 'sandrine',
                 'email' => 'sandrine@gmail.com',
                 'media' => 'sandrine.jpeg'
             ],
             2 => [
-                'name' => 'Aurelie Lassalle',
+                'name' => 'aurelie',
                 'email' => 'aurelie@gmail.com',
                 'media' => 'aurelie.jpeg'
             ]
@@ -179,7 +179,7 @@ class AppFixtures extends Fixture
                 ->setName($userData[$i]['name'])
                 ->setEmail($userData[$i]['email'])
                 ->setMedia($userData[$i]['media'])
-                ->setPassword('P@ssword123')
+                ->setPassword('$2y$13$pGH91S7PI0dAgdwundiFS.PcFjn06Sy9vrkJvcCg.y7cI1IjqN/K2')
                 ->setToken('token')
                 ->setIsRegistered(true)
                 ->setCreatedAt(new \DateTimeImmutable());
