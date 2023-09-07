@@ -13,12 +13,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity('email', message: 'L\'email que vous avez indiqué est déjà utilisé !')]
-#[UniqueEntity('name', message: 'Le nom que vous avez indiqué est déjà utilisé !')]
+#[UniqueEntity('username', message: 'Le nom que vous avez indiqué est déjà utilisé !')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-
-    #[Assert\EqualTo(propertyPath: 'password', message: 'Vous n\'avez pas tapez le même mot de passe.')]
-    public ?string $confirm_password = null;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -33,7 +30,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         maxMessage: 'Votre nom ne peut pas faire plus de {{ limit }} caractères.',
     )]
     #[Assert\NotNull(message: 'Vous devez entrez un nom')]
-    private ?string $name = null;
+    private ?string $username = null;
 
     #[ORM\Column(length: 255, unique: true)]
     #[Assert\Email(
@@ -42,7 +39,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotNull(message: 'Vous devez entrez un email')]
     private ?string $email = null;
 
-    #[ORM\Column(length: 80)]
+    #[ORM\Column(length: 255)]
     #[Assert\NotNull(message: 'Vous devez entrez une photo de profil')]
     private ?string $media = null;
 
@@ -55,7 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $token = null;
+    private ?string $hashToken = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt;
@@ -64,14 +61,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $comments;
 
     #[ORM\Column]
-    private ?bool $isRegistered;
+    private bool $active = false;
+
+    #[ORM\Column]
+    private ?int $expirationDate = null;
 
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
-        $this->isRegistered = false;
     }
 
 
@@ -81,16 +80,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    public function getName(): ?string
+    public function getUsername(): ?string
     {
-        return $this->name;
+        return $this->username;
     }
 
 
-    public function setName(string $name): static
+    public function setUsername(?string $username): User
     {
-        $this->name = $name;
-
+        $this->username = $username;
         return $this;
     }
 
@@ -123,16 +121,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    public function getToken(): ?string
+    public function getHashToken(): ?string
     {
-        return $this->token;
+        return $this->hashToken;
     }
 
 
-    public function setToken(string $token): static
+    public function setHashToken(?string $hashToken): User
     {
-        $this->token = $token;
-
+        $this->hashToken = $hashToken;
         return $this;
     }
 
@@ -184,16 +181,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    public function isIsRegistered(): ?bool
+    public function isActive(): bool
     {
-        return $this->isRegistered;
+        return $this->active;
     }
 
 
-    public function setIsRegistered(bool $isRegistered): static
+    public function setActive(bool $active): User
     {
-        $this->isRegistered = $isRegistered;
-
+        $this->active = $active;
         return $this;
     }
 
@@ -235,6 +231,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->email = $email;
 
+        return $this;
+    }
+
+
+    public function getExpirationDate(): ?int
+    {
+        return $this->expirationDate;
+    }
+
+
+    public function setExpirationDate(?int $expirationDate): User
+    {
+        $this->expirationDate = $expirationDate;
         return $this;
     }
 

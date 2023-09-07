@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Trick;
 use App\Form\TrickType;
+use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
 use App\Service\UploadPicture;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -59,13 +61,31 @@ class TrickController extends AbstractController
 
 
     #[Route('/trick-display/{slug}', name: 'app_trick_display')]
-    public function trickDisplay(TrickRepository $trickRepository, string $slug): Response
+    public function trickDisplay(TrickRepository $trickRepository, CommentRepository $commentRepository, string $slug): Response
     {
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
+        $comments = $commentRepository->findBy(['trick' => $trick], ["createdAt" => "DESC"], 4);
+        $totalComment = count($trick->getComments());
 
         return $this->render('trick_display/index.html.twig', [
             'trick' => $trick,
+            'totalComment' => $totalComment,
+            'comments' => $comments,
         ]);
+    }
+
+
+    #[Route('/load-comment', name: 'app_load_comment')]
+    public function loadMoreComment(CommentRepository $commentRepository, Request $request): Response
+    {
+        $json = json_decode($request->getContent(), true);
+        $offset = $json['offset'];
+        $limit = $json['limit'];
+        $trickId = $json['trickId'];
+        $comments = $commentRepository->findBy(['trick' => $trickId], null, $limit, $offset);
+        return new JsonResponse($this->renderView('trick_display/_comment_card.html.twig', [
+            'comments' => $comments,
+        ]), json: true);
     }
 
 

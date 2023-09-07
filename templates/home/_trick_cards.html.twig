@@ -3,7 +3,7 @@
         <div class="card trick-card" style="width: 18rem;">
             <a href="{{ path('app_trick_display', {'slug': trick.slug}) }}">
                 {% if trick.pictures is empty %}
-                    <img src="{{ asset('images/uploads/tricks/Default.png') }}" class="card-img-top"
+                    <img src="{{ asset('images/uploads/tricks/default.png') }}" class="card-img-top"
                          alt="Image d'un snowboard">
                 {% else %}
                     <img src="/images/uploads/tricks/{{ trick.pictures|first.fileName }}" class="card-img-top"
@@ -11,10 +11,10 @@
                 {% endif %}
             </a>
             <div class="card-body">
-                <div class="d-flex justify-content-between">
+                <div class="d-flex flex-column">
                     <h5 class="card-title">{{ trick.name }}</h5>
                     {% if app.user %}
-                        <div>
+                        <div class="d-flex justify-content-end">
                             <i class="bi bi-pen mx-3"></i>
                             <i class="bi bi-trash mx-3"></i>
                         </div>
