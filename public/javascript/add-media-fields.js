@@ -1,4 +1,4 @@
-function loadImg(img, idInput, index) {
+function loadImg(img, idInput) {
     let buttonAdd = document.querySelector('#add-picture');
     let input = document.getElementById(idInput);
     input.addEventListener("change", () => {
@@ -8,7 +8,7 @@ function loadImg(img, idInput, index) {
     });
 }
 
-function loadIframe(iframe, idInput, index) {
+function loadIframe(iframe, idInput) {
     let buttonAdd = document.querySelector('#add-video');
     let input = document.getElementById(idInput);
     input.addEventListener("change", () => {
@@ -51,7 +51,7 @@ function addFieldPicture() {
     let index = divPicture.querySelectorAll("fieldset").length;
     prototype = prototype.replace(/__name__/g, index);
     divPicture.insertAdjacentHTML("beforeend", prototype);
-    loadImg("img.img-" + index + "", "trick_pictures_" + index + "_file", index);
+    loadImg("img.img-" + index + "", "trick_pictures_" + index + "_file");
 }
 
 function addFieldVideo() {
@@ -60,7 +60,7 @@ function addFieldVideo() {
     let index = divVideo.querySelectorAll("fieldset").length;
     prototype = prototype.replace(/__name__/g, index);
     divVideo.insertAdjacentHTML("beforeend", prototype);
-    loadIframe("iframe.iframe-" + index + "", "trick_videos_" + index + "_url", index)
+    loadIframe("iframe.iframe-" + index + "", "trick_videos_" + index + "_url")
 }
 
 document.addEventListener('DOMContentLoaded', function () {

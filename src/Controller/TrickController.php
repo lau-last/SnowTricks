@@ -6,6 +6,7 @@ use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
+use App\Service\TrickEdit;
 use App\Service\UploadPicture;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,9 +22,7 @@ class TrickController extends AbstractController
     #[Route('/trick-creation', name: 'app_trick_creation')]
     public function trickCreation(
         Request                $request,
-        UploadPicture          $uploadPicture,
-        EntityManagerInterface $manager,
-        SluggerInterface       $slugger): Response
+        TrickEdit              $trickEdit): Response
     {
         $trick = new Trick();
 
@@ -32,22 +31,7 @@ class TrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $trick
-                ->setName($trick->getName())
-                ->setSlug($slugger->slug($trick->getName()))
-                ->setDescription($trick->getDescription())
-                ->setCategory($trick->getCategory());
-
-            foreach ($trick->getPictures() as $picture) {
-                $picture->setFileName($uploadPicture->upload($picture));
-                $picture->setAlt($picture->getAlt());
-            }
-            foreach ($trick->getVideos() as $video) {
-                $video->setUrl($video->getUrlEmbed());
-            }
-
-            $manager->persist($trick);
-            $manager->flush();
+            $trickEdit->edit($trick);
 
             $this->addFlash('success', 'Trick ajouté avec succès');
 
