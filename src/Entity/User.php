@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity('username', message: 'Le nom que vous avez indiqué est déjà utilisé !')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -51,7 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $token = null;
+    private ?string $hashToken = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt;
@@ -61,6 +62,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private bool $active = false;
+
+    #[ORM\Column]
+    private ?int $expirationDate = null;
+
 
     public function __construct()
     {
@@ -86,7 +91,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->username = $username;
         return $this;
     }
-
 
 
     public function getMedia(): ?string
@@ -117,15 +121,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    public function getToken(): ?string
+    public function getHashToken(): ?string
     {
-        return $this->token;
+        return $this->hashToken;
     }
 
 
-    public function setToken(?string $token): User
+    public function setHashToken(?string $hashToken): User
     {
-        $this->token = $token;
+        $this->hashToken = $hashToken;
         return $this;
     }
 
@@ -189,6 +193,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
     /**
      * @return string[]
      */
@@ -226,6 +231,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->email = $email;
 
+        return $this;
+    }
+
+
+    public function getExpirationDate(): ?int
+    {
+        return $this->expirationDate;
+    }
+
+
+    public function setExpirationDate(?int $expirationDate): User
+    {
+        $this->expirationDate = $expirationDate;
         return $this;
     }
 

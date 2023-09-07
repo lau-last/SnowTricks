@@ -26,15 +26,18 @@ class AppFixtures extends Fixture
 
         $categories = $manager->getRepository(Category::class)->findAll();
 
-        for ($i = 0; $i < 20; $i++) {
-            $trick = new \App\Entity\Trick();
-            $trick
-                ->setName($faker->unique()->name)
-                ->setSlug($faker->unique()->slug)
-                ->setDescription($faker->text())
-                ->setCategory($faker->randomElement($categories));
-            $manager->persist($trick);
+        for ($a = 0; $a < 2; $a++) {
+            for ($i = 0; $i < 20; $i++) {
+                $trick = new \App\Entity\Trick();
+                $trick
+                    ->setName($faker->unique()->name)
+                    ->setSlug($faker->unique()->slug)
+                    ->setDescription($faker->text())
+                    ->setCategory($faker->randomElement($categories));
+                $manager->persist($trick);
+            }
         }
+
         $manager->flush();
 
         $tricks = $manager->getRepository(Trick::class)->findAll();
@@ -45,7 +48,8 @@ class AppFixtures extends Fixture
             ->setEmail($faker->unique()->email)
             ->setMedia('default.png')
             ->setPassword('$2y$13$pGH91S7PI0dAgdwundiFS.PcFjn06Sy9vrkJvcCg.y7cI1IjqN/K2')
-            ->setActive(true);
+            ->setActive(true)
+            ->setExpirationDate(strtotime('now'));
         $manager->persist($user);
 
         $manager->flush();
