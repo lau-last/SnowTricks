@@ -31,7 +31,7 @@
                                  class="card-img-top"
                                  alt="{{ image.alt }}">
                             <div class="card-body">
-                                <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-end">
                                     {% if app.user %}
                                         <div>
                                             <i class="bi bi-pen mx-3"></i>
@@ -48,7 +48,6 @@
                         <div class="card trick-card" style="width: 18rem;">
                             <iframe src="{{ video.url }}"
                                     class="card-img-top"
-                                    title="YouTube video player"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     allowfullscreen></iframe>
                             <div class="card-body">
