@@ -3,7 +3,7 @@
         <div class="card trick-card" style="width: 18rem;">
             <a href="{{ path('app_trick_display', {'slug': trick.slug}) }}">
                 {% if trick.pictures is empty %}
-                    <img src="{{ asset('images/uploads/tricks/Default.png') }}" class="card-img-top"
+                    <img src="{{ asset('images/uploads/tricks/default.png') }}" class="card-img-top"
                          alt="Image d'un snowboard">
                 {% else %}
                     <img src="/images/uploads/tricks/{{ trick.pictures|first.fileName }}" class="card-img-top"

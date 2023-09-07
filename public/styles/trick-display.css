@@ -40,3 +40,13 @@
 #trick-display .carousel-trick::-webkit-scrollbar-track {
     background:#E2E3E5;
 }
+
+#trick-display img.image-profile{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+#trick-display .hidden {
+    display: none;
+}

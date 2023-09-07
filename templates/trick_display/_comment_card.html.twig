@@ -1,0 +1,16 @@
+{% for comment in comments %}
+    <div class="card card-comment-container">
+        <div class="card-header">
+            {{ comment.user.username }}
+            <strong>{{ comment.id }}</strong>
+            <strong>{{ comment.trick.id }}</strong>
+        </div>
+        <div class="card-body d-flex align-items-center">
+            <img src="/images/uploads/profiles/{{ comment.user.media }}" class="image-profile me-5" alt="">
+            <p class="card-text">{{ comment.content }}</p>
+        </div>
+        <div class="card-footer text-body-secondary">
+            Posted at {{ comment.createdAt.format('d/m/Y') }}
+        </div>
+    </div>
+{% endfor %}

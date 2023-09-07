@@ -27,8 +27,8 @@ class HomeController extends AbstractController
     }
 
 
-    #[Route('/load-trick', name: 'app_load')]
-    public function loadMore(TrickRepository $trickRepository, Request $request): Response
+    #[Route('/load-trick', name: 'app_load_trick')]
+    public function loadMoreTrick(TrickRepository $trickRepository, Request $request): Response
     {
         $json = json_decode($request->getContent(), true);
         $offset = $json['offset'];

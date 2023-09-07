@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="{{ asset('styles/trick-display.css') }}">
     {% endblock %}
     {% block javascripts %}
+        <script src="{{ asset('javascript/load-more-comment.js') }}"></script>
     {% endblock %}
 
 {% block body %}
@@ -13,7 +14,7 @@
         <div class="presentation-one-trick-container mx-auto my-5">
             <div class="presentation-one-trick position-relative">
                 {% if trick.pictures is empty %}
-                    <img src="{{ asset('images/uploads/tricks/Default.png') }}"
+                    <img src="{{ asset('images/uploads/tricks/default.png') }}"
                          class="card-img-top position-absolute image-presentation rounded"
                          alt="Image d'un snowboard">
                 {% else %}
@@ -75,9 +76,15 @@
                 <p><strong>Updated at : {{ trick.updatedAt.format('d/m/Y') }}</strong></p>
             {% endif %}
 
-            {% for comment in trick.comments %}
-                <p>{{ comment.content }}</p>
-            {% endfor %}
+            <div id="container-comment" data-all-comment="{{ totalComment }}" data-trick-id="{{ trick.id }}">
+                {% include 'trick_display/_comment_card.html.twig' %}
+            </div>
+
+
+            <div class="d-flex justify-content-center my-5">
+                <button type="button" id="load-more-comment" class="btn btn-success">Load More</button>
+                <p class="hidden" id="plus-de-comment">Plus de nouveau commentaire</p>
+            </div>
 
         </div>
 

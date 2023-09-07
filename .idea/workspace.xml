@@ -5,8 +5,58 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe9ea4d2-cae3-4089-ba45-8933b354becb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/uploads/tricks/default.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/javascript/load-more-comment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/trick_display/_comment_card.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/profiles/Capture-d-ecran-2023-07-03-114058-1e6c12ca97831680027337c3037b1c8c-64f8cf6a84a94.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/profiles/Capture-d-ecran-2023-07-03-114058-31e19f489dfb0f1e39def8606ec711e7-64f8cdc300cbb.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/profiles/Capture-d-ecran-2023-07-03-114058-31e19f489dfb0f1e39def8606ec711e7-64f8ce5ec9d41.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/profiles/Capture-d-ecran-2023-07-03-114058-64f99c1ba0119.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/profiles/Capture-d-ecran-2023-07-03-114058-64f99cb0d5051.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/profiles/Capture-d-ecran-2023-07-03-114058-64f99cdd4c123.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/profiles/Capture-d-ecran-2023-07-03-114058-6c6022cae4630cd43de619321fa18793.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/profiles/Capture-d-ecran-2023-07-03-114058-80a4951726367ce27d1a082470dc705b-2bb4a23e840281a6bde1d67d382435f1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/profiles/Capture-d-ecran-2023-07-03-114058-80a4951726367ce27d1a082470dc705b-f079cc43a5f894671e5c383b8ba79a49.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/profiles/Capture-d-ecran-2023-07-03-114058-8cbb3af87d9bf141ca9160555688f739.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/profiles/Capture-d-ecran-2023-08-10-122342-a8959088cbf48ad85d78b16b8d26c4d6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-0d961d185809b917f1265cc673bb6f05.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-1e6c12ca97831680027337c3037b1c8c.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-1f9be02d7742ca8652e0d9a48cf1aeec.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-201f52133a302e624fff392f7e739815.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-21c701d64974c0b07195b50c59e71fe1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-2e70cee5150651510a224acd8928cba5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-31e19f489dfb0f1e39def8606ec711e7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-3aad2753f81748a1c8f7f99fbbf8cddb.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-7395f8e749a27550213756066595dce6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-80a4951726367ce27d1a082470dc705b.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-87d9ff631bfa98d49c38d9650a30f4f2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-9301589ef1d95ea595d98db723b0f892.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-9c7164269b985adc9a44aec76d5c8abd.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-9db6aca0afa897a5856344dfeb011252.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-a0fc2d5e11fd58f0f1bd0ef9c560f6d4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-b55b87f1326ce1e7e52384749989336b.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-bdff337be70688797b7683069664de8a.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-d3a74cec11c9d86b9aee37f24c85e15c.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-d73853b3ece4a2e752568cf0736aae08.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-de557c05fa779b8336ae1a36b2dc1307.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-e2736b10d581aea99d6de7080d1698b9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-f45ca69346dbfc35f6cf045df7641cba.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-f899531b4bb06e2f928ca37415379986.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-03-114058-f9faf1434a5dd74f10f6c2dfcd3024a6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-07-124049-45fad2f4a1cd16d5e7127c8781355916.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-07-124049-aa9b67141a651f9ec2cfad213051ad44.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-07-12-122202-de0bdeeedee3cd6fdb45090a5ee60dcc.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-08-10-122342-59bc750193a5f0006e2ff31d548fcc0e.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-08-10-122342-ce653f1bafdf07eb9793bb98ff7c4bdf.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-08-10-122342-d7ead279e68499ffa37bb844137c5253.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Capture-d-ecran-2023-08-10-122342-efa40beacb4fa18b0fe448f83b1547dc.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/uploads/tricks/Default.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/uploads/profiles/default.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/styles/trick-display.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/styles/trick-display.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/TrickController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TrickController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/home/_trick_cards.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home/_trick_cards.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/trick_display/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trick_display/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,6 +223,7 @@
     "WebServerToolWindowFactoryState": "false",
     "com.jetbrains.php.lang.actions.generation.PhpGenerateFieldAccessorHandlerBase$MyMemberChooser.fluent.setters.last.selected": "true",
     "git-widget-placeholder": "refactor",
+    "last_opened_file_path": "C:/MAMP/htdocs/SnowTricks/public/javascript",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -181,6 +232,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\MAMP\htdocs\SnowTricks\public\javascript" />
+      <recent name="C:\MAMP\htdocs\SnowTricks\public\images\uploads\profiles" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -189,7 +246,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1694076796060</updated>
-      <workItem from="1694076797637" duration="7455000" />
+      <workItem from="1694076797637" duration="16466000" />
     </task>
     <servers />
   </component>
