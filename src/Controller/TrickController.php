@@ -2,8 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Trick;
+use App\Entity\TrickPicture;
+use App\Form\CommentType;
+use App\Form\TrickModificationType;
+use App\Form\TrickPictureModificationType;
 use App\Form\TrickType;
+use App\Form\TrickVideoModificationType;
 use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
 use App\Service\TrickEdit;
@@ -21,8 +27,8 @@ class TrickController extends AbstractController
 
     #[Route('/trick-creation', name: 'app_trick_creation')]
     public function trickCreation(
-        Request                $request,
-        TrickEdit              $trickEdit): Response
+        Request   $request,
+        TrickEdit $trickEdit): Response
     {
         $trick = new Trick();
 
@@ -45,16 +51,41 @@ class TrickController extends AbstractController
 
 
     #[Route('/trick-display/{slug}', name: 'app_trick_display')]
-    public function trickDisplay(TrickRepository $trickRepository, CommentRepository $commentRepository, string $slug): Response
+    public function trickDisplay(
+        TrickRepository        $trickRepository,
+        CommentRepository      $commentRepository,
+        string                 $slug,
+        Request                $request,
+        EntityManagerInterface $manager): Response
     {
+        $comment = new Comment();
+
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
         $comments = $commentRepository->findBy(['trick' => $trick], ["createdAt" => "DESC"], 4);
         $totalComment = count($trick->getComments());
+
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $comment
+                ->setTrick($trick)
+                ->setUser($this->getUser())
+                ->setContent($comment->getContent());
+
+            $manager->persist($comment);
+            $manager->flush();
+
+            return $this->redirectToRoute('app_trick_display', ['slug' => $slug]);
+        }
+
 
         return $this->render('trick_display/index.html.twig', [
             'trick' => $trick,
             'totalComment' => $totalComment,
             'comments' => $comments,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -70,6 +101,23 @@ class TrickController extends AbstractController
         return new JsonResponse($this->renderView('trick_display/_comment_card.html.twig', [
             'comments' => $comments,
         ]), json: true);
+    }
+
+
+    #[Route('/trick-modification/{slug}', name: 'app_trick_modification')]
+    public function trickModification(
+        TrickRepository $trickRepository,
+        string          $slug): Response
+    {
+
+        $trick = $trickRepository->findOneBy(['slug' => $slug]);
+
+        $form = $this->createForm(TrickType::class, $trick);
+
+        return $this->render('trick_modification/index.html.twig', [
+            'trick' => $trick,
+            'form' => $form->createView(),
+        ]);
     }
 
 

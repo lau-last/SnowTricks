@@ -16,11 +16,17 @@
                 {% if trick.pictures is empty %}
                     <img src="{{ asset('images/uploads/tricks/default.png') }}"
                          class="card-img-top position-absolute image-presentation rounded"
-                         alt="Image d'un snowboard">
+                         alt="Image d\'un snowboard">
                 {% else %}
                     <img src="/images/uploads/tricks/{{ trick.pictures|first.fileName }}"
                          class="card-img-top position-absolute image-presentation rounded"
                          alt="{{ trick.pictures|first.alt }}">
+                {% endif %}
+                {% if app.user %}
+                    <div class="d-flex justify-content-end">
+                        <a class="btn btn-primary me-2 z-index100" href="{{ path('app_trick_modification', {'slug' : trick.slug}) }}"><i class="bi bi-pen"></i></a>
+                        <a class="btn btn-danger z-index100" href="/"><i class="bi bi-trash"></i></a>
+                    </div>
                 {% endif %}
             </div>
 
@@ -31,16 +37,6 @@
                             <img src="/images/uploads/tricks/{{ image.fileName }}"
                                  class="card-img-top"
                                  alt="{{ image.alt }}">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-end">
-                                    {% if app.user %}
-                                        <div>
-                                            <i class="bi bi-pen mx-3"></i>
-                                            <i class="bi bi-trash mx-3"></i>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            </div>
                         </div>
                     </div>
                 {% endfor %}
@@ -51,16 +47,6 @@
                                     class="card-img-top"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     allowfullscreen></iframe>
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    {% if app.user %}
-                                        <div>
-                                            <i class="bi bi-pen mx-3"></i>
-                                            <i class="bi bi-trash mx-3"></i>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            </div>
                         </div>
                     </div>
                 {% endfor %}
@@ -75,6 +61,8 @@
             {% if trick.updatedAt is not null %}
                 <p><strong>Updated at : {{ trick.updatedAt.format('d/m/Y') }}</strong></p>
             {% endif %}
+
+            {{ form(form) }}
 
             <div id="container-comment" data-all-comment="{{ totalComment }}" data-trick-id="{{ trick.id }}">
                 {% include 'trick_display/_comment_card.html.twig' %}

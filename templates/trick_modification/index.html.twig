@@ -1,20 +1,100 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TrickModificationController!{% endblock %}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('styles/trick-modification.css') }}">
+    {% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('javascript/show-picture.js') }}"></script>
+        <script src="{{ asset('javascript/show-video.js') }}"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                loadImg('#pic-to-change_0', 'trick_pictures_0_file');
+                loadIframe('')
+            })
+        </script>
+    {% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div id="trick-modification">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/MAMP/htdocs/SnowTricks/src/Controller/TrickModificationController.php'|file_link(0) }}">src/Controller/TrickModificationController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/MAMP/htdocs/SnowTricks/templates/trick_modification/index.html.twig'|file_link(0) }}">templates/trick_modification/index.html.twig</a></code></li>
-    </ul>
-</div>
+        <div class="presentation-one-trick-container mx-auto my-5">
+            {{ form_start(form) }}
+            {{ form_row(form.name) }}
+            <div class="presentation-one-trick position-relative">
+                {% if trick.pictures is empty %}
+                    <img src="{{ asset('images/uploads/tricks/default.png') }}"
+                         class="card-img-top position-absolute image-presentation rounded"
+                         alt="Image d'un snowboard">
+                {% else %}
+                    <img src="/images/uploads/tricks/{{ trick.pictures|first.fileName }}"
+                         class="card-img-top position-absolute image-presentation rounded"
+                         alt="{{ trick.pictures|first.alt }}">
+                {% endif %}
+            </div>
+
+            <div class="d-flex overflow-x-scroll carousel-trick my-5" id="carousel-trick">
+                {% for pictureType in form.pictures %}
+                    <div class="trick-card-container m-4">
+                        <div class="card trick-card" style="width: 18rem;">
+                            <img id="pic-to-change_{{ loop.index }}" src="/images/uploads/tricks/{{ pictureType.vars.value.fileName }}"
+                                 class="card-img-top"
+                                 alt="{{ pictureType.vars.value.alt }}">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-end">
+                                    <a class="btn btn-primary me-2" data-bs-toggle="collapse"
+                                       data-bs-target="#collapsePicture{{ loop.index }}" aria-expanded="false"><i
+                                                class="bi bi-pen"></i></a>
+                                    <a class="btn btn-danger" href="/"><i class="bi bi-trash"></i></a>
+                                </div>
+                                <div id="collapsePicture{{ loop.index }}" class="collapse">
+                                    <div class="mt-2">
+                                        {{ form_label(pictureType.file) }}
+                                        {{ form_widget(pictureType.file) }}
+                                    </div>
+                                    <div class="mt-2">
+                                        {{ form_label(pictureType.alt) }}
+                                        {{ form_widget(pictureType.alt) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                {% for videoType in form.videos %}
+                    <div class="trick-card-container m-4">
+                        <div class="card trick-card" style="width: 18rem;">
+                            <iframe src="{{ videoType.vars.value.url }}"
+                                    class="card-img-top"
+                                    id="#pic-to-change_0 "
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-end">
+                                    <a class="btn btn-primary me-2" data-bs-toggle="collapse"
+                                       data-bs-target="#collapseVideo{{ loop.index }}" aria-expanded="false"><i
+                                                class="bi bi-pen"></i></a>
+                                    <a class="btn btn-danger" href="/"><i class="bi bi-trash"></i></a>
+                                </div>
+                                <div id="collapseVideo{{ loop.index }}" class="collapse">
+                                    <div class="mt-2">
+                                        {{ form_label(videoType.url) }}
+                                        {{ form_widget(videoType.url) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <p><strong>Created at : {{ trick.createdAt.format('d/m/Y') }}</strong></p>
+            {% if trick.updatedAt is not null %}
+                <p><strong>Updated at : {{ trick.updatedAt.format('d/m/Y') }}</strong></p>
+            {% endif %}
+            {{ form_end(form) }}
+        </div>
+
+    </div>
 {% endblock %}

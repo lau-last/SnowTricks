@@ -1,0 +1,60 @@
+#trick-modification .presentation-one-trick-container {
+    width: 80%;
+}
+
+#trick-modification .presentation-one-trick {
+    height: 500px;
+}
+
+#trick-modification .presentation-one-trick img.image-presentation {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#trick-modification .trick-card img {
+    object-fit: cover;
+    max-width: 18rem;
+    height: 10rem;
+}
+
+#trick-modification .trick-card iframe {
+    object-fit: cover;
+    max-width: 18rem;
+    height: 10rem;
+}
+
+#trick-modification .carousel-trick::-webkit-scrollbar {
+    height: 10px;
+}
+
+#trick-modification .carousel-trick::-webkit-scrollbar-thumb,
+#trick-modification .carousel-trick::-webkit-scrollbar-track {
+    border-radius: 100px;
+}
+
+#trick-modification .carousel-trick::-webkit-scrollbar-thumb {
+    background: #424750;
+}
+
+#trick-modification .carousel-trick::-webkit-scrollbar-track {
+    background:#E2E3E5;
+}
+
+#trick-modification img.image-profile{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+#trick-modification .hidden {
+    display: none;
+}
+
+#trick-modification .trick-picture-button {
+    transform: translateY(40px);
+}
+
+#trick-modification .z-index100 {
+    z-index: 100;
+}
