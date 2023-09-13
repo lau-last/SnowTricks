@@ -16,7 +16,10 @@ class TrickPictureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('file', FileType::class, ['required' => true,])
+            ->add('file', FileType::class, [
+                'required' => true,
+                'attr' => ['class' => 'picture-fields'],
+            ])
             ->add('alt', TextType::class, ['required' => true,]);
     }
 

@@ -58,3 +58,17 @@
 #trick-modification .z-index100 {
     z-index: 100;
 }
+
+#trick-modification fieldset img{
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+    background: grey;
+}
+
+#trick-modification fieldset iframe{
+    height: 150px;
+    width: 250px;
+    object-fit: cover;
+    background: grey;
+}

@@ -1,4 +1,4 @@
-function loadImg(img, idInput){
+function editPicture(img, idInput){
    let image = document.querySelector(img);
    let input = document.getElementById(idInput);
    input.addEventListener("change", () => {

@@ -5,6 +5,31 @@
  {% endblock %}
     {% block javascripts %}
         <script src="{{ asset('javascript/add-media-fields.js') }}"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                let buttonAddPicture = document.querySelector('#add-picture');
+                let buttonAddVideo = document.querySelector('#add-video');
+
+                buttonAddPicture.addEventListener("click", function () {
+                    buttonAddPicture.disabled = true;
+                    let divPicture = document.querySelector('#pictures');
+                    let index = divPicture.querySelectorAll("fieldset").length;
+                    addFieldPicture();
+                    createFrame('#trick_pictures_', index, "img", "rounded img-");
+                    createButtonSupp('#trick_pictures_', index, "Supp picture", "#add-picture");
+                });
+
+                buttonAddVideo.addEventListener("click", function () {
+                    buttonAddVideo.disabled = true;
+                    let divVideo = document.querySelector('#videos');
+                    let index = divVideo.querySelectorAll("fieldset").length;
+                    addFieldVideo();
+                    createFrame('#trick_videos_', index, "iframe", "rounded iframe-");
+                    createButtonSupp('#trick_videos_', index, "Supp video", "#add-video");
+                });
+
+            });
+        </script>
     {% endblock %}
 {% block body %}
     <h1 class="text-center my-5">trick creation</h1>

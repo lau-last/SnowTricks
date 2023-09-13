@@ -1,4 +1,4 @@
-function loadIframe(iframe, idInput) {
+function editIframe(iframe, idInput) {
    let input = document.getElementById(idInput);
    input.addEventListener("change", () => {
       let frame = document.querySelector(iframe);

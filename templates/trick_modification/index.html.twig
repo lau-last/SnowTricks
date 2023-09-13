@@ -4,13 +4,40 @@
         <link rel="stylesheet" href="{{ asset('styles/trick-modification.css') }}">
     {% endblock %}
     {% block javascripts %}
+        <script src="{{ asset('javascript/add-media-fields.js') }}"></script>
         <script src="{{ asset('javascript/show-picture.js') }}"></script>
         <script src="{{ asset('javascript/show-video.js') }}"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-                loadImg('#pic-to-change_0', 'trick_pictures_0_file');
-                loadIframe('')
-            })
+                let buttonAddPicture = document.querySelector('#add-picture');
+                let buttonAddVideo = document.querySelector('#add-video');
+                let picture = document.getElementsByClassName("pic-to-change");
+
+                let video = document.getElementsByClassName("video-to-change");
+
+                buttonAddPicture.addEventListener("click", function () {
+                    buttonAddPicture.disabled = true;
+                    let index = document.querySelectorAll(".picture-fields").length;
+                    addFieldPicture();
+                    createFrame('#trick_pictures_', index, "img", "rounded img-");
+                    createButtonSupp('#trick_pictures_', index, "Supp picture", "#add-picture");
+                });
+
+                buttonAddVideo.addEventListener("click", function () {
+                    buttonAddVideo.disabled = true;
+                    let index = document.querySelectorAll(".video-fields").length;
+                    addFieldVideo();
+                    createFrame('#trick_videos_', index, "iframe", "rounded iframe-");
+                    createButtonSupp('#trick_videos_', index, "Supp video", "#add-video");
+                });
+
+                for (let i = 0; i < picture.length; i++) {
+                    editPicture('img#pic-to-change_' + (i + 1) + '', 'trick_pictures_' + i + '_file');
+                }
+                for (let j = 0; j < video.length; j++) {
+                    editIframe('iframe#video-to-change_' + (j + 1) + '', 'trick_videos_' + j + '_url');
+                }
+            });
         </script>
     {% endblock %}
 
@@ -37,8 +64,9 @@
                 {% for pictureType in form.pictures %}
                     <div class="trick-card-container m-4">
                         <div class="card trick-card" style="width: 18rem;">
-                            <img id="pic-to-change_{{ loop.index }}" src="/images/uploads/tricks/{{ pictureType.vars.value.fileName }}"
-                                 class="card-img-top"
+                            <img id="pic-to-change_{{ loop.index }}"
+                                 src="/images/uploads/tricks/{{ pictureType.vars.value.fileName }}"
+                                 class="card-img-top pic-to-change"
                                  alt="{{ pictureType.vars.value.alt }}">
                             <div class="card-body">
                                 <div class="d-flex justify-content-end">
@@ -66,8 +94,8 @@
                     <div class="trick-card-container m-4">
                         <div class="card trick-card" style="width: 18rem;">
                             <iframe src="{{ videoType.vars.value.url }}"
-                                    class="card-img-top"
-                                    id="#pic-to-change_0 "
+                                    class="card-img-top video-to-change"
+                                    id="video-to-change_{{ loop.index }}"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     allowfullscreen></iframe>
                             <div class="card-body">
@@ -93,6 +121,11 @@
             {% if trick.updatedAt is not null %}
                 <p><strong>Updated at : {{ trick.updatedAt.format('d/m/Y') }}</strong></p>
             {% endif %}
+            <div id="pictures" data-prototype="{{ form_row(form.pictures.vars.prototype)|e('html_attr') }}"></div>
+            <button type="button" id="add-picture" class="btn btn-success">Add picture</button>
+            <hr>
+            <div id="videos" data-prototype="{{ form_row(form.videos.vars.prototype)|e('html_attr') }}"></div>
+            <button type="button" id="add-video" class="btn btn-success">Add video</button>
             {{ form_end(form) }}
         </div>
 
