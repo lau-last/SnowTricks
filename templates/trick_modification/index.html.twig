@@ -12,6 +12,7 @@
                 let buttonAddPicture = document.querySelector('#add-picture');
                 let buttonAddVideo = document.querySelector('#add-video');
                 let picture = document.getElementsByClassName("pic-to-change");
+
                 let video = document.getElementsByClassName("video-to-change");
 
                 buttonAddPicture.addEventListener("click", function () {
@@ -92,7 +93,7 @@
                 {% for videoType in form.videos %}
                     <div class="trick-card-container m-4">
                         <div class="card trick-card" style="width: 18rem;">
-                            <iframe src="{{ videoType.vars.value.urlEmbed }}"
+                            <iframe src="{{ videoType.vars.value.url }}"
                                     class="card-img-top video-to-change"
                                     id="video-to-change_{{ loop.index }}"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

@@ -43,7 +43,7 @@
                 {% for video in trick.videos %}
                     <div class="trick-card-container m-4">
                         <div class="card trick-card" style="width: 18rem;">
-                            <iframe src="{{ video.urlEmbed }}"
+                            <iframe src="{{ video.url }}"
                                     class="card-img-top"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     allowfullscreen></iframe>
@@ -52,7 +52,10 @@
                 {% endfor %}
             </div>
 
-            <p>{{ trick.description }}</p>
+            <p>{{ trick.description }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur cupiditate,
+                ea enim esse iste iusto magni, maiores odit quibusdam quidem quos soluta, voluptatem! Ab, aliquam
+                asperiores, blanditiis consectetur cumque dicta distinctio dolor doloremque, eos eum harum illum ipsam
+                iure magni minima molestias non obcaecati pariatur quasi repudiandae sunt unde voluptates.</p>
 
             <p><strong>Created at : {{ trick.createdAt.format('d/m/Y') }}</strong></p>
             {% if trick.updatedAt is not null %}
