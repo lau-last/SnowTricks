@@ -15,8 +15,11 @@
                     <h5 class="card-title">{{ trick.name }}</h5>
                     {% if app.user %}
                         <div class="d-flex justify-content-end">
-                            <i class="bi bi-pen mx-3"></i>
-                            <i class="bi bi-trash mx-3"></i>
+                            <a class="btn btn-primary me-2"
+                               href="{{ path('app_trick_modification', {'slug' : trick.slug}) }}">
+                                <i class="bi bi-pen"></i>
+                            </a>
+                            <a class="btn btn-danger" href="/"><i class="bi bi-trash"></i></a>
                         </div>
                     {% endif %}
                 </div>

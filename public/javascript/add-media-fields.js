@@ -48,7 +48,7 @@ function createButtonSupp(selector, index, text, buttonSelector) {
 function addFieldPicture() {
     let divPicture = document.querySelector('#pictures');
     let prototype = divPicture.dataset.prototype;
-    let index = divPicture.querySelectorAll("fieldset").length;
+    let index = document.querySelectorAll(".picture-fields").length;
     prototype = prototype.replace(/__name__/g, index);
     divPicture.insertAdjacentHTML("beforeend", prototype);
     loadImg("img.img-" + index + "", "trick_pictures_" + index + "_file");
@@ -57,32 +57,9 @@ function addFieldPicture() {
 function addFieldVideo() {
     let divVideo = document.querySelector('#videos');
     let prototype = divVideo.dataset.prototype;
-    let index = divVideo.querySelectorAll("fieldset").length;
+    let index = document.querySelectorAll(".video-fields").length;
     prototype = prototype.replace(/__name__/g, index);
     divVideo.insertAdjacentHTML("beforeend", prototype);
     loadIframe("iframe.iframe-" + index + "", "trick_videos_" + index + "_url")
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    let buttonAddPicture = document.querySelector('#add-picture');
-    let buttonAddVideo = document.querySelector('#add-video');
-
-    buttonAddPicture.addEventListener("click", function () {
-        buttonAddPicture.disabled = true;
-        let divPicture = document.querySelector('#pictures');
-        let index = divPicture.querySelectorAll("fieldset").length;
-        addFieldPicture();
-        createFrame('#trick_pictures_', index, "img", "rounded img-");
-        createButtonSupp('#trick_pictures_', index, "Supp picture", "#add-picture");
-    });
-
-    buttonAddVideo.addEventListener("click", function () {
-        buttonAddVideo.disabled = true;
-        let divVideo = document.querySelector('#videos');
-        let index = divVideo.querySelectorAll("fieldset").length;
-        addFieldVideo();
-        createFrame('#trick_videos_', index, "iframe", "rounded iframe-");
-        createButtonSupp('#trick_videos_', index, "Supp video", "#add-video");
-    });
-
-});

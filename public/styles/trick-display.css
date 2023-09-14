@@ -50,3 +50,11 @@
 #trick-display .hidden {
     display: none;
 }
+
+#trick-display .trick-picture-button {
+    transform: translateY(40px);
+}
+
+#trick-display .z-index100 {
+    z-index: 100;
+}

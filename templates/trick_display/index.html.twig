@@ -16,11 +16,17 @@
                 {% if trick.pictures is empty %}
                     <img src="{{ asset('images/uploads/tricks/default.png') }}"
                          class="card-img-top position-absolute image-presentation rounded"
-                         alt="Image d'un snowboard">
+                         alt="Image d\'un snowboard">
                 {% else %}
                     <img src="/images/uploads/tricks/{{ trick.pictures|first.fileName }}"
                          class="card-img-top position-absolute image-presentation rounded"
                          alt="{{ trick.pictures|first.alt }}">
+                {% endif %}
+                {% if app.user %}
+                    <div class="d-flex justify-content-end">
+                        <a class="btn btn-primary me-2 z-index100" href="{{ path('app_trick_modification', {'slug' : trick.slug}) }}"><i class="bi bi-pen"></i></a>
+                        <a class="btn btn-danger z-index100" href="/"><i class="bi bi-trash"></i></a>
+                    </div>
                 {% endif %}
             </div>
 
@@ -31,50 +37,29 @@
                             <img src="/images/uploads/tricks/{{ image.fileName }}"
                                  class="card-img-top"
                                  alt="{{ image.alt }}">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-end">
-                                    {% if app.user %}
-                                        <div>
-                                            <i class="bi bi-pen mx-3"></i>
-                                            <i class="bi bi-trash mx-3"></i>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            </div>
                         </div>
                     </div>
                 {% endfor %}
                 {% for video in trick.videos %}
                     <div class="trick-card-container m-4">
                         <div class="card trick-card" style="width: 18rem;">
-                            <iframe src="{{ video.url }}"
+                            <iframe src="{{ video.urlEmbed }}"
                                     class="card-img-top"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     allowfullscreen></iframe>
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    {% if app.user %}
-                                        <div>
-                                            <i class="bi bi-pen mx-3"></i>
-                                            <i class="bi bi-trash mx-3"></i>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            </div>
                         </div>
                     </div>
                 {% endfor %}
             </div>
 
-            <p>{{ trick.description }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur cupiditate,
-                ea enim esse iste iusto magni, maiores odit quibusdam quidem quos soluta, voluptatem! Ab, aliquam
-                asperiores, blanditiis consectetur cumque dicta distinctio dolor doloremque, eos eum harum illum ipsam
-                iure magni minima molestias non obcaecati pariatur quasi repudiandae sunt unde voluptates.</p>
+            <p>{{ trick.description }}</p>
 
             <p><strong>Created at : {{ trick.createdAt.format('d/m/Y') }}</strong></p>
             {% if trick.updatedAt is not null %}
                 <p><strong>Updated at : {{ trick.updatedAt.format('d/m/Y') }}</strong></p>
             {% endif %}
+
+            {{ form(form) }}
 
             <div id="container-comment" data-all-comment="{{ totalComment }}" data-trick-id="{{ trick.id }}">
                 {% include 'trick_display/_comment_card.html.twig' %}
