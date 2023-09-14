@@ -33,11 +33,16 @@ class TrickEdit
             ->setCategory($trick->getCategory());
 
         foreach ($trick->getPictures() as $picture) {
-            $picture->setFileName($this->uploadPicture->upload($picture));
+
+            if ($picture->getFile() === null) {
+                $picture->setFileName($picture->getFileName());
+            } else {
+                $picture->setFileName($this->uploadPicture->upload($picture));
+            }
             $picture->setAlt($picture->getAlt());
         }
         foreach ($trick->getVideos() as $video) {
-            $video->setUrl($video->getUrlEmbed());
+            $video->setUrl($video->getUrl());
         }
         $this->manager->persist($trick);
         $this->manager->flush();

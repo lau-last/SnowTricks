@@ -36,7 +36,7 @@ class TrickPicture implements UploadEntityInterface
         extensions: ['jpg', 'jpeg', 'png', 'webp'],
         extensionsMessage: 'Mauvais format d\'image. Format acceptés : jpg, jpeg, png, webp.',
     )]
-    #[Assert\NotNull(message: 'Vous devez entrez une photo')]
+//    #[Assert\NotNull(message: 'Vous devez entrez une photo')]
     private ?UploadedFile $file = null;
 
 

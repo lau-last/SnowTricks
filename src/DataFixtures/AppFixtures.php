@@ -85,7 +85,7 @@ class AppFixtures extends Fixture
             for ($i = 0; $i < 20; $i++) {
                 $video = new \App\Entity\TrickVideo();
                 $video
-                    ->setUrl('https://www.dailymotion.com/embed/video/xxxu60')
+                    ->setUrl('https://www.dailymotion.com/video/xxxu60')
                     ->setTrick($faker->randomElement($tricks));
                 $manager->persist($video);
             }

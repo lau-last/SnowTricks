@@ -107,12 +107,24 @@ class TrickController extends AbstractController
     #[Route('/trick-modification/{slug}', name: 'app_trick_modification')]
     public function trickModification(
         TrickRepository $trickRepository,
-        string          $slug): Response
+        string          $slug,
+        Request         $request,
+        TrickEdit       $trickEdit): Response
     {
 
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
 
         $form = $this->createForm(TrickType::class, $trick);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $trickEdit->edit($trick);
+
+            $this->addFlash('success', 'Trick ajouté avec succès');
+
+            return $this->redirectToRoute('app_home');
+        }
 
         return $this->render('trick_modification/index.html.twig', [
             'trick' => $trick,
