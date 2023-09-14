@@ -24,13 +24,17 @@ class TrickEdit
     }
 
 
-    public function edit(Trick $trick): void
+    public function edit(Trick $trick, bool $option = false): void
     {
         $trick
             ->setName($trick->getName())
             ->setSlug($this->slugger->slug($trick->getName()))
             ->setDescription($trick->getDescription())
             ->setCategory($trick->getCategory());
+
+        if($option === true){
+            $trick->setUpdatedAt(new \DateTime());
+        }
 
         foreach ($trick->getPictures() as $picture) {
 
@@ -44,9 +48,11 @@ class TrickEdit
         foreach ($trick->getVideos() as $video) {
             $video->setUrl($video->getUrl());
         }
+
         $this->manager->persist($trick);
         $this->manager->flush();
     }
+
 
 
 }

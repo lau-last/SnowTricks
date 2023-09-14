@@ -20,7 +20,7 @@
                                 <i class="bi bi-pen"></i>
                             </a>
                             <a class="btn btn-danger"
-                               onclick="confirm('Vous êtes sur le point de supprimer deffinitivement le trick {{ trick.name }}. Voulez-vous vraiment continuer ?')"
+                               onclick="return confirm('Vous êtes sur le point de supprimer deffinitivement le trick {{ trick.name }}. Voulez-vous vraiment continuer ?')"
                                href="{{ path('app_trick_delete', {'slug':trick.slug}) }}">
                                 <i class="bi bi-trash"></i>
                             </a>
