@@ -30,6 +30,36 @@
 }
 
 #home .hidden {
-   display: none;
+    display: none;
 }
+
+#home #modal {
+    visibility: hidden;
+    opacity: 0;
+    background: rgba(255, 255, 255, 0.5);
+    z-index: 1000;
+    width: 50vw;
+    height: 50vh;
+    backdrop-filter: blur(1rem);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 0.3s ease;
+}
+
+#home #modal .modal-close {
+    position: absolute;
+    right: 5rem;
+}
+
+#home #modal .content{
+
+}
+
+#home #modal:target {
+   visibility: visible;
+    opacity: 1;
+}
+
+
 

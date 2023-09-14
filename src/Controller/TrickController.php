@@ -133,4 +133,39 @@ class TrickController extends AbstractController
     }
 
 
+    #[Route('/trick-delete/{slug}', name: 'app_trick_delete')]
+    public function trickDelete(
+        TrickRepository        $trickRepository,
+        string                 $slug,
+        EntityManagerInterface $manager): Response
+    {
+        $trick = $trickRepository->findOneBy(['slug' => $slug]);
+        $manager->remove($trick);
+        $manager->flush();
+        $this->addFlash('success', 'Trick supprimé avec succès');
+        return $this->redirectToRoute('app_home');
+    }
+
+
+    #[Route('/trick-delete-picture/{slug}/{id}', name: 'app_trick_delete_picture')]
+    public function trickPictureDelete(
+        TrickRepository        $trickRepository,
+        string                 $slug,
+        int                    $id,
+        EntityManagerInterface $manager): Response
+    {
+        $trick = $trickRepository->findOneBy(['slug' => $slug]);
+        $picture = $manager->getRepository(TrickPicture::class);
+        $pictureId = $picture->find($id);
+        $trick->removePicture($pictureId);
+
+        $manager->remove($trick);
+        $manager->flush();
+
+        $this->addFlash('success', 'Photo supprimé avec succès');
+
+        return $this->redirectToRoute('app_home');
+    }
+
+
 }
