@@ -25,13 +25,17 @@
                 {% if app.user %}
                     <div class="d-flex justify-content-end">
                         <a class="btn btn-primary me-2 z-index100" href="{{ path('app_trick_modification', {'slug' : trick.slug}) }}"><i class="bi bi-pen"></i></a>
-                        <a class="btn btn-danger z-index100" href="/"><i class="bi bi-trash"></i></a>
+                        <a class="btn btn-danger z-index100"
+                           onclick="return confirm('Vous êtes sur le point de supprimer deffinitivement le trick {{ trick.name }}. Voulez-vous vraiment continuer ?')"
+                           href="{{ path('app_trick_delete', {'slug':trick.slug}) }}">
+                            <i class="bi bi-trash"></i>
+                        </a>
                     </div>
                 {% endif %}
             </div>
 
             <div class="d-flex overflow-x-scroll carousel-trick my-5" id="carousel-trick">
-                {% for image in trick.pictures %}
+                {% for image in trick.pictures[1:] %}
                     <div class="trick-card-container m-4">
                         <div class="card trick-card" style="width: 18rem;">
                             <img src="/images/uploads/tricks/{{ image.fileName }}"

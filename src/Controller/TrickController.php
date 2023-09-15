@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Trick;
 use App\Entity\TrickPicture;
+use App\Entity\TrickVideo;
 use App\Form\CommentType;
 use App\Form\TrickModificationType;
 use App\Form\TrickPictureModificationType;
@@ -119,9 +120,9 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $trickEdit->edit($trick);
+            $trickEdit->edit($trick, true);
 
-            $this->addFlash('success', 'Trick ajouté avec succès');
+            $this->addFlash('success', 'Trick modifié avec succès');
 
             return $this->redirectToRoute('app_home');
         }
@@ -130,6 +131,64 @@ class TrickController extends AbstractController
             'trick' => $trick,
             'form' => $form->createView(),
         ]);
+    }
+
+
+    #[Route('/trick-delete/{slug}', name: 'app_trick_delete')]
+    public function trickDelete(
+        TrickRepository        $trickRepository,
+        string                 $slug,
+        EntityManagerInterface $manager): Response
+    {
+        $trick = $trickRepository->findOneBy(['slug' => $slug]);
+        $manager->remove($trick);
+        $manager->flush();
+        $this->addFlash('success', 'Trick supprimé avec succès');
+        return $this->redirectToRoute('app_home');
+    }
+
+
+    #[Route('/trick-delete-picture/{slug}/{id}', name: 'app_trick_delete_picture')]
+    public function trickPictureDelete(
+        TrickRepository        $trickRepository,
+        string                 $slug,
+        int                    $id,
+        EntityManagerInterface $manager): Response
+    {
+        $trick = $trickRepository->findOneBy(['slug' => $slug]);
+        $picture = $manager->getRepository(TrickPicture::class);
+        $pictureId = $picture->find($id);
+        $trick
+            ->removePicture($pictureId)
+            ->setUpdatedAt(new \DateTime());
+
+        $manager->flush();
+
+        $this->addFlash('success', 'Photo supprimé avec succès');
+
+        return $this->redirectToRoute('app_home');
+    }
+
+    #[Route('/trick-delete-video/{slug}/{id}', name: 'app_trick_delete_video')]
+    public function trickVideoDelete(
+        TrickRepository        $trickRepository,
+        string                 $slug,
+        int                    $id,
+        EntityManagerInterface $manager): Response
+    {
+        $trick = $trickRepository->findOneBy(['slug' => $slug]);
+        $video = $manager->getRepository(TrickVideo::class);
+        $videoId = $video->find($id);
+        $trick
+            ->removeVideo($videoId)
+            ->setUpdatedAt(new \DateTime());
+
+        $manager->flush();
+
+        $this->addFlash('success', 'Video supprimé avec succès');
+
+        return $this->redirectToRoute('app_home');
+        // end
     }
 
 
