@@ -27,7 +27,7 @@ class TrickVideo
     private ?string $url = null;
 
     #[ORM\ManyToOne(inversedBy: 'videos')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'cascade')]
     private ?Trick $trick = null;
 
 

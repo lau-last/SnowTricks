@@ -158,16 +158,26 @@ class TrickController extends AbstractController
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
         $picture = $manager->getRepository(TrickPicture::class);
         $pictureId = $picture->find($id);
-        $trick
-            ->removePicture($pictureId)
-            ->setUpdatedAt(new \DateTime());
+        $trick->setUpdatedAt(new \DateTime());
+        $isFirst = false;
 
+        if ($pictureId->isFirstPicture()) {
+            $isFirst = true;
+        }
+        $manager->remove($pictureId);
+        $manager->flush();
+
+        if ($isFirst){
+            $trick->getPictures()->get(0)->setFirstPicture(true);
+        }
+        $manager->persist($trick);
         $manager->flush();
 
         $this->addFlash('success', 'Photo supprimé avec succès');
 
         return $this->redirectToRoute('app_home');
     }
+
 
     #[Route('/trick-delete-video/{slug}/{id}', name: 'app_trick_delete_video')]
     public function trickVideoDelete(
@@ -188,7 +198,33 @@ class TrickController extends AbstractController
         $this->addFlash('success', 'Video supprimé avec succès');
 
         return $this->redirectToRoute('app_home');
-        // end
+
+    }
+
+
+    #[Route('/trick-picture-first/{slug}/{id}', name: 'app_trick_picture_first')]
+    public function trickPictureFirst(
+        TrickRepository        $trickRepository,
+        string                 $slug,
+        int                    $id,
+        EntityManagerInterface $manager): Response
+    {
+        $trick = $trickRepository->findOneBy(['slug' => $slug]);
+        $pictures = $trick->getPictures();
+        foreach ($pictures as $picture) {
+            $picture->setFirstPicture(false);
+        }
+        $picture = $manager->getRepository(TrickPicture::class);
+        $pictureId = $picture->find($id);
+        $pictureId->setFirstPicture(true);
+        $trick->setUpdatedAt(new \DateTime());
+
+        $manager->persist($trick);
+        $manager->flush();
+
+        $this->addFlash('success', 'Photo mis en premier plan avec succès');
+
+        return $this->redirectToRoute('app_home');
     }
 
 

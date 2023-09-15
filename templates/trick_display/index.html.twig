@@ -18,9 +18,13 @@
                          class="card-img-top position-absolute image-presentation rounded"
                          alt="Image d\'un snowboard">
                 {% else %}
-                    <img src="/images/uploads/tricks/{{ trick.pictures|first.fileName }}"
-                         class="card-img-top position-absolute image-presentation rounded"
-                         alt="{{ trick.pictures|first.alt }}">
+                    {% for picture in trick.pictures %}
+                        {% if picture.firstPicture %}
+                            <img src="/images/uploads/tricks/{{ picture.fileName }}"
+                                 class="card-img-top position-absolute image-presentation rounded"
+                                 alt="{{ picture.alt }}">
+                        {% endif %}
+                    {% endfor %}
                 {% endif %}
                 {% if app.user %}
                     <div class="d-flex justify-content-end">
@@ -35,7 +39,7 @@
             </div>
 
             <div class="d-flex overflow-x-scroll carousel-trick my-5" id="carousel-trick">
-                {% for image in trick.pictures[1:] %}
+                {% for image in trick.pictures %}
                     <div class="trick-card-container m-4">
                         <div class="card trick-card" style="width: 18rem;">
                             <img src="/images/uploads/tricks/{{ image.fileName }}"

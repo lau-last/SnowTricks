@@ -26,8 +26,11 @@ class TrickPicture implements UploadEntityInterface
     #[Assert\NotNull(message: 'Vous devez décrire la photo')]
     private ?string $alt = null;
 
+    #[ORM\Column]
+    private bool $firstPicture = false;
+
     #[ORM\ManyToOne(inversedBy: 'pictures')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'cascade')]
     private ?Trick $trick = null;
 
     #[Assert\File(
@@ -107,6 +110,19 @@ class TrickPicture implements UploadEntityInterface
         if ($file instanceof UploadedFile) {
             $this->setFileName($file->getClientOriginalName());
         }
+        return $this;
+    }
+
+
+    public function isFirstPicture(): bool
+    {
+        return $this->firstPicture;
+    }
+
+
+    public function setFirstPicture(bool $firstPicture): self
+    {
+        $this->firstPicture = $firstPicture;
         return $this;
     }
 

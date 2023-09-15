@@ -6,8 +6,12 @@
                     <img src="{{ asset('images/uploads/tricks/default.png') }}" class="card-img-top"
                          alt="Image d'un snowboard">
                 {% else %}
-                    <img src="/images/uploads/tricks/{{ trick.pictures|first.fileName }}" class="card-img-top"
-                         alt="{{ trick.pictures|first.alt }}">
+                    {% for picture in trick.pictures %}
+                        {% if picture.firstPicture %}
+                        <img src="/images/uploads/tricks/{{ picture.fileName }}" class="card-img-top"
+                             alt="{{ picture.alt }}">
+                        {% endif %}
+                    {% endfor %}
                 {% endif %}
             </a>
             <div class="card-body">
