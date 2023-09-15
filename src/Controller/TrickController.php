@@ -188,6 +188,7 @@ class TrickController extends AbstractController
         $this->addFlash('success', 'Video supprimé avec succès');
 
         return $this->redirectToRoute('app_home');
+        // end
     }
 
 
