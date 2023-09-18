@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 
+use App\Entity\Trick;
 use App\Entity\TrickPicture;
 use App\Repository\TrickPictureRepository;
 use App\Repository\TrickRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,31 +19,8 @@ class HomeController extends AbstractController
 {
 
     #[Route('/', name: 'app_home')]
-    public function index(TrickRepository $trickRepository, TrickPictureRepository $pictureRepository): Response
+    public function index(TrickRepository $trickRepository, EntityManagerInterface $manager): Response
     {
-//        $tricksFixture = $trickRepository->findAll();
-//        foreach ($tricksFixture as $trick){
-//            $trickPicCollection = $trick->getPictures();
-//
-//            $setDefaultFirst = true;
-//
-//            foreach ($trick->getPictures() as $picture) {
-//                if($picture->isFirstPicture()){
-//                    $setDefaultFirst = false;
-//                }
-//                if ($picture->getFile() === null){
-//                    continue;
-//                }
-//                $picture->setFileName($this->uploadPicture->upload($picture));
-//                $picture->setAlt($picture->getAlt());
-//                $this->manager->persist($picture);
-//            }
-//
-//            if($setDefaultFirst) {
-//                $trick->getPictures()->get(0)->setFirstPicture(true);
-//            }
-//
-//        }
 
         $tricks = $trickRepository->findBy([], ["createdAt" => "DESC"], 4);
         $totalTricks = $trickRepository->count([]);

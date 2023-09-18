@@ -42,7 +42,7 @@ class Trick
     #[Assert\Valid()]
     private Collection $pictures;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: TrickVideo::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: TrickVideo::class)]
     #[Assert\Valid()]
     private Collection $videos;
 
@@ -50,7 +50,7 @@ class Trick
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Comment::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Comment::class)]
     #[Assert\Valid()]
     private Collection $comments;
 

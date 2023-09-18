@@ -124,7 +124,7 @@ class TrickController extends AbstractController
 
             $this->addFlash('success', 'Trick modifié avec succès');
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_trick_modification', ['slug' => $slug]);
         }
 
         return $this->render('trick_modification/index.html.twig', [
@@ -164,10 +164,11 @@ class TrickController extends AbstractController
         if ($pictureId->isFirstPicture()) {
             $isFirst = true;
         }
+
         $manager->remove($pictureId);
         $manager->flush();
 
-        if ($isFirst){
+        if ($isFirst) {
             $trick->getPictures()->get(0)->setFirstPicture(true);
         }
         $manager->persist($trick);
@@ -175,7 +176,7 @@ class TrickController extends AbstractController
 
         $this->addFlash('success', 'Photo supprimé avec succès');
 
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('app_trick_modification', ['slug' => $slug]);
     }
 
 
@@ -189,15 +190,14 @@ class TrickController extends AbstractController
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
         $video = $manager->getRepository(TrickVideo::class);
         $videoId = $video->find($id);
-        $trick
-            ->removeVideo($videoId)
-            ->setUpdatedAt(new \DateTime());
+        $trick->setUpdatedAt(new \DateTime());
 
+        $manager->remove($videoId);
         $manager->flush();
 
         $this->addFlash('success', 'Video supprimé avec succès');
 
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('app_trick_modification', ['slug' => $slug]);
 
     }
 
@@ -224,7 +224,7 @@ class TrickController extends AbstractController
 
         $this->addFlash('success', 'Photo mis en premier plan avec succès');
 
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('app_trick_modification', ['slug' => $slug]);
     }
 
 
