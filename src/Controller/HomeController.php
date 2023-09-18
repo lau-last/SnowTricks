@@ -3,12 +3,8 @@
 namespace App\Controller;
 
 
-use App\Entity\Trick;
-use App\Entity\TrickPicture;
-use App\Repository\TrickPictureRepository;
 use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

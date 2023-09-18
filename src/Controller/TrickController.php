@@ -13,6 +13,7 @@ use App\Form\TrickType;
 use App\Form\TrickVideoModificationType;
 use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
+use App\Service\FirstPicture;
 use App\Service\TrickEdit;
 use App\Service\UploadPicture;
 use Doctrine\ORM\EntityManagerInterface;
@@ -159,19 +160,8 @@ class TrickController extends AbstractController
         $picture = $manager->getRepository(TrickPicture::class);
         $pictureId = $picture->find($id);
         $trick->setUpdatedAt(new \DateTime());
-        $isFirst = false;
-
-        if ($pictureId->isFirstPicture()) {
-            $isFirst = true;
-        }
 
         $manager->remove($pictureId);
-        $manager->flush();
-
-        if ($isFirst) {
-            $trick->getPictures()->get(0)->setFirstPicture(true);
-        }
-        $manager->persist($trick);
         $manager->flush();
 
         $this->addFlash('success', 'Photo supprimé avec succès');

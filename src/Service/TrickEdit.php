@@ -37,19 +37,11 @@ class TrickEdit
             $trick->setUpdatedAt(new \DateTime());
         }
 
-        $setDefaultFirst = true;
-
         foreach ($trick->getPictures() as $picture) {
-            if($picture->isFirstPicture()){
-                $setDefaultFirst = false;
-            }
             if ($picture->getFile() !== null){
                 $picture->setFileName($this->uploadPicture->upload($picture));
                 $picture->setAlt($picture->getAlt());
                 $this->manager->persist($picture);
-                if($setDefaultFirst) {
-                    $trick->getPictures()->get(0)->setFirstPicture(true);
-                }
             }
         }
 
