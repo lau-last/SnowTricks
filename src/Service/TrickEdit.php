@@ -38,11 +38,13 @@ class TrickEdit
         }
 
         foreach ($trick->getPictures() as $picture) {
-            if ($picture->getFile() !== null){
+            if ($picture->getFile() === null) {
+                $picture->setFileName($picture->getFileName());
+            } else {
                 $picture->setFileName($this->uploadPicture->upload($picture));
-                $picture->setAlt($picture->getAlt());
-                $this->manager->persist($picture);
             }
+            $picture->setAlt($picture->getAlt());
+            $this->manager->persist($picture);
         }
 
         foreach ($trick->getVideos() as $video) {
