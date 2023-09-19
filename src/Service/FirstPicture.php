@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use App\Entity\Trick;
-use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 class FirstPicture
@@ -18,20 +17,25 @@ class FirstPicture
     }
 
 
-    public function makeFirst(Trick $trick): void
+    public function make(): void
     {
-        $first = true;
-        $pictures = $trick->getPictures();
-        foreach ($pictures as $picture) {
-            if ($picture->isFirstPicture() === true) {
-                $first = false;
+        $allTrick = $this->manager->getRepository(Trick::class)->findAll();
+        foreach ($allTrick as $trick) {
+            $first = true;
+            $collectionPicture = $trick->getPictures();
+            foreach ($collectionPicture as $picture) {
+                if (empty($picture)) {
+                    continue;
+                }
+                if ($picture->isFirstPicture()) {
+                    $first = false;
+                }
+                if ($first) {
+                    $trick->getPictures()->get(0)->setFirstPicture(true);
+                }
+                $this->manager->persist($trick);
             }
-            if (!empty($picture) && $first === true) {
-                $trick->getPictures()->get(0)->setFirstPicture(true);
-            }
-
         }
-        $this->manager->persist($trick);
         $this->manager->flush();
     }
 

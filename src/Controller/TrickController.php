@@ -154,7 +154,8 @@ class TrickController extends AbstractController
         TrickRepository        $trickRepository,
         string                 $slug,
         int                    $id,
-        EntityManagerInterface $manager): Response
+        EntityManagerInterface $manager,
+        FirstPicture           $firstPicture): Response
     {
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
         $picture = $manager->getRepository(TrickPicture::class);
