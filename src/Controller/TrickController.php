@@ -118,8 +118,6 @@ class TrickController extends AbstractController
 
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
 
-        $firstPicture->make($trick);
-
         $form = $this->createForm(TrickType::class, $trick);
 
         $form->handleRequest($request);
@@ -158,7 +156,8 @@ class TrickController extends AbstractController
         TrickRepository        $trickRepository,
         string                 $slug,
         int                    $id,
-        EntityManagerInterface $manager): Response
+        EntityManagerInterface $manager,
+        FirstPicture           $firstPicture): Response
     {
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
         $picture = $manager->getRepository(TrickPicture::class);
@@ -167,7 +166,6 @@ class TrickController extends AbstractController
 
         $manager->remove($pictureId);
         $manager->flush();
-
 
         $this->addFlash('success', 'Photo supprimé avec succès');
 
