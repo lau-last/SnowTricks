@@ -108,13 +108,17 @@ class TrickController extends AbstractController
 
     #[Route('/trick-modification/{slug}', name: 'app_trick_modification')]
     public function trickModification(
-        TrickRepository $trickRepository,
-        string          $slug,
-        Request         $request,
-        TrickEdit       $trickEdit): Response
+        TrickRepository        $trickRepository,
+        string                 $slug,
+        Request                $request,
+        TrickEdit              $trickEdit,
+        FirstPicture           $firstPicture,
+        EntityManagerInterface $manager): Response
     {
 
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
+
+        $firstPicture->make($trick);
 
         $form = $this->createForm(TrickType::class, $trick);
 
@@ -163,6 +167,7 @@ class TrickController extends AbstractController
 
         $manager->remove($pictureId);
         $manager->flush();
+
 
         $this->addFlash('success', 'Photo supprimé avec succès');
 

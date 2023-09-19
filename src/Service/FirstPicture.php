@@ -17,24 +17,21 @@ class FirstPicture
     }
 
 
-    public function make(): void
+    public function make(Trick $trick): void
     {
-        $allTrick = $this->manager->getRepository(Trick::class)->findAll();
-        foreach ($allTrick as $trick) {
-            $first = true;
-            $collectionPicture = $trick->getPictures();
-            foreach ($collectionPicture as $picture) {
-                if (empty($picture)) {
-                    continue;
-                }
-                if ($picture->isFirstPicture()) {
-                    $first = false;
-                }
-                if ($first) {
-                    $trick->getPictures()->get(0)->setFirstPicture(true);
-                }
-                $this->manager->persist($trick);
+        $first = true;
+        $collectionPicture = $trick->getPictures();
+        foreach ($collectionPicture as $picture) {
+            if (empty($picture)) {
+                continue;
             }
+            if ($picture->isFirstPicture()) {
+                $first = false;
+            }
+            if ($first) {
+                $trick->getPictures()->get(0)->setFirstPicture(true);
+            }
+            $this->manager->persist($trick);
         }
         $this->manager->flush();
     }
