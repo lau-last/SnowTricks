@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use App\Entity\Trick;
-use App\Entity\TrickPicture;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -42,6 +41,7 @@ class TrickEdit
                 $picture->setFileName($picture->getFileName());
             } else {
                 $picture->setFileName($this->uploadPicture->upload($picture));
+                $trick->getPictures()->first()->setFirstPicture(true);
             }
             $picture->setAlt($picture->getAlt());
             $this->manager->persist($picture);

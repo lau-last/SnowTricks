@@ -108,26 +108,23 @@ class TrickController extends AbstractController
 
     #[Route('/trick-modification/{slug}', name: 'app_trick_modification')]
     public function trickModification(
-        TrickRepository        $trickRepository,
-        string                 $slug,
-        Request                $request,
-        TrickEdit              $trickEdit,
-        FirstPicture           $firstPicture,
-        EntityManagerInterface $manager): Response
+        TrickRepository $trickRepository,
+        string          $slug,
+        Request         $request,
+        TrickEdit       $trickEdit): Response
     {
 
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
-
         $form = $this->createForm(TrickType::class, $trick);
-
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-
             $trickEdit->edit($trick, true);
-
             $this->addFlash('success', 'Trick modifié avec succès');
-
-            return $this->redirectToRoute('app_trick_modification', ['slug' => $slug]);
+            return $this->render('trick_modification/index.html.twig', [
+                'trick' => $trick,
+                'form' => $form->createView(),
+            ]);
         }
 
         return $this->render('trick_modification/index.html.twig', [
@@ -156,16 +153,23 @@ class TrickController extends AbstractController
         TrickRepository        $trickRepository,
         string                 $slug,
         int                    $id,
-        EntityManagerInterface $manager,
-        FirstPicture           $firstPicture): Response
+        EntityManagerInterface $manager): Response
     {
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
         $picture = $manager->getRepository(TrickPicture::class);
         $pictureId = $picture->find($id);
         $trick->setUpdatedAt(new \DateTime());
+        $first = $pictureId->isFirstPicture();
 
         $manager->remove($pictureId);
         $manager->flush();
+
+        $countPicture = $trick->getPictures()->count();
+
+        if ($first && $countPicture > 0) {
+            $trick->getPictures()->first()->setFirstPicture(true);
+            $manager->flush();
+        }
 
         $this->addFlash('success', 'Photo supprimé avec succès');
 
