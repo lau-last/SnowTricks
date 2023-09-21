@@ -13,6 +13,7 @@ use App\Form\TrickType;
 use App\Form\TrickVideoModificationType;
 use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
+use App\Service\FirstPicture;
 use App\Service\TrickEdit;
 use App\Service\UploadPicture;
 use Doctrine\ORM\EntityManagerInterface;
@@ -114,17 +115,16 @@ class TrickController extends AbstractController
     {
 
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
-
         $form = $this->createForm(TrickType::class, $trick);
-
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-
             $trickEdit->edit($trick, true);
-
             $this->addFlash('success', 'Trick modifié avec succès');
-
-            return $this->redirectToRoute('app_trick_modification', ['slug' => $slug]);
+            return $this->render('trick_modification/index.html.twig', [
+                'trick' => $trick,
+                'form' => $form->createView(),
+            ]);
         }
 
         return $this->render('trick_modification/index.html.twig', [
@@ -159,20 +159,17 @@ class TrickController extends AbstractController
         $picture = $manager->getRepository(TrickPicture::class);
         $pictureId = $picture->find($id);
         $trick->setUpdatedAt(new \DateTime());
-        $isFirst = false;
-
-        if ($pictureId->isFirstPicture()) {
-            $isFirst = true;
-        }
+        $first = $pictureId->isFirstPicture();
 
         $manager->remove($pictureId);
         $manager->flush();
 
-        if ($isFirst) {
-            $trick->getPictures()->get(0)->setFirstPicture(true);
+        $countPicture = $trick->getPictures()->count();
+
+        if ($first && $countPicture > 0) {
+            $trick->getPictures()->first()->setFirstPicture(true);
+            $manager->flush();
         }
-        $manager->persist($trick);
-        $manager->flush();
 
         $this->addFlash('success', 'Photo supprimé avec succès');
 

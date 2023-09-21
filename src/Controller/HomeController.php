@@ -2,13 +2,8 @@
 
 namespace App\Controller;
 
-
-use App\Entity\Trick;
-use App\Entity\TrickPicture;
-use App\Repository\TrickPictureRepository;
 use App\Repository\TrickRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
+use App\Service\FirstPicture;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,8 +14,10 @@ class HomeController extends AbstractController
 {
 
     #[Route('/', name: 'app_home')]
-    public function index(TrickRepository $trickRepository, EntityManagerInterface $manager): Response
+    public function index(TrickRepository $trickRepository, FirstPicture $firstPicture): Response
     {
+
+        $firstPicture->makeAll();
 
         $tricks = $trickRepository->findBy([], ["createdAt" => "DESC"], 4);
         $totalTricks = $trickRepository->count([]);

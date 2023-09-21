@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use App\Entity\Trick;
-use App\Entity\TrickPicture;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -37,20 +36,15 @@ class TrickEdit
             $trick->setUpdatedAt(new \DateTime());
         }
 
-        $setDefaultFirst = true;
-
         foreach ($trick->getPictures() as $picture) {
-            if($picture->isFirstPicture()){
-                $setDefaultFirst = false;
-            }
-            if ($picture->getFile() !== null){
+            if ($picture->getFile() === null) {
+                $picture->setFileName($picture->getFileName());
+            } else {
                 $picture->setFileName($this->uploadPicture->upload($picture));
-                $picture->setAlt($picture->getAlt());
-                $this->manager->persist($picture);
-                if($setDefaultFirst) {
-                    $trick->getPictures()->get(0)->setFirstPicture(true);
-                }
+                $trick->getPictures()->first()->setFirstPicture(true);
             }
+            $picture->setAlt($picture->getAlt());
+            $this->manager->persist($picture);
         }
 
         foreach ($trick->getVideos() as $video) {

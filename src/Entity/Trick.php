@@ -38,7 +38,7 @@ class Trick
     #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: TrickPicture::class)]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: TrickPicture::class, fetch: 'EAGER')]
     #[Assert\Valid()]
     private Collection $pictures;
 
