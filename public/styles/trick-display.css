@@ -64,3 +64,20 @@
     max-width: 750px;
     margin: 0 auto;
 }
+
+@media (max-width:425px){
+    #trick-display #smallScreen{
+        display: block;
+    }
+    #trick-display #bigScreen{
+        display: none;
+    }
+}
+@media (min-width:426px){
+    #trick-display #smallScreen{
+        display: none;
+    }
+    #trick-display #bigScreen{
+        display: block;
+    }
+}

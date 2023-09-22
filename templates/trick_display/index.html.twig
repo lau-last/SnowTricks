@@ -39,26 +39,60 @@
                 {% endif %}
             </div>
 
-            <div class="d-flex overflow-x-scroll carousel-trick my-5" id="carousel-trick">
-                {% for image in trick.pictures %}
-                    <div class="trick-card-container m-4">
-                        <div class="card trick-card" style="width: 18rem;">
-                            <img src="/images/uploads/tricks/{{ image.fileName }}"
-                                 class="card-img-top"
-                                 alt="{{ image.alt }}">
-                        </div>
+            <div id="smallScreen">
+                <div class="d-flex justify-content-center my-5" id="show-carousel-trick">
+                    <button class="btn btn-success" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseCarousel" aria-expanded="false" aria-controls="collapseCarousel">
+                        See pictures
+                    </button>
+                </div>
+                <div class="collapse" id="collapseCarousel">
+                    <div class="d-flex overflow-x-scroll carousel-trick my-5" id="carousel-trick">
+                        {% for image in trick.pictures %}
+                            <div class="trick-card-container m-4">
+                                <div class="card trick-card" style="width: 18rem;">
+                                    <img src="/images/uploads/tricks/{{ image.fileName }}"
+                                         class="card-img-top"
+                                         alt="{{ image.alt }}">
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% for video in trick.videos %}
+                            <div class="trick-card-container m-4">
+                                <div class="card trick-card" style="width: 18rem;">
+                                    <iframe src="{{ video.urlEmbed }}"
+                                            class="card-img-top"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
-                {% endfor %}
-                {% for video in trick.videos %}
-                    <div class="trick-card-container m-4">
-                        <div class="card trick-card" style="width: 18rem;">
-                            <iframe src="{{ video.urlEmbed }}"
-                                    class="card-img-top"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div id="bigScreen">
+                <div class="d-flex overflow-x-scroll carousel-trick my-5" id="carousel-trick">
+                    {% for image in trick.pictures %}
+                        <div class="trick-card-container m-4">
+                            <div class="card trick-card" style="width: 18rem;">
+                                <img src="/images/uploads/tricks/{{ image.fileName }}"
+                                     class="card-img-top"
+                                     alt="{{ image.alt }}">
+                            </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                    {% for video in trick.videos %}
+                        <div class="trick-card-container m-4">
+                            <div class="card trick-card" style="width: 18rem;">
+                                <iframe src="{{ video.urlEmbed }}"
+                                        class="card-img-top"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
 
             <p>{{ trick.description }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur cupiditate,
@@ -70,16 +104,17 @@
             <div class="d-flex justify-content-around my-5 flex-wrap">
                 <p class="bg-secondary rounded p-2 text-white">Created at : {{ trick.createdAt.format('d/m/Y') }}</p>
                 {% if trick.updatedAt is not null %}
-                <p class="bg-secondary rounded p-2 text-white">Updated at : {{ trick.updatedAt.format('d/m/Y') }}</p>
+                    <p class="bg-secondary rounded p-2 text-white">Updated at
+                        : {{ trick.updatedAt.format('d/m/Y') }}</p>
                 {% endif %}
                 <p class="bg-secondary rounded p-2 text-white">Category : {{ trick.category.label }}</p>
             </div>
 
-
-
+            <hr class="my-5">
             <div class="leave-comment my-5">
                 {{ form(form) }}
             </div>
+            <hr class="my-5">
 
             <div class="list-comment">
                 <div id="container-comment" data-all-comment="{{ totalComment }}" data-trick-id="{{ trick.id }}">
