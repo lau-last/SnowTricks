@@ -15,7 +15,6 @@
     {% block javascripts %}{% endblock %}
 </head>
 <body id="top">
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-5">
     <a class="navbar-brand" href="{{ path('app_home') }}"><i class="bi bi-snow"></i> SnowTricks</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -25,12 +24,14 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item"><a class="nav-link" href="{{ path('app_home') }}">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ path('app_home') }}#tricks-presentation">Tricks</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ path('app_home') }}#tricks-presentation">Tricks</a>
+            </li>
             {% if not app.user %}
                 <li class="nav-item"><a class="nav-link" href="{{ path('app_connection') }}">Sign in</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ path('app_registration') }}">Sign up</a></li>
             {% else %}
-                <li class="nav-item"><a class="nav-link" href="{{ path('app_trick_creation') }}">Create trick</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ path('app_trick_creation') }}">Create trick</a>
+                </li>
                 <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Logout</a></li>
             {% endif %}
         </ul>
@@ -38,10 +39,16 @@
 </nav>
 
 {% for message in app.flashes('error') %}
-    <div class="alert alert-danger">{{ message }}</div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 {% endfor %}
 {% for message in app.flashes('success') %}
-    <div class="alert alert-success">{{ message }}</div>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 {% endfor %}
 
 {% block body %}{% endblock %}

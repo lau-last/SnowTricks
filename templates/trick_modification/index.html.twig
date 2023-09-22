@@ -45,9 +45,8 @@
 
     <div id="trick-modification">
 
-        <div class="presentation-one-trick-container mx-auto my-5">
+        <div class="presentation-one-trick-container mx-auto my-5 container">
             {{ form_start(form) }}
-            {{ form_row(form.name) }}
             <div class="presentation-one-trick position-relative">
                 {% if trick.pictures.count < 1 %}
                     <img src="{{ asset('images/uploads/tricks/default.png') }}"
@@ -129,16 +128,22 @@
                 {% endfor %}
             </div>
 
-            <p><strong>Created at : {{ trick.createdAt.format('d/m/Y') }}</strong></p>
-            {% if trick.updatedAt is not null %}
-                <p><strong>Updated at : {{ trick.updatedAt.format('d/m/Y') }}</strong></p>
-            {% endif %}
-            <div id="pictures" data-prototype="{{ form_row(form.pictures.vars.prototype)|e('html_attr') }}"></div>
-            <button type="button" id="add-picture" class="btn btn-success">Add picture</button>
-            <hr>
-            <div id="videos" data-prototype="{{ form_row(form.videos.vars.prototype)|e('html_attr') }}"></div>
-            <button type="button" id="add-video" class="btn btn-success">Add video</button>
-            {{ form_end(form) }}
+            <div class="d-flex justify-content-around my-5 flex-wrap">
+                <p class="bg-secondary rounded p-2 text-white">Created at : {{ trick.createdAt.format('d/m/Y') }}</p>
+                {% if trick.updatedAt is not null %}
+                    <p class="bg-secondary rounded p-2 text-white">Updated at : {{ trick.updatedAt.format('d/m/Y') }}</p>
+                {% endif %}
+            </div>
+
+            <div class="form-modification">
+                {{ form_row(form.name) }}
+                <div id="pictures" data-prototype="{{ form_row(form.pictures.vars.prototype)|e('html_attr') }}"></div>
+                <button type="button" id="add-picture" class="btn btn-success">Add picture</button>
+                <hr>
+                <div id="videos" data-prototype="{{ form_row(form.videos.vars.prototype)|e('html_attr') }}"></div>
+                <button type="button" id="add-video" class="btn btn-success">Add video</button>
+                {{ form_end(form) }}
+            </div>
         </div>
 
     </div>

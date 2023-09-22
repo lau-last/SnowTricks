@@ -1,6 +1,6 @@
-#trick-modification .presentation-one-trick-container {
-    width: 80%;
-}
+/*#trick-modification .presentation-one-trick-container {*/
+/*    width: 80%;*/
+/*}*/
 
 #trick-modification .presentation-one-trick {
     height: 500px;
@@ -71,4 +71,8 @@
     width: 250px;
     object-fit: cover;
     background: grey;
+}
+#trick-modification .form-modification{
+    max-width: 750px;
+    margin: 0 auto;
 }

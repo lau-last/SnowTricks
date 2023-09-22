@@ -46,7 +46,7 @@ class Trick
     #[Assert\Valid()]
     private Collection $videos;
 
-    #[ORM\ManyToOne(inversedBy: 'tricks')]
+    #[ORM\ManyToOne(fetch: 'EAGER', inversedBy: 'tricks')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 

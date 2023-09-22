@@ -11,7 +11,7 @@
 
     <div id="trick-display">
 
-        <div class="presentation-one-trick-container mx-auto my-5">
+        <div class="presentation-one-trick-container mx-auto my-5 container">
             <div class="presentation-one-trick position-relative">
                 {% if trick.pictures is empty %}
                     <img src="{{ asset('images/uploads/tricks/default.png') }}"
@@ -28,7 +28,8 @@
                 {% endif %}
                 {% if app.user %}
                     <div class="d-flex justify-content-end">
-                        <a class="btn btn-primary me-2 z-index100" href="{{ path('app_trick_modification', {'slug' : trick.slug}) }}"><i class="bi bi-pen"></i></a>
+                        <a class="btn btn-primary me-2 z-index100"
+                           href="{{ path('app_trick_modification', {'slug' : trick.slug}) }}"><i class="bi bi-pen"></i></a>
                         <a class="btn btn-danger z-index100"
                            onclick="return confirm('Vous êtes sur le point de supprimer deffinitivement le trick {{ trick.name }}. Voulez-vous vraiment continuer ?')"
                            href="{{ path('app_trick_delete', {'slug':trick.slug}) }}">
@@ -65,23 +66,32 @@
                 asperiores, blanditiis consectetur cumque dicta distinctio dolor doloremque, eos eum harum illum ipsam
                 iure magni minima molestias non obcaecati pariatur quasi repudiandae sunt unde voluptates.</p>
 
-            <p><strong>Created at : {{ trick.createdAt.format('d/m/Y') }}</strong></p>
-            {% if trick.updatedAt is not null %}
-                <p><strong>Updated at : {{ trick.updatedAt.format('d/m/Y') }}</strong></p>
-            {% endif %}
 
-            {{ form(form) }}
-
-            <div id="container-comment" data-all-comment="{{ totalComment }}" data-trick-id="{{ trick.id }}">
-                {% include 'trick_display/_comment_card.html.twig' %}
+            <div class="d-flex justify-content-around my-5 flex-wrap">
+                <p class="bg-secondary rounded p-2 text-white">Created at : {{ trick.createdAt.format('d/m/Y') }}</p>
+                {% if trick.updatedAt is not null %}
+                <p class="bg-secondary rounded p-2 text-white">Updated at : {{ trick.updatedAt.format('d/m/Y') }}</p>
+                {% endif %}
+                <p class="bg-secondary rounded p-2 text-white">Category : {{ trick.category.label }}</p>
             </div>
 
 
-            <div class="d-flex justify-content-center my-5">
-                <button type="button" id="load-more-comment" class="btn btn-success">Load More</button>
-                <p class="hidden" id="plus-de-comment">Plus de nouveau commentaire</p>
+
+            <div class="leave-comment my-5">
+                {{ form(form) }}
             </div>
 
+            <div class="list-comment">
+                <div id="container-comment" data-all-comment="{{ totalComment }}" data-trick-id="{{ trick.id }}">
+                    {% include 'trick_display/_comment_card.html.twig' %}
+                </div>
+
+
+                <div class="d-flex justify-content-center my-5">
+                    <button type="button" id="load-more-comment" class="btn btn-success">Load More</button>
+                    <p class="hidden" id="plus-de-comment">Plus de nouveau commentaire</p>
+                </div>
+            </div>
         </div>
 
     </div>

@@ -1,6 +1,6 @@
-#trick-display .presentation-one-trick-container {
-    width: 80%;
-}
+/*#trick-display .presentation-one-trick-container {*/
+/*    width: 80%;*/
+/*}*/
 
 #trick-display .presentation-one-trick {
     height: 500px;
@@ -57,4 +57,10 @@
 
 #trick-display .z-index100 {
     z-index: 100;
+}
+
+#trick-display .leave-comment,
+#trick-display .list-comment{
+    max-width: 750px;
+    margin: 0 auto;
 }
