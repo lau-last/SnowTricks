@@ -5,6 +5,7 @@
     {% endblock %}
     {% block javascripts %}
         <script src="{{ asset('javascript/load-more-comment.js') }}"></script>
+        <script src="{{ asset('javascript/button-carousel.js') }}"></script>
     {% endblock %}
 
 {% block body %}
@@ -39,39 +40,14 @@
                 {% endif %}
             </div>
 
-            <div id="smallScreen">
-                <div class="d-flex justify-content-center my-5" id="show-carousel-trick">
-                    <button class="btn btn-success" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseCarousel" aria-expanded="false" aria-controls="collapseCarousel">
-                        See pictures
-                    </button>
-                </div>
-                <div class="collapse" id="collapseCarousel">
-                    <div class="d-flex overflow-x-scroll carousel-trick my-5" id="carousel-trick">
-                        {% for image in trick.pictures %}
-                            <div class="trick-card-container m-4">
-                                <div class="card trick-card" style="width: 18rem;">
-                                    <img src="/images/uploads/tricks/{{ image.fileName }}"
-                                         class="card-img-top"
-                                         alt="{{ image.alt }}">
-                                </div>
-                            </div>
-                        {% endfor %}
-                        {% for video in trick.videos %}
-                            <div class="trick-card-container m-4">
-                                <div class="card trick-card" style="width: 18rem;">
-                                    <iframe src="{{ video.urlEmbed }}"
-                                            class="card-img-top"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                            allowfullscreen></iframe>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
 
-            <div id="bigScreen">
+            <div class="d-flex justify-content-center my-5" id="show-carousel-trick">
+                <button id="buttonShowCarousel" class="btn btn-success" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseCarousel" aria-expanded="false" aria-controls="collapseCarousel">
+                    Sow pictures
+                </button>
+            </div>
+            <div class="collapse" id="collapseCarousel">
                 <div class="d-flex overflow-x-scroll carousel-trick my-5" id="carousel-trick">
                     {% for image in trick.pictures %}
                         <div class="trick-card-container m-4">
@@ -94,6 +70,7 @@
                     {% endfor %}
                 </div>
             </div>
+
 
             <p>{{ trick.description }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur cupiditate,
                 ea enim esse iste iusto magni, maiores odit quibusdam quidem quos soluta, voluptatem! Ab, aliquam

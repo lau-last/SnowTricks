@@ -7,38 +7,8 @@
         <script src="{{ asset('javascript/add-media-fields.js') }}"></script>
         <script src="{{ asset('javascript/show-picture.js') }}"></script>
         <script src="{{ asset('javascript/show-video.js') }}"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                let buttonAddPicture = document.querySelector('#add-picture');
-                let buttonAddVideo = document.querySelector('#add-video');
-                let picture = document.getElementsByClassName("pic-to-change");
-
-                let video = document.getElementsByClassName("video-to-change");
-
-                buttonAddPicture.addEventListener("click", function () {
-                    buttonAddPicture.disabled = true;
-                    let index = document.querySelectorAll(".picture-fields").length;
-                    addFieldPicture();
-                    createFrame('#trick_pictures_', index, "img", "rounded img-");
-                    createButtonSupp('#trick_pictures_', index, "Supp picture", "#add-picture");
-                });
-
-                buttonAddVideo.addEventListener("click", function () {
-                    buttonAddVideo.disabled = true;
-                    let index = document.querySelectorAll(".video-fields").length;
-                    addFieldVideo();
-                    createFrame('#trick_videos_', index, "iframe", "rounded iframe-");
-                    createButtonSupp('#trick_videos_', index, "Supp video", "#add-video");
-                });
-
-                for (let i = 0; i < picture.length; i++) {
-                    editPicture('img#pic-to-change_' + (i + 1) + '', 'trick_pictures_' + i + '_file');
-                }
-                for (let j = 0; j < video.length; j++) {
-                    editIframe('iframe#video-to-change_' + (j + 1) + '', 'trick_videos_' + j + '_url');
-                }
-            });
-        </script>
+        <script src="{{ asset('javascript/button-carousel.js') }}"></script>
+        <script src="{{ asset('javascript/trick-modification.js') }}"></script>
     {% endblock %}
 
 {% block body %}
@@ -63,85 +33,96 @@
                 {% endif %}
             </div>
 
-            <div class="d-flex overflow-x-scroll carousel-trick my-5" id="carousel-trick">
-                {% for pictureType in form.pictures %}
-                    <div class="trick-card-container m-4">
-                        <div class="card trick-card" style="width: 18rem;">
-                            <img id="pic-to-change_{{ loop.index }}"
-                                 src="/images/uploads/tricks/{{ pictureType.vars.value.fileName }}"
-                                 class="card-img-top pic-to-change"
-                                 alt="{{ pictureType.vars.value.alt }}">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-end">
-                                    {% if not pictureType.vars.value.firstPicture %}
-                                        <a href="{{ path('app_trick_picture_first', {'slug': trick.slug, 'id': pictureType.vars.value.id }) }}"
-                                           class="btn btn-warning me-2">Premier plan</a>
-                                    {% endif %}
-                                    <a class="btn btn-primary me-2" data-bs-toggle="collapse"
-                                       data-bs-target="#collapsePicture{{ loop.index }}" aria-expanded="false"><i
-                                                class="bi bi-pen"></i></a>
-                                    <a class="btn btn-danger"
-                                       href="{{ path('app_trick_delete_picture', {'slug': trick.slug, 'id': pictureType.vars.value.id }) }}"><i
-                                                class="bi bi-trash"></i></a>
-                                </div>
-                                <div id="collapsePicture{{ loop.index }}" class="collapse">
-                                    <div class="mt-2">
-                                        {{ form_label(pictureType.file) }}
-                                        {{ form_widget(pictureType.file) }}
+            <div class="d-flex justify-content-center my-5" id="show-carousel-trick">
+                <button id="buttonShowCarousel" class="btn btn-success" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseCarousel" aria-expanded="false" aria-controls="collapseCarousel">
+                    Sow pictures
+                </button>
+            </div>
+            <div class="collapse" id="collapseCarousel">
+                <div class="d-flex overflow-x-scroll carousel-trick my-5" id="carousel-trick">
+                    {% for pictureType in form.pictures %}
+                        <div class="trick-card-container m-4">
+                            <div class="card trick-card" style="width: 18rem;">
+                                <img id="pic-to-change_{{ loop.index }}"
+                                     src="/images/uploads/tricks/{{ pictureType.vars.value.fileName }}"
+                                     class="card-img-top pic-to-change"
+                                     alt="{{ pictureType.vars.value.alt }}">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-end">
+                                        {% if not pictureType.vars.value.firstPicture %}
+                                            <a href="{{ path('app_trick_picture_first', {'slug': trick.slug, 'id': pictureType.vars.value.id }) }}"
+                                               class="btn btn-warning me-2">Premier plan</a>
+                                        {% endif %}
+                                        <a class="btn btn-primary me-2" data-bs-toggle="collapse"
+                                           data-bs-target="#collapsePicture{{ loop.index }}" aria-expanded="false"><i
+                                                    class="bi bi-pen"></i></a>
+                                        <a class="btn btn-danger"
+                                           href="{{ path('app_trick_delete_picture', {'slug': trick.slug, 'id': pictureType.vars.value.id }) }}"><i
+                                                    class="bi bi-trash"></i></a>
                                     </div>
-                                    <div class="mt-2">
-                                        {{ form_label(pictureType.alt) }}
-                                        {{ form_widget(pictureType.alt) }}
+                                    <div id="collapsePicture{{ loop.index }}" class="collapse">
+                                        <div class="mt-2">
+                                            {{ form_label(pictureType.file) }}
+                                            {{ form_widget(pictureType.file) }}
+                                        </div>
+                                        <div class="mt-2">
+                                            {{ form_label(pictureType.alt) }}
+                                            {{ form_widget(pictureType.alt) }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
 
-                {% for videoType in form.videos %}
-                    <div class="trick-card-container m-4">
-                        <div class="card trick-card" style="width: 18rem;">
-                            <iframe src="{{ videoType.vars.value.urlEmbed }}"
-                                    class="card-img-top video-to-change"
-                                    id="video-to-change_{{ loop.index }}"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    allowfullscreen></iframe>
-                            <div class="card-body">
-                                <div class="d-flex justify-content-end">
-                                    <a class="btn btn-primary me-2" data-bs-toggle="collapse"
-                                       data-bs-target="#collapseVideo{{ loop.index }}" aria-expanded="false"><i
-                                                class="bi bi-pen"></i></a>
-                                    <a class="btn btn-danger"
-                                       href="{{ path('app_trick_delete_video', {'slug': trick.slug, 'id': videoType.vars.value.id }) }}"><i
-                                                class="bi bi-trash"></i></a>
-                                </div>
-                                <div id="collapseVideo{{ loop.index }}" class="collapse">
-                                    <div class="mt-2">
-                                        {{ form_label(videoType.url) }}
-                                        {{ form_widget(videoType.url) }}
+                    {% for videoType in form.videos %}
+                        <div class="trick-card-container m-4">
+                            <div class="card trick-card" style="width: 18rem;">
+                                <iframe src="{{ videoType.vars.value.urlEmbed }}"
+                                        class="card-img-top video-to-change"
+                                        id="video-to-change_{{ loop.index }}"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        allowfullscreen></iframe>
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-end">
+                                        <a class="btn btn-primary me-2" data-bs-toggle="collapse"
+                                           data-bs-target="#collapseVideo{{ loop.index }}" aria-expanded="false"><i
+                                                    class="bi bi-pen"></i></a>
+                                        <a class="btn btn-danger"
+                                           href="{{ path('app_trick_delete_video', {'slug': trick.slug, 'id': videoType.vars.value.id }) }}"><i
+                                                    class="bi bi-trash"></i></a>
+                                    </div>
+                                    <div id="collapseVideo{{ loop.index }}" class="collapse">
+                                        <div class="mt-2">
+                                            {{ form_label(videoType.url) }}
+                                            {{ form_widget(videoType.url) }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
 
             <div class="d-flex justify-content-around my-5 flex-wrap">
                 <p class="bg-secondary rounded p-2 text-white">Created at : {{ trick.createdAt.format('d/m/Y') }}</p>
                 {% if trick.updatedAt is not null %}
-                    <p class="bg-secondary rounded p-2 text-white">Updated at : {{ trick.updatedAt.format('d/m/Y') }}</p>
+                    <p class="bg-secondary rounded p-2 text-white">Updated at
+                        : {{ trick.updatedAt.format('d/m/Y') }}</p>
                 {% endif %}
             </div>
 
             <div class="form-modification">
-                {{ form_row(form.name) }}
                 <div id="pictures" data-prototype="{{ form_row(form.pictures.vars.prototype)|e('html_attr') }}"></div>
                 <button type="button" id="add-picture" class="btn btn-success">Add picture</button>
                 <hr>
                 <div id="videos" data-prototype="{{ form_row(form.videos.vars.prototype)|e('html_attr') }}"></div>
                 <button type="button" id="add-video" class="btn btn-success">Add video</button>
+                <div class="my-5">{{ form_row(form.name) }}</div>
+                <div class="my-5">{{ form_row(form.description) }}</div>
+                <div class="my-5">{{ form_row(form.category) }}</div>
                 {{ form_end(form) }}
             </div>
         </div>
