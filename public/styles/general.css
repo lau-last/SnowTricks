@@ -11,6 +11,7 @@ footer {
 
 @media (max-width: 425px) {
     nav#menu-phone {
+        z-index: 1000;
         position: fixed;
         bottom: 0;
         right: 0;
@@ -20,6 +21,7 @@ footer {
 
 @media (min-width: 426px) {
     nav#menu-phone {
+        z-index: -1000;
         display: none;
     }
 }

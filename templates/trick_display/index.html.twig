@@ -89,7 +89,17 @@
 
             <hr class="my-5">
             <div class="leave-comment my-5">
-                {{ form(form) }}
+                {% if not app.user %}
+                    <div class="d-flex justify-content-center flex-column">
+                        <p class="text-center">Vous voulez laissez un commentaire ?</p>
+                        <div class="mx-auto">
+                            <a href="{{ path('app_connection') }}" class="btn btn-success me-5">Connectez-vous</a>
+                            <a href="{{ path('app_registration') }}" class="btn btn-success">Inscrivez-vous</a>
+                        </div>
+                    </div>
+                {% else %}
+                    {{ form(form) }}
+                {% endif %}
             </div>
             <hr class="my-5">
 

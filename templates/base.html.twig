@@ -38,21 +38,26 @@
     </div>
 </nav>
 <nav class="navbar navbar-dark bg-dark" id="menu-phone">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#"><i class="bi bi-house"></i></a>
-            <a class="navbar-brand" href="#"><i class="bi bi-bookmark"></i></a>
-            <a class="navbar-brand" href="#"><i class="bi bi-box-arrow-in-right"></i></a>
-        </div>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ path('app_home') }}"><i class="bi bi-house"></i></a>
+        {% if not app.user %}
+            <a class="navbar-brand" href="{{ path('app_registration') }}"><i class="bi bi-bookmark"></i></a>
+            <a class="navbar-brand" href="{{ path('app_connection') }}"><i class="bi bi-box-arrow-in-right"></i></a>
+        {% else %}
+            <a class="navbar-brand" href="{{ path('app_trick_creation') }}"><i class="bi bi-bookmark"></i></a>
+            <a class="navbar-brand" href="{{ path('app_logout') }}"><i class="bi bi-box-arrow-right"></i></a>
+        {% endif %}
+    </div>
 </nav>
 
 {% for message in app.flashes('error') %}
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show position-fixed w-100 z-3 top-0" role="alert">
         <strong>{{ message }}</strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 {% endfor %}
 {% for message in app.flashes('success') %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="alert alert-success alert-dismissible fade show position-fixed w-100 z-3 top-0" role="alert">
         <strong>{{ message }}</strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
