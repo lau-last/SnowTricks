@@ -16,6 +16,7 @@
     <div id="trick-modification">
 
         <div class="presentation-one-trick-container mx-auto my-5 container">
+            <h2 class="w-100 text-center">{{ trick.name }}</h2>
             {{ form_start(form) }}
             <div class="presentation-one-trick position-relative">
                 {% if trick.pictures.count < 1 %}

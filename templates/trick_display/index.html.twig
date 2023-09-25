@@ -13,6 +13,7 @@
     <div id="trick-display">
 
         <div class="presentation-one-trick-container mx-auto my-5 container">
+            <h2 class="w-100 text-center">{{ trick.name }}</h2>
             <div class="presentation-one-trick position-relative">
                 {% if trick.pictures is empty %}
                     <img src="{{ asset('images/uploads/tricks/default.png') }}"
@@ -28,9 +29,10 @@
                     {% endfor %}
                 {% endif %}
                 {% if app.user %}
-                    <div class="d-flex justify-content-end">
+                    <div class="d-flex justify-content-end ">
                         <a class="btn btn-primary me-2 z-index100"
-                           href="{{ path('app_trick_modification', {'slug' : trick.slug}) }}"><i class="bi bi-pen"></i></a>
+                           href="{{ path('app_trick_modification', {'slug' : trick.slug}) }}"><i
+                                    class="bi bi-pen"></i></a>
                         <a class="btn btn-danger z-index100"
                            onclick="return confirm('Vous êtes sur le point de supprimer deffinitivement le trick {{ trick.name }}. Voulez-vous vraiment continuer ?')"
                            href="{{ path('app_trick_delete', {'slug':trick.slug}) }}">
