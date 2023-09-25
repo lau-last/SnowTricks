@@ -121,10 +121,7 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $trickEdit->edit($trick, true);
             $this->addFlash('success', 'Trick modifié avec succès');
-            return $this->render('trick_modification/index.html.twig', [
-                'trick' => $trick,
-                'form' => $form->createView(),
-            ]);
+            return $this->redirectToRoute('app_trick_modification', ['slug' => $trick->getSlug()]);
         }
 
         return $this->render('trick_modification/index.html.twig', [
