@@ -9,3 +9,17 @@ footer {
     width: 100%;
 }
 
+@media (max-width: 425px) {
+    nav#menu-phone {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
+}
+
+@media (min-width: 426px) {
+    nav#menu-phone {
+        display: none;
+    }
+}

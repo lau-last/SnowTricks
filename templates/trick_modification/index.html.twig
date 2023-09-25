@@ -123,7 +123,18 @@
                 <div class="my-5">{{ form_row(form.name) }}</div>
                 <div class="my-5">{{ form_row(form.description) }}</div>
                 <div class="my-5">{{ form_row(form.category) }}</div>
-                {{ form_end(form) }}
+                <div class="d-flex align-items-center justify-content-end">
+                    <div class="mb-3 mt-5 me-5">
+                        <a class="btn btn-danger"
+                           onclick="return confirm('Vous êtes sur le point de supprimer deffinitivement le trick {{ trick.name }}. Voulez-vous vraiment continuer ?')"
+                           href="{{ path('app_trick_delete', {'slug':trick.slug}) }}">
+                            Delete Trick
+                        </a>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+
+
             </div>
         </div>
 
