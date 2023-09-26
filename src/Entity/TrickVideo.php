@@ -20,10 +20,10 @@ class TrickVideo
         new Assert\Regex('/^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|live\/|v\/)?)([\w\-]+)(\S+)?$/'),
         new Assert\Regex('/^.+dailymotion.com\/(video|hub)\/([^_]+)[^#]*(#video=([^_&]+))?/'),
     ],
-        message: 'L\'URL de la vidéo est invalide, veuillez insérer l\'URL d\'une vidéo Youtube ou Dailymotion.',
+        message: 'The video URL is invalid, please insert the URL of a Youtube or Dailymotion video.',
         includeInternalMessages: false
     )]
-    #[Assert\NotNull(message: 'Vous devez entrez une URL')]
+    #[Assert\NotNull(message: 'You must enter a URL')]
     private ?string $url = null;
 
     #[ORM\ManyToOne(inversedBy: 'videos')]

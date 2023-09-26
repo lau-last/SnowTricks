@@ -17,7 +17,7 @@ class  Category
     private ?int $id = null;
 
     #[ORM\Column(length: 80)]
-    #[Assert\NotNull(message: 'Vous devez entrez une catégorie')]
+    #[Assert\NotNull(message: 'You must enter a category')]
     private ?string $label = null;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Trick::class)]

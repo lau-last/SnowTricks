@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,10 +11,10 @@
 
 {% set verify_hashToken_url = absolute_url(path('app_verify_registration_hashToken', {hashToken: hashToken})) %}
 
-<h1 class="text-center mb-5">Bonjour {{ user.username }}, confirmez votre adresse email !</h1>
-<p class="text-center mb-5">Cliquez sur le lien ci-dessous pour confirmer votre adresse email : </p>
+<h1 class="text-center mb-5">Hello {{ user.username }}, confirm your email address!</h1>
+<p class="text-center mb-5">Click the link below to confirm your email address:</p>
 <div class="d-flex justify-content-center">
-    <a href="{{ verify_hashToken_url }}" class="btn btn-success">Confirmer mon adresse email</a>
+    <a href="{{ verify_hashToken_url }}" class="btn btn-success">Confirm my email address</a>
 </div>
 </body>
 </html>

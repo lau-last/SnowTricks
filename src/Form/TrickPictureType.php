@@ -8,7 +8,6 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class TrickPictureType extends AbstractType
 {
@@ -20,7 +19,10 @@ class TrickPictureType extends AbstractType
                 'required' => false,
                 'attr' => ['class' => 'picture-fields'],
             ])
-            ->add('alt', TextType::class, ['required' => true,]);
+            ->add('alt', TextType::class, [
+                'required' => true,
+                'label' => 'Sentence to describe the photo'
+            ]);
     }
 
 

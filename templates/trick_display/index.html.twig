@@ -34,7 +34,7 @@
                            href="{{ path('app_trick_modification', {'slug' : trick.slug}) }}"><i
                                     class="bi bi-pen"></i></a>
                         <a class="btn btn-danger z-index100"
-                           onclick="return confirm('Vous êtes sur le point de supprimer deffinitivement le trick {{ trick.name }}. Voulez-vous vraiment continuer ?')"
+                           onclick="return confirm('You are about to permanently delete the trick {{ trick.name }}. Are you sure you want to continue?')"
                            href="{{ path('app_trick_delete', {'slug':trick.slug}) }}">
                             <i class="bi bi-trash"></i>
                         </a>
@@ -73,11 +73,8 @@
                 </div>
             </div>
 
-
-            <p>{{ trick.description }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur cupiditate,
-                ea enim esse iste iusto magni, maiores odit quibusdam quidem quos soluta, voluptatem! Ab, aliquam
-                asperiores, blanditiis consectetur cumque dicta distinctio dolor doloremque, eos eum harum illum ipsam
-                iure magni minima molestias non obcaecati pariatur quasi repudiandae sunt unde voluptates.</p>
+            <h3>Description :</h3>
+            <p>{{ trick.description }}</p>
 
 
             <div class="d-flex justify-content-around my-5 flex-wrap">
@@ -93,10 +90,10 @@
             <div class="leave-comment my-5">
                 {% if not app.user %}
                     <div class="d-flex justify-content-center flex-column">
-                        <p class="text-center">Vous voulez laissez un commentaire ?</p>
+                        <p class="text-center">Want to leave a comment?</p>
                         <div class="mx-auto">
-                            <a href="{{ path('app_connection') }}" class="btn btn-success me-5">Connectez-vous</a>
-                            <a href="{{ path('app_registration') }}" class="btn btn-success">Inscrivez-vous</a>
+                            <a href="{{ path('app_connection') }}" class="btn btn-success me-5">Log in</a>
+                            <a href="{{ path('app_registration') }}" class="btn btn-success">Register</a>
                         </div>
                     </div>
                 {% else %}
@@ -113,7 +110,7 @@
 
                 <div class="d-flex justify-content-center my-5">
                     <button type="button" id="load-more-comment" class="btn btn-success">Load More</button>
-                    <p class="hidden" id="plus-de-comment">Plus de nouveau commentaire</p>
+                    <p class="hidden" id="plus-de-comment">No more new comments</p>
                 </div>
             </div>
         </div>

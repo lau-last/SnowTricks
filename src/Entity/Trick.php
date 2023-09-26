@@ -11,8 +11,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TrickRepository::class)]
-#[UniqueEntity('name', message: 'Le nom que vous avez indiqué est déjà utilisé !')]
-#[UniqueEntity('slug', message: 'Le slug que vous avez indiqué est déjà utilisé !')]
+#[UniqueEntity('name', message: 'The name you specified is already in use!')]
+#[UniqueEntity('slug', message: 'The slug you indicated is already in use!')]
 class Trick
 {
 
@@ -22,14 +22,14 @@ class Trick
     private ?int $id = null;
 
     #[ORM\Column(length: 80, unique: true)]
-    #[Assert\NotNull(message: 'Vous devez entrez le nom de la figure')]
+    #[Assert\NotNull(message: 'You must enter the name of the figure')]
     private ?string $name = null;
 
     #[ORM\Column(length: 80, unique: true)]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotNull(message: 'Vous devez entrez une description')]
+    #[Assert\NotNull(message: 'You must enter a description')]
     private ?string $description = null;
 
     #[ORM\Column(type: 'datetime')]

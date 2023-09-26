@@ -41,7 +41,7 @@ class TrickController extends AbstractController
 
             $trickEdit->edit($trick);
 
-            $this->addFlash('success', 'Trick ajouté avec succès');
+            $this->addFlash('success', 'Trick added successfully');
 
             return $this->redirectToRoute('app_home');
         }
@@ -120,7 +120,7 @@ class TrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $trickEdit->edit($trick, true);
-            $this->addFlash('success', 'Trick modifié avec succès');
+            $this->addFlash('success', 'Trick successfully modified');
             return $this->redirectToRoute('app_trick_modification', ['slug' => $trick->getSlug()]);
         }
 
@@ -140,7 +140,7 @@ class TrickController extends AbstractController
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
         $manager->remove($trick);
         $manager->flush();
-        $this->addFlash('success', 'Trick supprimé avec succès');
+        $this->addFlash('success', 'Trick successfully removed');
         return $this->redirectToRoute('app_home');
     }
 
@@ -168,7 +168,7 @@ class TrickController extends AbstractController
             $manager->flush();
         }
 
-        $this->addFlash('success', 'Photo supprimé avec succès');
+        $this->addFlash('success', 'Photo deleted successfully');
 
         return $this->redirectToRoute('app_trick_modification', ['slug' => $slug]);
     }
@@ -189,7 +189,7 @@ class TrickController extends AbstractController
         $manager->remove($videoId);
         $manager->flush();
 
-        $this->addFlash('success', 'Video supprimé avec succès');
+        $this->addFlash('success', 'Video deleted successfully');
 
         return $this->redirectToRoute('app_trick_modification', ['slug' => $slug]);
 
@@ -216,7 +216,7 @@ class TrickController extends AbstractController
         $manager->persist($trick);
         $manager->flush();
 
-        $this->addFlash('success', 'Photo mis en premier plan avec succès');
+        $this->addFlash('success', 'Photo brought to foreground successfully');
 
         return $this->redirectToRoute('app_trick_modification', ['slug' => $slug]);
     }

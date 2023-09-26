@@ -57,7 +57,7 @@ class SecurityController extends AbstractController
 
             (new SendMail())->send($mailer, $user->getEmail(), 'email/registration.html.twig', ['user' => $user, 'hashToken' => $hashToken]);
 
-            $this->addFlash('success', 'Un email de verification vous a été envoyé sur l\'adress : ' . $user->getEmail() . '.');
+            $this->addFlash('success', 'A verification email has been sent to you to the address: ' . $user->getEmail() . '.');
 
             return $this->redirectToRoute('app_home');
         }
@@ -97,7 +97,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        $this->addFlash('success', 'Votre adresse email a bien été validée !');
+        $this->addFlash('success', 'Your email address has been validated!');
 
         return $this->redirectToRoute('app_home');
     }
@@ -147,7 +147,7 @@ class SecurityController extends AbstractController
 
             (new SendMail())->send($mailer, $user->getEmail(), 'email/forgot_password.html.twig', ['user' => $user, 'hashToken' => $hashToken]);
 
-            $this->addFlash('success', 'Un email pour réinitialiser votre mot de passe vous a été envoyé à votre adresse mail.');
+            $this->addFlash('success', 'An email to reset your password has been sent to your email address.');
 
             return $this->redirectToRoute('app_home');
         }
@@ -187,7 +187,7 @@ class SecurityController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            $this->addFlash('success', 'Votre mot de passe a bien été modifié.');
+            $this->addFlash('success', 'Your password has been changed.');
             return $this->redirectToRoute('app_home');
         }
 

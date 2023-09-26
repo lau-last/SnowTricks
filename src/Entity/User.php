@@ -12,8 +12,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity('email', message: 'L\'email que vous avez indiqué est déjà utilisé !')]
-#[UniqueEntity('username', message: 'Le nom que vous avez indiqué est déjà utilisé !')]
+#[UniqueEntity('email', message: 'The email you provided is already in use!')]
+#[UniqueEntity('username', message: 'The name you specified is already in use!')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
@@ -26,29 +26,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Length(
         min: 3,
         max: 80,
-        minMessage: 'Votre nom doit faire au moins {{ limit }} caractères.',
-        maxMessage: 'Votre nom ne peut pas faire plus de {{ limit }} caractères.',
+        minMessage: 'Your name must be at least {{ limit }} characters.',
+        maxMessage: 'Your name cannot be more than {{ limit }} characters.',
     )]
-    #[Assert\NotNull(message: 'Vous devez entrez un nom')]
+    #[Assert\NotNull(message: 'You must enter a name')]
     private ?string $username = null;
 
     #[ORM\Column(length: 255, unique: true)]
     #[Assert\Email(
-        message: 'L\'email {{ value }} n\'est pas un email valide.',
+        message: 'The email {{ value }} is not a valid email.',
     )]
-    #[Assert\NotNull(message: 'Vous devez entrez un email')]
+    #[Assert\NotNull(message: 'You must enter an email')]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotNull(message: 'Vous devez entrez une photo de profil')]
+    #[Assert\NotNull(message: 'You must enter a profile photo')]
     private ?string $media = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\Regex(
         pattern: '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
-        message: 'Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un caractère spécial.',
+        message: 'Your password must contain at least 8 characters, an uppercase letter, a lowercase letter and a special character.',
     )]
-    #[Assert\NotNull(message: 'Vous devez entrez un mot de passe')]
+    #[Assert\NotNull(message: 'You must enter a password')]
     private ?string $password = null;
 
     #[ORM\Column(length: 255, nullable: true)]

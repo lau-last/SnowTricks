@@ -17,7 +17,7 @@ class Comment
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotNull(message: 'Vous devez entrez un commentaire')]
+    #[Assert\NotNull(message: 'You must enter a comment')]
     private ?string $content = null;
 
     #[ORM\Column(type: 'datetime')]

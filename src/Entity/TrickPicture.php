@@ -18,12 +18,12 @@ class TrickPicture implements UploadEntityInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotNull(message: 'Vous devez entrez le nom de la figure')]
+    #[Assert\NotNull(message: 'You must enter the name of the figure')]
     private ?string $fileName = null;
 
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotNull(message: 'Vous devez décrire la photo')]
+    #[Assert\NotNull(message: 'You must describe the photo')]
     private ?string $alt = null;
 
     #[ORM\Column]
@@ -35,9 +35,9 @@ class TrickPicture implements UploadEntityInterface
 
     #[Assert\File(
         maxSize: '10M',
-        maxSizeMessage: 'L\'image est trop volumineuse la taille maximum est de {{ limit }} mb',
+        maxSizeMessage: 'The image is too large, the maximum size is {{ limit }} mb',
         extensions: ['jpg', 'jpeg', 'png', 'webp'],
-        extensionsMessage: 'Mauvais format d\'image. Format acceptés : jpg, jpeg, png, webp.',
+        extensionsMessage: 'Wrong image format. Format accepted: jpg, jpeg, png, webp.',
     )]
 //    #[Assert\NotNull(message: 'Vous devez entrez une photo')]
     private ?UploadedFile $file = null;
