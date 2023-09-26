@@ -1,8 +1,11 @@
 {% extends 'base.html.twig' %}
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('styles/form-responsive.css') }}">
+ {% endblock %}
 {% form_theme form 'bootstrap_5_layout.html.twig' %}
 {% block body %}
     <h1 class="text-center my-5">Forgot Password</h1>
-    <div class="mx-auto" style="width: 30%">
+    <div class="mx-auto trick-form-responsive">
         {{ form(form) }}
     </div>
 {% endblock %}

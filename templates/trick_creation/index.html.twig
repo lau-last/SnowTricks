@@ -2,6 +2,7 @@
 {% form_theme form 'bootstrap_5_layout.html.twig' %}
  {% block stylesheets %}
      <link rel="stylesheet" href="{{ asset('styles/trick-creation.css') }}">
+     <link rel="stylesheet" href="{{ asset('styles/form-responsive.css') }}">
  {% endblock %}
     {% block javascripts %}
         <script src="{{ asset('javascript/add-media-fields.js') }}"></script>
@@ -33,7 +34,7 @@
     {% endblock %}
 {% block body %}
     <h1 class="text-center my-5">trick creation</h1>
-    <div class="mx-auto" style="width: 30%">
+    <div class="mx-auto trick-form-responsive">
         {{ form_start(form) }}
         {{ form_row(form.name) }}
         {{ form_row(form.category) }}

@@ -1,10 +1,14 @@
 {% extends 'base.html.twig' %}
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('styles/form-responsive.css') }}">
+ {% endblock %}
 {% block body %}
     {% if error %}
         <div class="d-flex alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
+
     <h1 class="text-center my-5">Connection</h1>
-    <div class="mx-auto" style="width: 30%">
+    <div class="mx-auto trick-form-responsive">
 
         <form action="{{ path('app_connection') }}" method="post">
             <div class="mb-3">
