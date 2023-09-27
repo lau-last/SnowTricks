@@ -6,26 +6,27 @@
     {% if error %}
         <div class="d-flex alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
-
-    <h1 class="text-center my-5">Connection</h1>
-    <div class="mx-auto trick-form-responsive">
-
-        <form action="{{ path('app_connection') }}" method="post">
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" id="username" name="_username" class="form-control" required="required">
+    <div class="min-height-100-vh d-flex align-items-center">
+        <div class="w-100">
+            <h1 class="text-center mb-5">Connection</h1>
+            <div class="mx-auto trick-form-responsive">
+                <form action="{{ path('app_connection') }}" method="post">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" id="username" name="_username" class="form-control" required="required">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" name="_password" required="required" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <a href="{{ path('app_forget_password') }}">Forgot Password ?</a>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn-primary btn mt-5">Login</button>
+                    </div>
+                </form>
             </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" id="password" name="_password" required="required" class="form-control">
-            </div>
-            <div class="mb-3">
-                <a href="{{ path('app_forget_password') }}">Forgot Password ?</a>
-            </div>
-            <div class="mb-3">
-                <button type="submit" class="btn-primary btn mt-5">Login</button>
-            </div>
-        </form>
-
+        </div>
     </div>
 {% endblock %}

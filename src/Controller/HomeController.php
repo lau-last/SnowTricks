@@ -14,10 +14,8 @@ class HomeController extends AbstractController
 {
 
     #[Route('/', name: 'app_home')]
-    public function index(TrickRepository $trickRepository, FirstPicture $firstPicture): Response
+    public function index(TrickRepository $trickRepository): Response
     {
-
-//        $firstPicture->makeAll();
 
         $tricks = $trickRepository->findBy([], ["createdAt" => "DESC"], 4);
         $totalTricks = $trickRepository->count([]);

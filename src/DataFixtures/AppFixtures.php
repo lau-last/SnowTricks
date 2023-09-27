@@ -100,10 +100,14 @@ class AppFixtures extends Fixture
             $manager->persist($trickGrabs);
 
             for ($pic = 0; $pic < 5; $pic++) {
+                $rand = rand(0, 23);
                 $picture = new TrickPicture();
+                if ($pic === 0){
+                    $picture->setFirstPicture(true);
+                }
                 $picture
-                    ->setFileName('trick-' . rand(0, 23) . '.jpg')
-                    ->setAlt('trick-' . rand(0, 23))
+                    ->setFileName('trick-' . $rand . '.jpg')
+                    ->setAlt('trick-' . $rand)
                     ->setTrick($trickGrabs);
                 $manager->persist($picture);
             }
@@ -111,7 +115,7 @@ class AppFixtures extends Fixture
             for ($vid = 0; $vid < 5; $vid++) {
                 $video = new TrickVideo();
                 $video
-                    ->setUrl($videoUrl[rand(0,15)])
+                    ->setUrl($videoUrl[rand(0, 15)])
                     ->setTrick($trickGrabs);
                 $manager->persist($video);
             }
@@ -154,10 +158,14 @@ class AppFixtures extends Fixture
             $manager->persist($trickRotations);
 
             for ($pic = 0; $pic < 5; $pic++) {
+                $rand = rand(0, 23);
                 $picture = new TrickPicture();
+                if ($pic === 0){
+                    $picture->setFirstPicture(true);
+                }
                 $picture
-                    ->setFileName('trick-' . rand(0, 23) . '.jpg')
-                    ->setAlt('trick-' . rand(0, 23))
+                    ->setFileName('trick-' . $rand . '.jpg')
+                    ->setAlt('trick-' . $rand)
                     ->setTrick($trickRotations);
                 $manager->persist($picture);
             }
@@ -165,7 +173,7 @@ class AppFixtures extends Fixture
             for ($vid = 0; $vid < 5; $vid++) {
                 $video = new TrickVideo();
                 $video
-                    ->setUrl($videoUrl[rand(0,15)])
+                    ->setUrl($videoUrl[rand(0, 15)])
                     ->setTrick($trickRotations);
                 $manager->persist($video);
             }
@@ -197,10 +205,14 @@ class AppFixtures extends Fixture
             $manager->persist($trickFlips);
 
             for ($pic = 0; $pic < 5; $pic++) {
+                $rand = rand(0, 23);
                 $picture = new TrickPicture();
+                if ($pic === 0){
+                    $picture->setFirstPicture(true);
+                }
                 $picture
-                    ->setFileName('trick-' . rand(0, 23) . '.jpg')
-                    ->setAlt('trick-' . rand(0, 23))
+                    ->setFileName('trick-' . $rand . '.jpg')
+                    ->setAlt('trick-' . $rand)
                     ->setTrick($trickFlips);
                 $manager->persist($picture);
             }
@@ -208,7 +220,7 @@ class AppFixtures extends Fixture
             for ($vid = 0; $vid < 5; $vid++) {
                 $video = new TrickVideo();
                 $video
-                    ->setUrl($videoUrl[rand(0,15)])
+                    ->setUrl($videoUrl[rand(0, 15)])
                     ->setTrick($trickFlips);
                 $manager->persist($video);
             }
@@ -239,10 +251,14 @@ class AppFixtures extends Fixture
             $manager->persist($trickOffAxis);
 
             for ($pic = 0; $pic < 5; $pic++) {
+                $rand = rand(0, 23);
                 $picture = new TrickPicture();
+                if ($pic === 0){
+                    $picture->setFirstPicture(true);
+                }
                 $picture
-                    ->setFileName('trick-' . rand(0, 23) . '.jpg')
-                    ->setAlt('trick-' . rand(0, 23))
+                    ->setFileName('trick-' . $rand . '.jpg')
+                    ->setAlt('trick-' . $rand)
                     ->setTrick($trickOffAxis);
                 $manager->persist($picture);
             }
@@ -250,7 +266,7 @@ class AppFixtures extends Fixture
             for ($vid = 0; $vid < 5; $vid++) {
                 $video = new TrickVideo();
                 $video
-                    ->setUrl($videoUrl[rand(0,15)])
+                    ->setUrl($videoUrl[rand(0, 15)])
                     ->setTrick($trickOffAxis);
                 $manager->persist($video);
             }
@@ -282,10 +298,14 @@ class AppFixtures extends Fixture
             $manager->persist($trickSlides);
 
             for ($pic = 0; $pic < 5; $pic++) {
+                $rand = rand(0, 23);
                 $picture = new TrickPicture();
+                if ($pic === 0){
+                    $picture->setFirstPicture(true);
+                }
                 $picture
-                    ->setFileName('trick-' . rand(0, 23) . '.jpg')
-                    ->setAlt('trick-' . rand(0, 23))
+                    ->setFileName('trick-' . $rand . '.jpg')
+                    ->setAlt('trick-' . $rand)
                     ->setTrick($trickSlides);
                 $manager->persist($picture);
             }
@@ -293,7 +313,7 @@ class AppFixtures extends Fixture
             for ($vid = 0; $vid < 5; $vid++) {
                 $video = new TrickVideo();
                 $video
-                    ->setUrl($videoUrl[rand(0,15)])
+                    ->setUrl($videoUrl[rand(0, 15)])
                     ->setTrick($trickSlides);
                 $manager->persist($video);
             }
@@ -329,21 +349,27 @@ class AppFixtures extends Fixture
             $manager->persist($trickOldSchool);
 
             for ($pic = 0; $pic < 5; $pic++) {
+                $rand = rand(0, 23);
                 $picture = new TrickPicture();
+                if ($pic === 0){
+                    $picture->setFirstPicture(true);
+                }
                 $picture
-                    ->setFileName('trick-' . rand(0, 23) . '.jpg')
-                    ->setAlt('trick-' . rand(0, 23))
+                    ->setFileName('trick-' . $rand . '.jpg')
+                    ->setAlt('trick-' . $rand)
                     ->setTrick($trickOldSchool);
                 $manager->persist($picture);
             }
 
+
             for ($vid = 0; $vid < 5; $vid++) {
                 $video = new TrickVideo();
                 $video
-                    ->setUrl($videoUrl[rand(0,15)])
+                    ->setUrl($videoUrl[rand(0, 15)])
                     ->setTrick($trickOldSchool);
                 $manager->persist($video);
             }
+
 
             for ($com = 0; $com < 15; $com++) {
                 $comment = new Comment();
@@ -355,89 +381,8 @@ class AppFixtures extends Fixture
             }
         }
         $manager->flush();
-    }
 
-//
-//        $faker = \Faker\Factory::create();
-//
-//        for ($i = 0; $i < 5; $i++) {
-//            $category = new Category();
-//            $category
-//                ->setLabel($faker->unique()->title);
-//            $manager->persist($category);
-//        }
-//        $manager->flush();
-//
-//        $categories = $manager->getRepository(Category::class)->findAll();
-//
-//        for ($a = 0; $a < 2; $a++) {
-//            for ($i = 0; $i < 20; $i++) {
-//                $trick = new \App\Entity\Trick();
-//                $trick
-//                    ->setName($faker->unique()->name)
-//                    ->setSlug($faker->unique()->slug)
-//                    ->setDescription($faker->text())
-//                    ->setCategory($faker->randomElement($categories));
-//                $manager->persist($trick);
-//            }
-//        }
-//
-//        $manager->flush();
-//
-//        $tricks = $manager->getRepository(Trick::class)->findAll();
-//
-//        $user = new \App\Entity\User();
-//        $user
-//            ->setUsername('laurent')
-//            ->setEmail($faker->unique()->email)
-//            ->setMedia('default.png')
-//            ->setPassword('$2y$13$pGH91S7PI0dAgdwundiFS.PcFjn06Sy9vrkJvcCg.y7cI1IjqN/K2')
-//            ->setActive(true)
-//            ->setExpirationDate(strtotime('now'));
-//        $manager->persist($user);
-//
-//        $manager->flush();
-//
-//        $users = $manager->getRepository(User::class)->findAll();
-//
-//        for ($i = 0; $i < 500; $i++) {
-//            $comment = new \App\Entity\Comment();
-//            $comment
-//                ->setContent($faker->text)
-//                ->setTrick($faker->randomElement($tricks))
-//                ->setUser($faker->randomElement($users));
-//            $manager->persist($comment);
-//        }
-//
-//        $manager->flush();
-//
-//        for ($a = 0; $a < 3; $a++) {
-//            for ($i = 0; $i < 20; $i++) {
-//                $picture = new \App\Entity\TrickPicture();
-//                $picture
-//                    ->setFileName('trick-' . $i . '.jpg')
-//                    ->setAlt('trick-' . $i)
-//                    ->setTrick($faker->randomElement($tricks));
-//                $manager->persist($picture);
-//            }
-//        }
-//
-//        $manager->flush();
-//
-//
-//        for ($a = 0; $a < 3; $a++) {
-//            for ($i = 0; $i < 20; $i++) {
-//                $video = new \App\Entity\TrickVideo();
-//                $video
-//                    ->setUrl('https://www.dailymotion.com/video/xxxu60')
-//                    ->setTrick($faker->randomElement($tricks));
-//                $manager->persist($video);
-//            }
-//        }
-//
-//        $manager->flush();
-//
-//    }
+    }
 
 
 }

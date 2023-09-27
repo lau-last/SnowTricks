@@ -63,7 +63,7 @@ class TrickController extends AbstractController
         $comment = new Comment();
 
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
-        $comments = $commentRepository->findBy(['trick' => $trick], ["createdAt" => "DESC"], 4);
+        $comments = $commentRepository->findBy(['trick' => $trick], ["createdAt" => "DESC"], 10);
         $totalComment = count($trick->getComments());
 
         $form = $this->createForm(CommentType::class, $comment);

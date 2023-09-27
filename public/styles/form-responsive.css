@@ -1,20 +1,27 @@
 @media (max-width: 768px) {
-     .trick-form-responsive {
+    .trick-form-responsive {
         width: 90%;
     }
 }
-@media (min-width: 501px) and (max-width: 1000px){
+
+@media (min-width: 501px) and (max-width: 1000px) {
     .trick-form-responsive {
         width: 60%;
     }
 }
-@media (min-width: 1001px) and (max-width: 1200px){
-     .trick-form-responsive {
+
+@media (min-width: 1001px) and (max-width: 1200px) {
+    .trick-form-responsive {
         width: 40%;
     }
 }
+
 @media (min-width: 1201px) {
     .trick-form-responsive {
         width: 30%;
     }
+}
+
+.min-height-100-vh {
+    min-height: calc(100vh - 128px);
 }
