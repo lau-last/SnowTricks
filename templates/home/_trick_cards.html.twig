@@ -24,7 +24,8 @@
                                 <i class="bi bi-pen"></i>
                             </a>
                             <a class="btn btn-danger"
-                               onclick="return confirm('You are about to permanently delete the trick {{ trick.name }}. Are you sure you want to continue?')"
+{#                               onclick="return confirm('You are about to permanently delete the trick {{ trick.name }}. Are you sure you want to continue?')"#}
+                               onclick="return confirmationForDelete(event)"
                                href="{{ path('app_trick_delete', {'slug':trick.slug}) }}">
                                 <i class="bi bi-trash"></i>
                             </a>

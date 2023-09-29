@@ -4,6 +4,8 @@
         <link rel="stylesheet" href="{{ asset('styles/trick-modification.css') }}">
     {% endblock %}
     {% block javascripts %}
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="{{ asset('javascript/alert.js') }}"></script>
         <script src="{{ asset('javascript/add-media-fields.js') }}"></script>
         <script src="{{ asset('javascript/show-picture.js') }}"></script>
         <script src="{{ asset('javascript/show-video.js') }}"></script>
@@ -128,7 +130,8 @@
                 <div class="d-flex align-items-center justify-content-end">
                     <div class="mb-3 mt-5 me-5">
                         <a class="btn btn-danger"
-                           onclick="return confirm('Vous êtes sur le point de supprimer deffinitivement le trick {{ trick.name }}. Voulez-vous vraiment continuer ?')"
+{#                           onclick="return confirm('Vous êtes sur le point de supprimer deffinitivement le trick {{ trick.name }}. Voulez-vous vraiment continuer ?')"#}
+                           onclick="return confirmationForDelete(event)"
                            href="{{ path('app_trick_delete', {'slug':trick.slug}) }}">
                             Delete Trick
                         </a>
