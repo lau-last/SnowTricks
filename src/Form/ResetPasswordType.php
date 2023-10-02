@@ -13,7 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class ResetPasswordType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder

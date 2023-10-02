@@ -13,7 +13,6 @@ use Doctrine\Persistence\ObjectManager;
 
 class AppFixtures extends Fixture
 {
-
     public function load(ObjectManager $manager): void
     {
 
@@ -102,7 +101,7 @@ class AppFixtures extends Fixture
             for ($pic = 0; $pic < 5; $pic++) {
                 $rand = rand(0, 23);
                 $picture = new TrickPicture();
-                if ($pic === 0){
+                if ($pic === 0) {
                     $picture->setFirstPicture(true);
                 }
                 $picture
@@ -160,7 +159,7 @@ class AppFixtures extends Fixture
             for ($pic = 0; $pic < 5; $pic++) {
                 $rand = rand(0, 23);
                 $picture = new TrickPicture();
-                if ($pic === 0){
+                if ($pic === 0) {
                     $picture->setFirstPicture(true);
                 }
                 $picture
@@ -207,7 +206,7 @@ class AppFixtures extends Fixture
             for ($pic = 0; $pic < 5; $pic++) {
                 $rand = rand(0, 23);
                 $picture = new TrickPicture();
-                if ($pic === 0){
+                if ($pic === 0) {
                     $picture->setFirstPicture(true);
                 }
                 $picture
@@ -253,7 +252,7 @@ class AppFixtures extends Fixture
             for ($pic = 0; $pic < 5; $pic++) {
                 $rand = rand(0, 23);
                 $picture = new TrickPicture();
-                if ($pic === 0){
+                if ($pic === 0) {
                     $picture->setFirstPicture(true);
                 }
                 $picture
@@ -300,7 +299,7 @@ class AppFixtures extends Fixture
             for ($pic = 0; $pic < 5; $pic++) {
                 $rand = rand(0, 23);
                 $picture = new TrickPicture();
-                if ($pic === 0){
+                if ($pic === 0) {
                     $picture->setFirstPicture(true);
                 }
                 $picture
@@ -351,7 +350,7 @@ class AppFixtures extends Fixture
             for ($pic = 0; $pic < 5; $pic++) {
                 $rand = rand(0, 23);
                 $picture = new TrickPicture();
-                if ($pic === 0){
+                if ($pic === 0) {
                     $picture->setFirstPicture(true);
                 }
                 $picture

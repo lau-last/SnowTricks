@@ -15,7 +15,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity('slug', message: 'The slug you indicated is already in use!')]
 class Trick
 {
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

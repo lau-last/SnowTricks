@@ -22,8 +22,6 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-
-
     /**
      * @throws TransportExceptionInterface
      * @throws Exception
@@ -34,8 +32,8 @@ class SecurityController extends AbstractController
         EntityManagerInterface      $manager,
         UserPasswordHasherInterface $hash,
         MailerInterface             $mailer,
-        UploadPicture               $uploadPicture): Response
-    {
+        UploadPicture               $uploadPicture
+    ): Response {
         $user = new User();
 
         $form = $this->createForm(RegistrationType::class, $user);
@@ -72,27 +70,27 @@ class SecurityController extends AbstractController
     public function verifyRegistration(
         string                 $hashToken,
         EntityManagerInterface $manager,
-        UserRepository         $userRepository): Response
-    {
+        UserRepository         $userRepository
+    ): Response {
 
         $user = $userRepository->findOneBy(['hashToken' => $hashToken]);
 
-        if (empty($user)){
+        if (empty($user)) {
             $this->addFlash('error', 'Unknown token');
             return $this->redirectToRoute('app_home');
         }
-        if ($user->isActive() === true){
+        if ($user->isActive() === true) {
             $this->addFlash('error', 'Your account is already valid');
             return $this->redirectToRoute('app_home');
         }
-        if ($user->getExpirationDate() > strtotime('now')){
+        if ($user->getExpirationDate() > strtotime('now')) {
             $user->setActive(true);
             $manager->persist($user);
             $manager->flush();
             $this->addFlash('success', 'Your account has been successfully validated');
             return $this->redirectToRoute('app_home');
         }
-        if ($user->getExpirationDate() < strtotime('now')){
+        if ($user->getExpirationDate() < strtotime('now')) {
             $this->addFlash('error', 'The link has expired');
             return $this->redirectToRoute('app_home');
         }
@@ -129,8 +127,8 @@ class SecurityController extends AbstractController
         Request                $request,
         UserRepository         $userRepository,
         MailerInterface        $mailer,
-        EntityManagerInterface $manager): Response
-    {
+        EntityManagerInterface $manager
+    ): Response {
         $user = new User();
         $form = $this->createForm(ForgetPasswordType::class, $user);
         $form->handleRequest($request);
@@ -163,16 +161,16 @@ class SecurityController extends AbstractController
         UserRepository              $userRepository,
         Request                     $request,
         EntityManagerInterface      $manager,
-        UserPasswordHasherInterface $hash): Response
-    {
+        UserPasswordHasherInterface $hash
+    ): Response {
         $user = $userRepository->findOneBy(['hashToken' => $hashToken]);
 
-        if (empty($user)){
+        if (empty($user)) {
             $this->addFlash('error', 'Unknown token');
             return $this->redirectToRoute('app_home');
         }
 
-        if ($user->getExpirationDate() < strtotime('now')){
+        if ($user->getExpirationDate() < strtotime('now')) {
             $this->addFlash('error', 'The link has expired');
             return $this->redirectToRoute('app_home');
         }

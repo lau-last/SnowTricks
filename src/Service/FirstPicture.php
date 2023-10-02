@@ -8,7 +8,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class FirstPicture
 {
-
     private EntityManagerInterface $manager;
 
 
@@ -21,7 +20,7 @@ class FirstPicture
     public function makeAll(): void
     {
         $allTricks = $this->manager->getRepository(Trick::class)->findAll();
-        foreach ($allTricks as $trick){
+        foreach ($allTricks as $trick) {
             $this->extracted($trick);
         }
     }

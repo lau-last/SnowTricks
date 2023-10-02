@@ -11,7 +11,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class TrickVideoType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('url', TextType::class, [

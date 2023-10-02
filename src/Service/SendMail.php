@@ -8,8 +8,6 @@ use Symfony\Component\Mailer\MailerInterface;
 
 class SendMail
 {
-
-
     /**
      * @throws TransportExceptionInterface
      */

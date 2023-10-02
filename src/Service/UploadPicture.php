@@ -10,7 +10,6 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class UploadPicture
 {
-
     private array $config;
 
     private SluggerInterface $slugger;

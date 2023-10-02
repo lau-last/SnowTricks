@@ -8,7 +8,6 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class TrickEdit
 {
-
     private EntityManagerInterface $manager;
 
     private SluggerInterface $slugger;

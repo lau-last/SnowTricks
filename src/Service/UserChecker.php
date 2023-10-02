@@ -9,7 +9,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserChecker implements UserCheckerInterface
 {
-
     /**
      * @param UserInterface $user
      * @return void
@@ -19,7 +18,7 @@ class UserChecker implements UserCheckerInterface
         if (!$user instanceof User) {
             return;
         }
-        if (!$user->isActive()){
+        if (!$user->isActive()) {
             throw new CustomUserMessageAuthenticationException("Votre compte n'est pas encore vérifié, regardez votre boîte mail !");
         }
     }

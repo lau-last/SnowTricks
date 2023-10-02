@@ -4,7 +4,6 @@ namespace App\Service;
 
 class JWT
 {
-
     private array $header = [
         'typ' => 'JWT',
         'alg' => 'HS256',

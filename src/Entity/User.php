@@ -16,7 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity('username', message: 'The name you specified is already in use!')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

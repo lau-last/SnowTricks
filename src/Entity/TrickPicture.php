@@ -11,7 +11,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: TrickPictureRepository::class)]
 class TrickPicture implements UploadEntityInterface
 {
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -39,7 +38,7 @@ class TrickPicture implements UploadEntityInterface
         extensions: ['jpg', 'jpeg', 'png', 'webp'],
         extensionsMessage: 'Wrong image format. Format accepted: jpg, jpeg, png, webp.',
     )]
-//    #[Assert\NotNull(message: 'Vous devez entrez une photo')]
+    //    #[Assert\NotNull(message: 'Vous devez entrez une photo')]
     private ?UploadedFile $file = null;
 
 
