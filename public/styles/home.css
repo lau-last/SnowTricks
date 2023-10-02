@@ -16,6 +16,12 @@
     max-width: 18rem;
     height: 10rem;
 }
+#home .trick-card {
+    transition: 0.5s ease;
+}
+#home .trick-card:hover {
+    box-shadow: 0 8px 50px #23232333;
+}
 
 #home a.arrow-up,
 #home a.arrow-down {
@@ -60,6 +66,7 @@
    visibility: visible;
     opacity: 1;
 }
+
 
 
 

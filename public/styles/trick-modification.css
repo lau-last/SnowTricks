@@ -76,3 +76,10 @@
     max-width: 750px;
     margin: 0 auto;
 }
+
+#trick-modification .trick-card {
+    transition: 0.5s ease;
+}
+#trick-modification .trick-card:hover {
+    box-shadow: 0 8px 50px #23232333;
+}
