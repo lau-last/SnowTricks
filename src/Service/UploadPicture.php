@@ -10,6 +10,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class UploadPicture
 {
+
     private array $config;
 
     private SluggerInterface $slugger;
@@ -22,6 +23,7 @@ class UploadPicture
     }
 
 
+
     public function upload(UploadEntityInterface $picture): string
     {
         $file = $picture->getFile();
@@ -31,6 +33,7 @@ class UploadPicture
         $file->move($this->getDir($picture), $newFilename);
         return $newFilename;
     }
+
 
     public function uploadProfile(FormInterface $form, string $inputName, string $fileDirectory): string
     {
@@ -65,6 +68,13 @@ class UploadPicture
         }
 
         throw new \InvalidArgumentException("no mapping for " . get_class($picture));
+    }
+
+    public function delete(UploadEntityInterface $picture): void
+    {
+        $dir = $this->getDir($picture);
+        $fileName = $picture->getFileName();
+        unlink($dir . DIRECTORY_SEPARATOR . $fileName);
     }
 
 

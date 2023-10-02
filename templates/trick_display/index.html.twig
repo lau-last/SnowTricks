@@ -13,7 +13,7 @@
     <div id="trick-display">
 
         <div class="presentation-one-trick-container mx-auto my-5 container">
-            <h2 class="w-100 text-center">{{ trick.name }}</h2>
+            <h2 class="w-100 text-center">{{ trick.name|capitalize }}</h2>
             <div class="presentation-one-trick position-relative">
                 {% if trick.pictures is empty %}
                     <img src="{{ asset('images/uploads/tricks/default.png') }}"

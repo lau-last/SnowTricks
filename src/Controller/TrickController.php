@@ -13,7 +13,6 @@ use App\Form\TrickType;
 use App\Form\TrickVideoModificationType;
 use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
-use App\Service\FirstPicture;
 use App\Service\TrickEdit;
 use App\Service\UploadPicture;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,15 +21,16 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 class TrickController extends AbstractController
 {
+
     #[Route('/trick-creation', name: 'app_trick_creation')]
     public function trickCreation(
         Request   $request,
         TrickEdit $trickEdit
-    ): Response {
+    ): Response
+    {
         $trick = new Trick();
 
         $form = $this->createForm(TrickType::class, $trick);
@@ -58,7 +58,8 @@ class TrickController extends AbstractController
         string                 $slug,
         Request                $request,
         EntityManagerInterface $manager
-    ): Response {
+    ): Response
+    {
         $comment = new Comment();
 
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
@@ -111,7 +112,8 @@ class TrickController extends AbstractController
         string          $slug,
         Request         $request,
         TrickEdit       $trickEdit
-    ): Response {
+    ): Response
+    {
 
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
         $form = $this->createForm(TrickType::class, $trick);
@@ -135,7 +137,8 @@ class TrickController extends AbstractController
         TrickRepository        $trickRepository,
         string                 $slug,
         EntityManagerInterface $manager
-    ): Response {
+    ): Response
+    {
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
         $manager->remove($trick);
         $manager->flush();
@@ -149,11 +152,16 @@ class TrickController extends AbstractController
         TrickRepository        $trickRepository,
         string                 $slug,
         int                    $id,
-        EntityManagerInterface $manager
-    ): Response {
+        EntityManagerInterface $manager,
+        UploadPicture          $uploadPicture
+    ): Response
+    {
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
         $picture = $manager->getRepository(TrickPicture::class);
         $pictureId = $picture->find($id);
+
+        $uploadPicture->delete($pictureId);
+
         $trick->setUpdatedAt(new \DateTime());
         $first = $pictureId->isFirstPicture();
 
@@ -179,7 +187,8 @@ class TrickController extends AbstractController
         string                 $slug,
         int                    $id,
         EntityManagerInterface $manager
-    ): Response {
+    ): Response
+    {
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
         $video = $manager->getRepository(TrickVideo::class);
         $videoId = $video->find($id);
@@ -201,7 +210,8 @@ class TrickController extends AbstractController
         string                 $slug,
         int                    $id,
         EntityManagerInterface $manager
-    ): Response {
+    ): Response
+    {
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
         $pictures = $trick->getPictures();
         foreach ($pictures as $picture) {

@@ -18,7 +18,7 @@
     <div id="trick-modification">
 
         <div class="presentation-one-trick-container mx-auto my-5 container">
-            <h2 class="w-100 text-center">{{ trick.name }}</h2>
+            <h2 class="w-100 text-center">{{ trick.name|capitalize }}</h2>
             {{ form_start(form) }}
             <div class="presentation-one-trick position-relative">
                 {% if trick.pictures.count < 1 %}
@@ -55,7 +55,7 @@
                                     <div class="d-flex justify-content-end">
                                         {% if not pictureType.vars.value.firstPicture %}
                                             <a href="{{ path('app_trick_picture_first', {'slug': trick.slug, 'id': pictureType.vars.value.id }) }}"
-                                               class="btn btn-warning me-2">Premier plan</a>
+                                               class="btn btn-warning me-2">Foreground</a>
                                         {% endif %}
                                         <a class="btn btn-primary me-2" data-bs-toggle="collapse"
                                            data-bs-target="#collapsePicture{{ loop.index }}" aria-expanded="false"><i

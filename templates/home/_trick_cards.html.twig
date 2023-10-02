@@ -16,7 +16,7 @@
             </a>
             <div class="card-body">
                 <div class="d-flex flex-column">
-                    <h5 class="card-title">{{ trick.name }}</h5>
+                    <h5 class="card-title">{{ trick.name|capitalize }}</h5>
                     {% if app.user %}
                         <div class="d-flex justify-content-end">
                             <a class="btn btn-primary me-2"

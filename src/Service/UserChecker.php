@@ -19,7 +19,7 @@ class UserChecker implements UserCheckerInterface
             return;
         }
         if (!$user->isActive()) {
-            throw new CustomUserMessageAuthenticationException("Votre compte n'est pas encore vérifié, regardez votre boîte mail !");
+            throw new CustomUserMessageAuthenticationException("Your account is not yet verified, check your mailbox!");
         }
     }
 
