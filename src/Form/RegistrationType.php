@@ -28,15 +28,15 @@ class RegistrationType extends AbstractType
                 'constraints' => [
                     new Assert\File([
                         'maxSize' => '2M',
-                        'maxSizeMessage' => 'L\'image est trop volumineuse la taille maximum est de {{ limit }} mb',
+                        'maxSizeMessage' => 'The image is too large, the maximum size is {{ limit }} mb',
                         'extensions' => ['jpg', 'jpeg', 'png', 'webp'],
-                        'extensionsMessage' => 'Mauvais format d\'image. Format acceptés : jpg, jpeg, png, webp.',
+                        'extensionsMessage' => 'Wrong image format. Format accepted: jpg, jpeg, png, webp.',
                     ]),
                 ],
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'Les champs du mot de passe doivent correspondre.',
+                'invalid_message' => 'Password fields must match.',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
                 'first_options'  => ['label' => 'Password'],

@@ -18,7 +18,7 @@ class ResetPasswordType extends AbstractType
         $builder
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'Les champs du mot de passe doivent correspondre.',
+                'invalid_message' => 'Password fields must match.',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
                 'first_options'  => ['label' => 'Password'],
