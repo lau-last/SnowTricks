@@ -35,7 +35,12 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/trick-creation, roles: ROLE_USER }
+        - { path: ^/trick-modification, roles: ROLE_USER }
+        - { path: ^/trick-delete, roles: ROLE_USER }
+        - { path: ^/trick-delete-picture, roles: ROLE_USER }
+        - { path: ^/trick-delete-video, roles: ROLE_USER }
+        - { path: ^/trick-picture-first, roles: ROLE_USER }
 
 when@test:
     security:

@@ -4,8 +4,10 @@
         <link rel="stylesheet" href="{{ asset('styles/trick-display.css') }}">
     {% endblock %}
     {% block javascripts %}
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="{{ asset('javascript/load-more-comment.js') }}"></script>
         <script src="{{ asset('javascript/button-carousel.js') }}"></script>
+        <script src="{{ asset('javascript/alert.js') }}"></script>
     {% endblock %}
 
 {% block body %}
@@ -34,7 +36,7 @@
                            href="{{ path('app_trick_modification', {'slug' : trick.slug}) }}"><i
                                     class="bi bi-pen"></i></a>
                         <a class="btn btn-danger z-index100"
-                           onclick="return confirm('You are about to permanently delete the trick {{ trick.name }}. Are you sure you want to continue?')"
+                           onclick="return confirmationForDelete(event)"
                            href="{{ path('app_trick_delete', {'slug':trick.slug}) }}">
                             <i class="bi bi-trash"></i>
                         </a>

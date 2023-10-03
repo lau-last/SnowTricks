@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div style="min-height: calc(100vh - 128px);"
+         class="d-flex flex-column align-items-center justify-content-center w-100">
+        <h1 class="text-center mt-5 mb-4">Error on this page</h1>
+
+        <div class="d-flex justify-content-center">
+            <p class="text-center">
+                An error occurred while displaying this page.<br/>
+                <a href="{{ path('app_home') }}">Return to home</a>.
+            </p>
+        </div>
+    </div>
+{% endblock %}

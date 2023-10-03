@@ -38,6 +38,11 @@ class TrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            if ($form->get('pictures')->count() < 1 && $form->get('videos')->count() < 1) {
+                $this->addFlash('error', 'You must have at least one photo or video to present the trick');
+                return $this->redirectToRoute('app_trick_creation');
+            }
+
             $trickEdit->edit($trick);
 
             $this->addFlash('success', 'Trick added successfully');

@@ -48,6 +48,7 @@ class TrickEdit
 
         foreach ($trick->getVideos() as $video) {
             $video->setUrl($video->getUrl());
+            $this->manager->persist($video);
         }
 
         $this->manager->persist($trick);
